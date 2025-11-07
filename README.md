@@ -34,3 +34,53 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Project Structure
+# Threadly Frontend
+
+Frontend project cho ứng dụng Threadly, sử dụng **Next.js App Router**, **TypeScript**, **TailwindCSS** và state management (Redux/Zustand).  
+Cấu trúc dự án được tổ chức theo **module/feature** để dễ mở rộng và maintain.
+
+## Project Structure
+
+```plaintext
+threadly-frontend/
+│
+├─ app/                        # Next.js app router
+│   ├─ layout.tsx              # Root layout, bao gồm header/footer/global layout
+│   ├─ page.tsx                # Home page
+│   └─ ...                     # Các global pages (404, 500,...)
+│
+├─ features/                   # Module theo feature
+│   ├─ threads/
+│   │   ├─ components/         # Component riêng feature (ThreadCard, ThreadList,…)
+│   │   ├─ hooks/              # Hook riêng feature (useThreads,…)
+│   │   ├─ services/           # API calls / business logic (threadService.ts)
+│   │   ├─ types.ts            # Interface / type definitions của feature
+│   │   └─ styles.css           # CSS / Tailwind overrides nếu cần
+│   │
+│   ├─ auth/                   # Tương tự threads (login/signup) 
+|   |   ├─ components/         # login form, signup form
+|   |   ├─ hooks/              # useAuth, useLogin, useSignup
+|   |   ├─ services/           # authService.ts (API calls)
+|   |   ├─ types.ts
+│   ├─ profile/                # Tương tự threads/auth 
+│   └─ notifications/          # Tương tự
+│
+├─ components/                 # Shared components toàn app (Button, Modal,…)
+│
+├─ hooks/                      # Shared hooks (useToast, useLocalStorage,…)
+│
+├─ lib/                        # Utilities, constants, API clients
+│
+├─ store/                      # Redux / Zustand store slices
+│
+├─ styles/                     # Global styles (globals.css, tailwind.css)
+│
+├─ types/                      # Global types/interfaces
+│
+├─ public/                     # Static assets (images, icons,…)
+│
+├─ next.config.js              # Next.js configuration
+├─ tailwind.config.js          # TailwindCSS configuration
+└─ package.json                # Project dependencies & scripts
