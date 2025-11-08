@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import "../styles/globals.css";
 import Head from "next/head";
-import { store, persistor } from "@/store";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
+import ReduxProvider from "@/providers/ReduxProvider";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import AuthInitializer from "@/components/AuthInitializer";
+
+
 config.autoAddCss = false
 
 const montserrat = Montserrat({
@@ -16,23 +17,61 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "Threadly",
-  description: "Social platform for sharing and discussing threads.",
+  title: "Threadly - Share Your Thoughts",
+  description: "Social platform for sharing and discussing threads. Connect with people who share your interests.",
+  keywords: ["social media", "threads", "community", "discussion"],
+  authors: [{ name: "Threadly Team" }],
+  creator: "Threadly",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://threadly.app",
+    siteName: "Threadly",
+    title: "Threadly - Share Your Thoughts",
+    description: "Social platform for sharing and discussing threads",
+    images: [
+      {
+        url: "/threadly-icon.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Threadly",
+    description: "Share your thoughts on Threadly",
+    creator: "@threadlyapp",
+  },
 };
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  viewportFit: "cover",
+};
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <Head>
                <meta name="apple-mobile-web-app-title" content="Threadly" />
+               <meta name="apple-mobile-web-app-capable" content="yes" />
+               <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+               <link rel="manifest" href="/manifest.json" />
+               <link rel="apple-touch-icon" href="/threadly-icon.png" />
+               <meta name="theme-color" content="#8b5cf6" />
             </Head>
             <body
                 className={`antialiased ${montserrat.variable}`}
             >
-            <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
+            <ReduxProvider>
+                <AuthInitializer>
                     {children}
-                </PersistGate>
-            </Provider>
+                </AuthInitializer>
+            </ReduxProvider>
             </body>
         </html>
     );

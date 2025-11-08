@@ -1,28 +1,36 @@
 // store/index.ts
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
-import storage from "redux-persist/lib/storage"; // localStorage
+import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import authReducer from "./authSlice";
 
-const rootReducer = combineReducers({
-    auth: authReducer,
-});
-
-const persistConfig = {
-    key: "root",
+// 🔹 1. Cấu hình persist riêng cho auth
+const authPersistConfig = {
+    key: "auth",
     storage,
-    whitelist: ["auth"], // chỉ lưu auth thôi
+    whitelist: ["user", "isAuthenticated"], // chỉ lưu thông tin user & flag
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// 🔹 2. Tạo persisted reducer cho auth
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
+// 🔹 3. Combine toàn bộ reducers
+const rootReducer = combineReducers({
+    auth: persistedAuthReducer,
+});
+
+// 🔹 4. Tạo store
 export const store = configureStore({
-    reducer: persistedReducer,
+    reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: false, // redux-persist có non-serializable data
+            serializableCheck: false, // bỏ check do redux-persist chứa non-serializable
         }),
 });
 
+// 🔹 5. Persistor để dùng với <PersistGate>
 export const persistor = persistStore(store);
+
+// 🔹 6. Type helpers (TS)
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  * {
+    @apply transition-colors duration-200;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -13,13 +19,69 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #111827;
+    --foreground: #f3f4f6;
   }
 }
 
+html {
+  scroll-behavior: smooth;
+  @apply bg-gray-50 dark:bg-gray-900;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50;
   font-family: var(--font-montserrat-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 dark:bg-gray-600 rounded-full hover:bg-gray-500 dark:hover:bg-gray-500;
+}
+
+/* Utility Classes */
+.container-responsive {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.text-truncate-line {
+  @apply truncate;
+}
+
+.text-truncate-lines-2 {
+  @apply line-clamp-2;
+}
+
+.text-truncate-lines-3 {
+  @apply line-clamp-3;
+}
+
+.btn-focus-ring {
+  @apply outline-none ring-2 ring-offset-2 ring-[#8b5cf6];
+}
+
+/*.fade-enter {*/
+/*  @apply animate-fadeIn;*/
+/*}*/
+
+/*.slide-enter {*/
+/*  @apply animate-slide;*/
+/*}*/
+
+/* Ẩn scrollbar cho tất cả div dùng class 'no-scrollbar' */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE và Edge */
+    scrollbar-width: none; /* Firefox */
 }
