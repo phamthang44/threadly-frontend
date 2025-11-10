@@ -9,11 +9,11 @@ export const HeaderMobile: React.FC = () => {
     return (
         <>
             <header
-                className={`md:hidden fixed top-0 left-0 right-0 w-full h-16 px-4 z-50 transition-all duration-200 ${
+                className={`fixed top-0 left-0 right-0 w-full h-16 px-4 z-50 transition-all duration-200 ${
                     isScrolled ? 'backdrop-blur-sm bg-[#0A0A0A]/40' : 'bg-[#101010]'
                 }`}
             >
-                <div className="max-w-xl w-full mx-auto h-full flex items-center justify-between">
+                <div className={`max-w-xl w-full mx-auto h-full flex items-center justify-between transition-all duration-200`}>
                     <button className="w-8 h-8 cursor-pointer absolute left-50">
                         <ThreadLogoBrandWhite className="w-8 h-8" />
                     </button>

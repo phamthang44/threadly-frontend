@@ -65,7 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                <meta name="theme-color" content="#8b5cf6" />
             </Head>
             <body
-                className={`antialiased ${montserrat.variable}`}
+                className={`antialiased ${montserrat.variable} bg-light-50 dark:bg-[#0A0A0A]`}
             >
             <ReduxProvider>
                 <AuthInitializer>

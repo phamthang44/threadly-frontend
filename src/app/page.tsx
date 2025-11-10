@@ -1,10 +1,12 @@
+// src/app/page.tsx
 import React from 'react';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/features/header/components/Header';
-import { MobileNav } from '@/components/layout/MobileNav';
 import { LoginSidebar } from '@/components/layout/LoginSidebar';
+import Layout from '@/components/layout/Layout';
 import { Thread as ThreadType } from '@/types/thread';
 import HomeFeed from "@/features/threads/components/HomeFeed";
+import {MobileNav} from "@/components/layout/MobileNav";
 
 const ThreadsApp: React.FC = () => {
     const sampleThreads: ThreadType[] = [
@@ -70,18 +72,22 @@ const ThreadsApp: React.FC = () => {
     ];
 
     return (
-        <div className="h-screen bg-[#0A0A0A] text-white">
-            <Sidebar />
-            <Header />
-
-            <main className="md:ml-20 lg:mr-80 md:pb-0">
-                <HomeFeed sampleThreads={sampleThreads} />
-                <LoginSidebar />
-            </main>
-
-            <MobileNav />
-
-        </div>
+        <Layout
+            sidebar={<Sidebar />}
+            header={<Header />}
+            mobileNavbar={<MobileNav />}
+            rightSidebar={<LoginSidebar />}
+        >
+            <HomeFeed sampleThreads={sampleThreads} />
+            {/*<div className="flex gap-0">*/}
+            {/*    <div className="flex-1">*/}
+            {/*        */}
+            {/*    </div>*/}
+            {/*    <div className="hidden lg:block w-80 flex-shrink-0">*/}
+            {/*        */}
+            {/*    </div>*/}
+            {/*</div>*/}
+        </Layout>
     );
 };
 

@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Search, Plus, Heart, User } from 'lucide-react';
 import HomeIconFilled from "@/components/ui/HomeIconFilled";
 import HomeIcon from "@/components/ui/HomeIcon";
+import ThreadLogoBrandWhite from "@/components/ui/ThreadLogoBrandWhite";
 
 export const Sidebar: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'home' | 'search' | 'create' | 'activity' | 'profile'>('home');
@@ -18,6 +19,9 @@ export const Sidebar: React.FC = () => {
 
     return (
         <aside className="hidden md:flex flex-col justify-center items-center fixed left-0 top-0 h-screen w-25 bg-[#0A0A0A] py-6 gap-8">
+            <button className="w-8 h-8 cursor-pointer">
+                <ThreadLogoBrandWhite className="w-8 h-8" />
+            </button>
             <nav className="flex flex-col gap-6">
                 {tabs.map(({ id, icon: Icon, label }) => (
                     <button
