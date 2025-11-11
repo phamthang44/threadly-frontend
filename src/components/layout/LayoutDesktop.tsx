@@ -15,13 +15,12 @@ const LayoutDesktop: React.FC<LayoutDesktopProps> = ({
                                                          rightSidebar,
                                                      }) => {
     return (
-        <div className="flex h-screen overflow-y-auto bg-light-50 dark:bg-[#0A0A0A]">
+        <div className="flex h-screen bg-light-50 dark:bg-[#0A0A0A]">
             {/* LEFT SIDEBAR */}
             {sidebar}
 
             {/* MAIN CONTENT */}
-            {/*overflow-y-auto h-screen pr-100 flex-1 flex justify-center*/}
-            <main className="flex-1 flex justify-center overflow-y-auto pr-60">
+            <main className="flex-1 flex justify-center pr-60">
                 <div className="max-w-2xl mx-auto w-full">
                     {header}
                     {children}

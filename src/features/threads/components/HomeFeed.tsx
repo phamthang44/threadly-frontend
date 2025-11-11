@@ -1,55 +1,7 @@
-// // src/features/threads/components/HomeFeed.tsx
-// 'use client';
-// import React from "react";
-// import { Thread as ThreadComponent } from "@/features/threads/components/Thread";
-// import { Thread } from "@/types";
-//
-// interface HomeFeedProps {
-//     sampleThreads: Thread[];
-// }
-//
-// const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads }) => {
-//     return (
-//         <div
-//             className="
-//                 md:mt-2
-//                 md:max-w-2xl
-//                 md:mx-auto
-//                 md:rounded-t-3xl
-//                 bg-[#101010]
-//                 md:border md:border-[#383939]
-//                 md:h-[calc(100vh-80px)]  /* cao cố định */
-//                 md:sticky md:top-[70px]  /* đứng yên theo viewport khi cha scroll */
-//               "
-//         >
-//
-//         <div className="w-full rounded-t-3xl">
-//                 {sampleThreads.map((thread: Thread, index: number) => (
-//                     <div key={thread.id} className="w-full">
-//                         <ThreadComponent
-//                             thread={thread}
-//                             className={
-//                                 index === 0
-//                                     ? "transition-colors px-3 py-4 md:px-6 bg-[#101010]"
-//                                     : "px-3 py-4 md:px-6 bg-[#101010]"
-//                             }
-//                         />
-//                         <div className="h-[0.5px] border-b-1 border-[#383939]" />
-//                     </div>
-//                 ))}
-//             </div>
-//         </div>
-//     );
-// };
-//
-// export default HomeFeed;
-
-
 'use client';
 import React, { useEffect, useRef, useState } from "react";
 import { Thread as ThreadComponent } from "@/features/threads/components/Thread";
 import { Thread } from "@/types";
-
 
 interface HomeFeedProps {
     sampleThreads: Thread[];
@@ -61,28 +13,46 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
     const thumbRef = useRef<HTMLDivElement>(null);
     const [scrollInfo, setScrollInfo] = useState({ height: 0, top: 0 });
 
-    // Handle scroll + load more
+    const SCROLL_SPEED_MULTIPLIER = 0.8;
+    useEffect(() => {
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        // Handle global wheel event
+        const handleGlobalScroll = (e: WheelEvent) => {
+
+            e.preventDefault();
+            // container.scrollTop += e.deltaY;
+            container.scrollBy({
+                top: e.deltaY * 4, // tăng tốc độ
+                behavior: "smooth"
+            })
+        };
+
+        // Listen globally (so it works anywhere on the page)
+        window.addEventListener("wheel", handleGlobalScroll, { passive: false });
+
+        return () => window.removeEventListener("wheel", handleGlobalScroll);
+    }, []);
+
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
 
         const handleScroll = () => {
             const { scrollTop, scrollHeight, clientHeight } = container;
-
-            // Tính chiều cao và vị trí của thumb
             const ratio = clientHeight / scrollHeight;
-            const thumbHeight = Math.max(clientHeight * ratio, 30); // min 30px
+            const thumbHeight = Math.max(clientHeight * ratio, 30);
             const thumbTop = (scrollTop / scrollHeight) * clientHeight;
 
             setScrollInfo({ height: thumbHeight, top: thumbTop });
 
-            // Load more khi gần cuối
             if (scrollHeight - (scrollTop + clientHeight) < scrollHeight * 0.2) {
                 onLoadMore?.();
             }
         };
 
-        handleScroll(); // init
+        handleScroll();
         container.addEventListener("scroll", handleScroll);
         window.addEventListener("resize", handleScroll);
         return () => {
@@ -91,11 +61,36 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
         };
     }, [onLoadMore]);
 
+    const handleThumbMouseDown = (e: React.MouseEvent) => {
+        e.preventDefault();
+        const container = scrollContainerRef.current;
+        if (!container) return;
+
+        const startY = e.clientY;
+        const startScrollTop = container.scrollTop;
+        const { scrollHeight, clientHeight } = container;
+        const ratio = clientHeight / scrollHeight;
+
+        const handleMouseMove = (moveEvent: MouseEvent) => {
+            const deltaY = moveEvent.clientY - startY;
+            const newScrollTop = startScrollTop + deltaY / ratio;
+            container.scrollTop = newScrollTop;
+        };
+
+        const handleMouseUp = () => {
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+        };
+
+        document.addEventListener("mousemove", handleMouseMove);
+        document.addEventListener("mouseup", handleMouseUp);
+    };
+
     return (
-        <div className="w-full max-w-2xl mx-auto h-full">
-            <div className="relative w-full h-full md:sticky md:top-[70px] md:border md:border-[#383939] md:mt-2 md:rounded-t-3xl bg-[#101010] md:h-[calc(100vh-80px)] overflow-hidden">
+        <div className="w-full max-w-2xl mx-auto relative">
+            <div className="md:relative w-full md:top-[2px] md:border md:border-[#383939] md:mt-2 md:rounded-t-3xl bg-[#101010] md:h-[calc(100vh-80px)] overflow-hidden">
                 {/* Nội dung cuộn */}
-                <div ref={scrollContainerRef} className="w-full h-full overflow-y-auto custom-scrollbar">
+                <div ref={scrollContainerRef} className="custom-scrollbar w-full h-full overflow-y-auto">
                     {sampleThreads.map((thread: Thread, index: number) => (
                         <div key={thread.id} className="w-full">
                             <ThreadComponent
@@ -106,15 +101,26 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
                         </div>
                     ))}
                 </div>
+            </div>
 
-                {/* Scrollbar ảo absolute */}
-                <div className="custom-scrollbar-wrapper">
-                    <div
-                        ref={thumbRef}
-                        className="custom-scrollbar-thumb"
-                        style={{ height: scrollInfo.height, top: scrollInfo.top, right: '-2px' }}
-                    />
-                </div>
+            {/* Custom scrollbar positioned outside */}
+            <div
+                className="absolute -top-17 w-2 h-[calc(100vh-80px)] md:block hidden"
+                style={{
+                    right: 'calc(-39rem - 8px)',
+                    height: 'calc(100vh - 80px - 64px)'
+                }}
+            >
+                <div
+                    ref={thumbRef}
+                    className="w-2 bg-[#444444] rounded cursor-pointer hover:bg-[#555555] transition-colors"
+                    style={{
+                        height: `${scrollInfo.height}px`,
+                        top: `${scrollInfo.top}px`,
+                        position: 'absolute'
+                    }}
+                    onMouseDown={handleThumbMouseDown}
+                />
             </div>
         </div>
     );

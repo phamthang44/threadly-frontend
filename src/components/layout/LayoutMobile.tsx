@@ -13,8 +13,8 @@ const LayoutMobile: React.FC<LayoutMobileProps> = ({ children, header, mobileNav
             {/* Header */}
             {header}
 
-            {/* Main Content */}
-            <main className="flex-1 overflow-y-auto no-scrollbar">
+            {/* Main Content with padding for fixed elements */}
+            <main className="flex-1 pt-16 pb-20 overflow-y-auto">
                 {children}
             </main>
 

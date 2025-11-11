@@ -8,7 +8,7 @@ export const useHeaderState = () => {
 
     useEffect(() => {
         // Find the scrollable main content area
-        const scrollContainer = document.querySelector('main');
+        const scrollContainer = document.querySelector('.scroll-container');
 
         if (!scrollContainer) return;
 
