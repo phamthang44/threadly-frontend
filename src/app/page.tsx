@@ -79,16 +79,17 @@ const ThreadsApp: React.FC = () => {
             rightSidebar={<LoginSidebar />}
         >
             <HomeFeed sampleThreads={sampleThreads} />
-            {/*<div className="flex gap-0">*/}
-            {/*    <div className="flex-1">*/}
-            {/*        */}
-            {/*    </div>*/}
-            {/*    <div className="hidden lg:block w-80 flex-shrink-0">*/}
-            {/*        */}
-            {/*    </div>*/}
-            {/*</div>*/}
+
         </Layout>
     );
 };
 
 export default ThreadsApp;
+// {/*<div className="flex gap-0">*/}
+// {/*    <div className="flex-1">*/}
+// {/*        */}
+// {/*    </div>*/}
+// {/*    <div className="hidden lg:block w-80 flex-shrink-0">*/}
+// {/*        */}
+// {/*    </div>*/}
+// {/*</div>*/}

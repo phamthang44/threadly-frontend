@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-
+import scrollbar from "tailwind-scrollbar";
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
@@ -12,20 +12,6 @@ module.exports = {
   ],
   theme: {
     extend: {
-      // keyframes: {
-      //   slideUp: {
-      //     '0%': { transform: 'translateY(100%)' },
-      //     '100%': { transform: 'translateY(0)' },
-      //   },
-      //   fadeIn: {
-      //     '0%': { opacity: '0', transform: 'scale(0.95)' },
-      //     '100%': { opacity: '1', transform: 'scale(1)' },
-      //   },
-      // },
-      // animation: {
-      //   slideUp: 'slideUp 0.3s ease-out',
-      //   fadeIn: 'fadeIn 0.2s ease-out',
-      // },
       colors: {
         primary: {
           50: '#f5f3ff',
@@ -132,7 +118,9 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+      scrollbar({ nocompatible: true }),
+  ],
 };
 
 // export default config;

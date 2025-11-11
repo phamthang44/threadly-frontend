@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import "../styles/globals.css";
+import "../styles/scrollbar.css"
 import Head from "next/head";
 import ReduxProvider from "@/providers/ReduxProvider";
 import { config } from '@fortawesome/fontawesome-svg-core'
