@@ -7,9 +7,17 @@ export const useHeaderState = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false); // placeholder
 
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 0);
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        return () => window.removeEventListener('scroll', handleScroll);
+        // Find the scrollable main content area
+        const scrollContainer = document.querySelector('main');
+
+        if (!scrollContainer) return;
+
+        const handleScroll = () => {
+            setIsScrolled(scrollContainer.scrollTop > 0);
+        };
+
+        scrollContainer.addEventListener('scroll', handleScroll);
+        return () => scrollContainer.removeEventListener('scroll', handleScroll);
     }, []);
 
     return { isScrolled, isAuthenticated };

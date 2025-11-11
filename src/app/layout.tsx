@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import "../styles/globals.css";
+import "../styles/scrollbar.css"
 import Head from "next/head";
 import ReduxProvider from "@/providers/ReduxProvider";
 import { config } from '@fortawesome/fontawesome-svg-core'
@@ -65,7 +66,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                <meta name="theme-color" content="#8b5cf6" />
             </Head>
             <body
-                className={`antialiased ${montserrat.variable}`}
+                className={`antialiased ${montserrat.variable} bg-light-50 dark:bg-[#0A0A0A]`}
             >
             <ReduxProvider>
                 <AuthInitializer>

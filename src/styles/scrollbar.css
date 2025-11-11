@@ -1,0 +1,75 @@
+/*.custom-scrollbar {*/
+/*    scrollbar-width: none;*/
+/*    scrollbar-color: transparent transparent;*/
+/*    transition: scrollbar-color 0.4s ease;*/
+/*}*/
+
+/*.custom-scrollbar::-webkit-scrollbar-button {*/
+/*    display: none;*/
+/*}*/
+
+/*.custom-scrollbar:hover {*/
+/*    scrollbar-color: #383939 transparent;*/
+/*    transition: scrollbar-color 0.4s ease;*/
+/*}*/
+
+/*.custom-scrollbar::-webkit-scrollbar {*/
+/*    width: 8px;*/
+/*}*/
+
+/*.custom-scrollbar::-webkit-scrollbar-track {*/
+/*    background: transparent;*/
+/*}*/
+
+/*.custom-scrollbar::-webkit-scrollbar-thumb {*/
+/*    background: transparent;*/
+/*    border-radius: 4px;*/
+/*    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);*/
+/*}*/
+
+/*.custom-scrollbar:hover::-webkit-scrollbar-thumb {*/
+/*    background: #383939;*/
+/*}*/
+
+/*.custom-scrollbar::-webkit-scrollbar-thumb:hover {*/
+/*    background: #555555;*/
+/*}*/
+
+
+/* Ẩn hoàn toàn scrollbar thật */
+.custom-scrollbar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge cũ */
+    position: relative;
+}
+.custom-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+}
+
+/* Scrollbar ảo */
+.custom-scrollbar-wrapper {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    bottom: 0;
+    width: 8px;
+    background: transparent;
+    pointer-events: none;
+}
+
+.custom-scrollbar-thumb {
+    position: absolute;
+    width: 100%;
+    background: #383939;
+    border-radius: 4px;
+    opacity: 0;
+    transition: opacity 0.3s, background 0.3s;
+}
+
+.custom-scrollbar:hover + .custom-scrollbar-wrapper .custom-scrollbar-thumb {
+    opacity: 1;
+}
+
+.custom-scrollbar-thumb:hover {
+    background: #555555;
+}

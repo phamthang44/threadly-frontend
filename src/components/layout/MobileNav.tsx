@@ -17,7 +17,7 @@ export const MobileNav: React.FC = () => {
     ] as const;
 
     return (
-        <nav className="md:hidden fixed bottom-0 left-0 right-0 backdrop-blur-sm bg-[#101010]/10 border-t border-[#383939] px-6 py-2 z-50">
+        <nav className={`absolute bottom-0 left-0 right-0 bg-[#101010]/40 backdrop-blur-sm border-t border-[#383939] px-6 py-2 z-50 transition-colors duration-200`}>
             <div className="flex items-center justify-around">
                 {tabs.map(({ id, icon: Icon, label }) => (
                     <button
