@@ -88,14 +88,16 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
 
     return (
         <div className="w-full max-w-2xl mx-auto relative">
-            <div className="md:relative w-full md:top-[2px] md:border md:border-[#383939] md:mt-2 md:rounded-t-3xl bg-[#101010] md:h-[calc(100vh-80px)] overflow-hidden">
+            <div className="md:relative w-full md:top-[2px] md:border-t-0 md:border-[#383939] bg-[#101010] md:h-[calc(100vh-80px)] overflow-hidden">
                 {/* Nội dung cuộn */}
-                <div ref={scrollContainerRef} className="custom-scrollbar w-full h-full overflow-y-auto">
+                <div ref={scrollContainerRef} className="custom-scrollbar w-full h-full overflow-y-auto md:mt-6">
                     {sampleThreads.map((thread: Thread, index: number) => (
                         <div key={thread.id} className="w-full">
                             <ThreadComponent
                                 thread={thread}
-                                className={`px-3 py-4 md:px-6 bg-[#101010] ${index === 0 ? 'transition-colors' : ''}`}
+                                className={`px-3 py-4 md:px-6 bg-[#101010] ${index === 0 ? 'transition-colors' : ''}
+                                    ${index === sampleThreads.length - 1 ? 'mb-6 md:pb-10' : ''}
+                                `}
                             />
                             {index < sampleThreads.length - 1 && <div className="h-px bg-[#383939]" />}
                         </div>
@@ -105,11 +107,7 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
 
             {/* Custom scrollbar positioned outside */}
             <div
-                className="absolute -top-17 w-2 h-[calc(100vh-80px)] md:block hidden"
-                style={{
-                    right: 'calc(-39rem - 8px)',
-                    height: 'calc(100vh - 80px - 64px)'
-                }}
+                className="absolute lg:-top-16 w-2 h-[calc(100vh)] md:block hidden xl:-right-182 lg:right-0 right-2 bg-[#1A1A1A] rounded"
             >
                 <div
                     ref={thumbRef}
