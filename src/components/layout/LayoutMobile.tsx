@@ -14,7 +14,7 @@ const LayoutMobile: React.FC<LayoutMobileProps> = ({ children, header, mobileNav
             {header}
 
             {/* Main Content with padding for fixed elements */}
-            <main className="flex-1 pt-16 pb-20 overflow-y-auto">
+            <main className="flex-1 pb-8 overflow-y-auto custom-scrollbar dark:bg-[#101010]">
                 {children}
             </main>
 

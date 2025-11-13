@@ -13,10 +13,12 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
     const thumbRef = useRef<HTMLDivElement>(null);
     const [scrollInfo, setScrollInfo] = useState({ height: 0, top: 0 });
 
-    const SCROLL_SPEED_MULTIPLIER = 0.8;
+    const SCROLL_SPEED_MULTIPLIER = 4;
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
+
+        // let lastTouchY: number | null = null;
 
         // Handle global wheel event
         const handleGlobalScroll = (e: WheelEvent) => {
@@ -24,15 +26,42 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
             e.preventDefault();
             // container.scrollTop += e.deltaY;
             container.scrollBy({
-                top: e.deltaY * 4, // tăng tốc độ
+                top: e.deltaY * SCROLL_SPEED_MULTIPLIER, // tăng tốc độ
                 behavior: "smooth"
             })
         };
 
-        // Listen globally (so it works anywhere on the page)
-        window.addEventListener("wheel", handleGlobalScroll, { passive: false });
+        // const handleTouchStart = (e: TouchEvent) => {
+        //     lastTouchY = e.touches[0]?.clientY ?? null;
+        // };
+        //
+        // const handleTouchMove = (e: TouchEvent) => {
+        //     if (lastTouchY == null) return;
+        //     const currentY = e.touches[0]?.clientY ?? lastTouchY;
+        //     const delta = lastTouchY - currentY;
+        //     lastTouchY = currentY;
+        //
+        //     // prevent native page scroll when intentionally dragging
+        //     e.preventDefault();
+        //
+        //     container.scrollBy({
+        //         top: delta * 4,
+        //         behavior: 'auto'
+        //     });
+        // };
 
-        return () => window.removeEventListener("wheel", handleGlobalScroll);
+        // Listen globally (so it works anywhere on the page)
+        // Desktop wheel
+        window.addEventListener('wheel', handleGlobalScroll, { passive: false });
+        // Mobile touch
+        // container.addEventListener('touchstart', handleTouchStart, { passive: true });
+        // container.addEventListener('touchmove', handleTouchMove, { passive: false });
+
+        return () => {
+            window.removeEventListener("wheel", handleGlobalScroll);
+            // container.removeEventListener('touchstart', handleTouchStart);
+            // container.removeEventListener('touchmove', handleTouchMove);
+        }
     }, []);
 
     useEffect(() => {
@@ -88,7 +117,7 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
 
     return (
         <div className="w-full max-w-2xl mx-auto relative">
-            <div className="md:relative w-full md:top-[2px] md:border-t-0 md:border-[#383939] bg-[#101010] md:h-[calc(100vh-80px)] overflow-hidden">
+            <div className="md:relative w-full md:top-[2px] md:border-t-0 md:border-[#383939] bg-[#0A0A0A] md:h-[calc(100vh-80px)] md:overflow-hidden">
                 {/* Nội dung cuộn */}
                 <div ref={scrollContainerRef} className="custom-scrollbar w-full h-full overflow-y-auto md:mt-6">
                     {sampleThreads.map((thread: Thread, index: number) => (
@@ -107,7 +136,7 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
 
             {/* Custom scrollbar positioned outside */}
             <div
-                className="absolute lg:-top-16 w-2 h-[calc(100vh)] md:block hidden xl:-right-182 lg:right-0 right-2 bg-[#1A1A1A] rounded"
+                className="absolute xl:-top-16 lg:top-8 w-2 h-[calc(100vh)] md:block hidden xl:right-[-633px] lg:right-0 right-2 bg-[#1A1A1A] rounded"
             >
                 <div
                     ref={thumbRef}
