@@ -1,5 +1,5 @@
 'use client';
-import ThreadLogoBrandWhite from "@/components/ui/ThreadLogoBrandWhite";
+import {ThreadLogoBrandWhite} from "@/components/ui";
 import { useHeaderState } from "@/features/header/hooks/useHeaderState";
 import React from "react";
 
