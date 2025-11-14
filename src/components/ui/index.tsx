@@ -13,3 +13,4 @@ export { default as InstagramIconBrand } from './InstagramIconBrand';
 export { default as VerifiedBadgeIcon } from './VerifiedBadgeIcon';
 export { default as HomeIcon } from './HomeIcon';
 export { default as HomeIconFilled } from './HomeIconFilled';
+export { default as CircularThreadsBackground } from './CircularThreadsBackground';
