@@ -85,3 +85,20 @@ body {
     -ms-overflow-style: none; /* IE và Edge */
     scrollbar-width: none; /* Firefox */
 }
+
+.loop {
+    font-size: 32px;
+    font-weight: 600;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin 20s linear infinite;
+    transform: scale(2) rotate(20deg);
+}
