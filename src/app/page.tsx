@@ -1,12 +1,12 @@
 // src/app/page.tsx
 import React from 'react';
-import { Sidebar } from '@/components/layout/Sidebar';
+import { Sidebar } from '@/features/navigation/components/Sidebar';
 import { Header } from '@/features/header/components/Header';
 import { LoginSidebar } from '@/components/layout/LoginSidebar';
 import Layout from '@/components/layout/Layout';
 import { Thread as ThreadType } from '@/types/thread';
 import HomeFeed from "@/features/threads/components/HomeFeed";
-import {MobileNav} from "@/components/layout/MobileNav";
+import {MobileNav} from "@/features/navigation/components/MobileNav";
 
 const ThreadsApp: React.FC = () => {
     const sampleThreads: ThreadType[] = [
