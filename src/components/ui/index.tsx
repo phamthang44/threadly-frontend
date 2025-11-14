@@ -6,5 +6,10 @@ export { default as Avatar } from './Avatar';
 export { default as Badge } from './Badge';
 export { default as Spinner } from './Spinner';
 export { default as Modal } from './Modal';
-
-
+// export { default as Tooltip } from './Tooltip';
+// export { default as Dropdown } from './Dropdown';
+export { default as ThreadLogoBrandWhite } from './ThreadLogoBrandWhite';
+export { default as InstagramIconBrand } from './InstagramIconBrand';
+export { default as VerifiedBadgeIcon } from './VerifiedBadgeIcon';
+export { default as HomeIcon } from './HomeIcon';
+export { default as HomeIconFilled } from './HomeIconFilled';

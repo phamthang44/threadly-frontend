@@ -3,9 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Search, Plus, Heart, User } from 'lucide-react';
-import HomeIconFilled from "@/components/ui/HomeIconFilled";
-import HomeIcon from "@/components/ui/HomeIcon";
-import ThreadLogoBrandWhite from "@/components/ui/ThreadLogoBrandWhite";
+import { HomeIconFilled, HomeIcon, ThreadLogoBrandWhite } from '@/components/ui';
 import {LoginRequiredModalDesktop} from "@/features/auth/components";
 import { usePathname } from "next/navigation";
 import { useLoginRequired } from "@/features/auth/hooks/useLoginRequired";

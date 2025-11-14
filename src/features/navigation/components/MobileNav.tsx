@@ -4,8 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Search, Plus, Heart, User } from 'lucide-react';
-import HomeIconFilled from "@/components/ui/HomeIconFilled";
-import HomeIcon from "@/components/ui/HomeIcon";
+import { HomeIconFilled, HomeIcon } from "@/components/ui";
 import { useLoginRequired } from '@/features/auth/hooks/useLoginRequired';
 import { LoginRequiredModalMobile } from '@/features/auth/components';
 
