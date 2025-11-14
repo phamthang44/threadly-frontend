@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import InstagramIconBrand from './InstagramIconBrand';
+import InstagramIconBrand from '../../../components/ui/InstagramIconBrand';
 
 interface LoginRequiredModalProps {
   isOpen: boolean;
@@ -12,7 +12,7 @@ interface LoginRequiredModalProps {
   featureName?: string;
 }
 
-const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
+const LoginRequiredModalMobile: React.FC<LoginRequiredModalProps> = ({
   isOpen,
   onClose,
   featureName = 'This feature',
@@ -49,7 +49,7 @@ const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
           {/* Header with close button */}
           <div className="flex items-center justify-between p-6 border-b border-[#383939]">
             <h2 className="text-lg font-semibold text-white">
-              Join Threads
+              Join Threadly
             </h2>
             <button
               onClick={onClose}
@@ -66,10 +66,10 @@ const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
           {/* Content */}
           <div className="px-6 py-8 text-center">
             <p className="text-[#A0A0A0] text-sm mb-2">
-              {featureName} is only available to Threads members.
+              {featureName} is only available to Threadly members.
             </p>
             <p className="text-[#808080] text-xs mb-8">
-              Join Threads to share thoughts, find out what's going on, follow people and more.
+              Join Threadly to share thoughts, find out what's going on, follow people and more.
             </p>
 
             {/* Threads Logo Icon (optional decorative element) */}
@@ -144,5 +144,5 @@ const LoginRequiredModal: React.FC<LoginRequiredModalProps> = ({
   );
 };
 
-export default LoginRequiredModal;
+export default LoginRequiredModalMobile;
 

@@ -1,7 +1,7 @@
-# LoginRequiredModal - Implementation Guide
+# LoginRequiredModalMobile - Implementation Guide
 
 ## Overview
-`LoginRequiredModal` is a reusable modal component that appears when unauthenticated users try to access protected features. It matches the Threads design aesthetic and redirects users to login via Instagram.
+`LoginRequiredModalMobile` is a reusable modal component that appears when unauthenticated users try to access protected features. It matches the Threads design aesthetic and redirects users to login via Instagram.
 
 ## Quick Start
 
@@ -11,7 +11,7 @@
 'use client';
 
 import { useLoginRequired } from '@/hooks/useLoginRequired';
-import { LoginRequiredModal } from '@/components/ui';
+import { LoginRequiredModalMobile } from '@/components/ui';
 
 export default function MyComponent() {
   const { isOpen, openModal, closeModal, featureName } = useLoginRequired();
@@ -30,7 +30,7 @@ export default function MyComponent() {
         Like Post
       </button>
 
-      <LoginRequiredModal
+      <LoginRequiredModalMobile
         isOpen={isOpen}
         onClose={closeModal}
         featureName={featureName}
@@ -70,7 +70,7 @@ export default function ThreadComponent() {
       <button onClick={handleLike}>❤️ Like</button>
       <button onClick={handleComment}>💬 Comment</button>
 
-      <LoginRequiredModal
+      <LoginRequiredModalMobile
         isOpen={isOpen}
         onClose={closeModal}
         featureName={featureName}
@@ -94,7 +94,7 @@ export default function SaveButton() {
         Save
       </button>
 
-      <LoginRequiredModal
+      <LoginRequiredModalMobile
         isOpen={isOpen}
         onClose={closeModal}
         featureName="Saving posts"
@@ -116,7 +116,7 @@ export default function SaveButton() {
 
 ## Props
 
-### LoginRequiredModal
+### LoginRequiredModalMobile
 
 | Prop | Type | Required | Description |
 |------|------|----------|-------------|
@@ -185,7 +185,7 @@ The modal uses Tailwind CSS with custom colors matching Threadly's design:
 - Text: `#A0A0A0` - `#FFFFFF` (various grays/white)
 - Accent: Instagram gradient (purple to pink)
 
-To customize, edit the className values in `LoginRequiredModal.tsx`.
+To customize, edit the className values in `LoginRequiredModalMobile.tsx`.
 
 ## Notes
 
