@@ -1,5 +1,8 @@
+// `src/components/layout/LoginSidebar.tsx`
 import React from 'react';
+import Link from 'next/link';
 import InstagramIconBrand from "@/components/ui/InstagramIconBrand";
+
 export const LoginSidebar: React.FC = () => {
     return (
         <aside className="hidden lg:block lg:fixed 2xl:right-70 xl:right-30 max-[1300px]:right-10 top-14 w-80 h-80 mt-4 rounded-4xl bg-[#1E1E1E] border-1 border-[#383939] p-4">
@@ -9,12 +12,15 @@ export const LoginSidebar: React.FC = () => {
                     See what people are talking about and join the conversation.
                 </p>
                 <button className="w-full bg-[#0A0A0A] text-[#ECEEF0] rounded-3xl py-7 font-semibold flex items-center justify-center gap-2 mb-4 cursor-pointer transition-colors">
-                    <InstagramIconBrand />
+                    <InstagramIconBrand className="w-6 h-6" />
                     Continue with Instagram
                 </button>
-                <button className="text-[#777777] text-center mt-4 text-[16px] font-[450] cursor-pointer">
+                <Link
+                    href="/login?mode=manual"
+                    className="text-[#777777] text-center mt-4 text-[16px] font-[450] cursor-pointer"
+                >
                     Log in with username instead
-                </button>
+                </Link>
             </div>
         </aside>
     );
