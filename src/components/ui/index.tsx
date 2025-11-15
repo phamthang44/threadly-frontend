@@ -14,3 +14,4 @@ export { default as VerifiedBadgeIcon } from './VerifiedBadgeIcon';
 export { default as HomeIcon } from './HomeIcon';
 export { default as HomeIconFilled } from './HomeIconFilled';
 export { default as ThreadlyBackground } from './ThreadlyBackground';
+export { default as MenuItem } from './atoms/MenuItem';

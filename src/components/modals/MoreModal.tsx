@@ -103,7 +103,7 @@
 // }
 
 import React from "react";
-import MenuItem from "@/components/atoms/MenuItem";
+import {MenuItem} from "@/components/ui";
 
 interface MoreModalProps {
     onClose: () => void;
