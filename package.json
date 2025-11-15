@@ -23,6 +23,7 @@
     "react-redux": "^9.2.0",
     "react-scrollbars-custom": "^4.1.1",
     "redux-persist": "^6.0.0",
+    "styled-components": "^6.1.19",
     "tailwind-scrollbar": "^4.0.2",
     "tailwind-scrollbar-hide": "^4.0.0"
   },

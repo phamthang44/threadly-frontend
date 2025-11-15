@@ -1,13 +1,17 @@
-const InstagramIconBrand = () => (
+import React from "react";
+
+interface InstagramIconBrandProps {
+    className?: string;
+}
+
+const InstagramIconBrand:React.FC<InstagramIconBrandProps> = ({className}) => (
     <svg
         aria-label="Instagram"
         role="img"
         viewBox="0 0 24 24"
-        className="x1lliihq x2lah0s x1n2onr6 x19zyb68 x16ye13r x5lhr3w x1yxark7"
+        className={className}
         style={{
             fill: 'currentColor',
-            height: '24px',
-            width: '24px'
         }}
     >
         <title>Instagram</title>
