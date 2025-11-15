@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { InstagramIconBrand, Button, Input, CircularThreadsBackground } from '@/components/ui';
+import { Button, Input, ThreadlyBackground } from '@/components/ui';
 import { useAuthLogin } from '@/features/auth/hooks/useAuthLogin';
+import {InstagramButtonLogin} from "@/features/auth/components";
+
 
 type LoginState = 'instagram' | 'manual';
 
@@ -53,45 +55,11 @@ export const LoginPage = () => {
     return (
         <div className="min-h-screen bg-[#101010] flex flex-col items-center justify-center relative overflow-hidden">
             {/* Circular text background pattern */}
-            <div className="absolute inset-0 pointer-events-none">
-                <CircularThreadsBackground className="absolute top-[-150px] left-[10%] scale-125 opacity-20 rotate-12" />
-                <CircularThreadsBackground className="absolute top-[-260px] left-[40%] rotate-[90deg]"/>
-                {/*<CircularThreadsBackground className="absolute top-[200px] left-[0%] scale-[1.8] opacity-15 rotate-[50deg]"/>*/}
-                {/*<CircularThreadsBackground className="absolute top-[250px] left-[0%] scale-[1.8] opacity-15 rotate-[50deg]"/>*/}
-            </div>
-            {/*<div className="absolute inset-0 flex items-center justify-center">*/}
-            {/*    <div className="w-[350px] h-[350px] relative">*/}
-            {/*        { /* SVG circular text */ }
-            {/*        <svg*/}
-            {/*            width="350"*/}
-            {/*            height="350"*/}
-            {/*            viewBox="0 0 350 350"*/}
-            {/*            className="absolute inset-0 opacity-10 top-[-360px]"*/}
-            {/*        >*/}
-            {/*            <defs>*/}
-            {/*                <path*/}
-            {/*                    id="circlePath"*/}
-            {/*                    d="*/}
-            {/*                        M 175, 175*/}
-            {/*                        m -150, 0*/}
-            {/*                        a 150,150 0 1,1 300,0*/}
-            {/*                        a 150,150 0 1,1 -300,0*/}
-            {/*                    "*/}
-            {/*                />*/}
-            {/*            </defs>*/}
-
-            {/*            <text fill="white" fontSize="26" fontWeight="bold">*/}
-            {/*                <textPath href="#circlePath" startOffset="0%">*/}
-            {/*                    THREADS SAVE THE THREADS SAVE THE THREADS*/}
-            {/*                </textPath>*/}
-            {/*            </text>*/}
-            {/*        </svg>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
-
+            {/*<CircularThreadlyBackground />*/}
+            <ThreadlyBackground loops={5} size={1000} />
 
             {/* Main content container */}
-            <div className="relative z-10 w-full max-w-md px-4">
+            <div className="relative z-10 w-full max-w-md px-4 mt-50">
                 {loginState === 'instagram' ? (
                     // Instagram Login State
                     <div className="text-center space-y-8">
@@ -104,24 +72,12 @@ export const LoginPage = () => {
                         </div>
 
                         {/* Instagram Login Button */}
-                        <button
+                        <InstagramButtonLogin
                             onClick={handleInstagramLogin}
                             disabled={isLoading}
-                            className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-between group"
-                        >
-                            <div className="flex items-center gap-3 flex-1">
-                                <div className="rounded-lg p-2">
-                                    <InstagramIconBrand />
-                                </div>
-                                <div className="text-left">
-                                    <p className="text-sm font-semibold">Continue with Instagram</p>
-                                    <p className="text-xs text-purple-100">bee.twins44</p>
-                                </div>
-                            </div>
-                            <svg className="w-5 h-5 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
+                            className="w-full border-1 border-[#383939] hover:scale-[101%] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-between group"
+                        />
+
 
                         {/* Divider */}
                         <div className="flex items-center gap-4">
@@ -133,7 +89,7 @@ export const LoginPage = () => {
                         {/* Manual Login Link */}
                         <button
                             onClick={() => setLoginState('manual')}
-                            className="w-full text-blue-400 hover:text-blue-300 font-medium transition duration-200"
+                            className="w-full text-blue-400 hover:text-blue-300 font-medium transition duration-200 cursor-pointer"
                         >
                             Log in with username instead
                         </button>
@@ -147,10 +103,10 @@ export const LoginPage = () => {
                     </div>
                 ) : (
                     // Manual Login State
-                    <div className="text-center space-y-6">
+                    <div className="text-center space-y-6 mt-20">
                         {/* Header */}
                         <div className="space-y-2 mb-8">
-                            <h1 className="text-2xl font-bold text-white">Log in with your Instagram account</h1>
+                            <h1 className="text-xl font-bold text-white">Log in with your Instagram account</h1>
                         </div>
 
                         {/* Form */}
@@ -161,7 +117,7 @@ export const LoginPage = () => {
                                 placeholder="Username, phone or email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:border-gray-500 focus:outline-none transition"
+                                className="w-full bg-[#1e1e1e] border-1 border-[#383939] focus:border-[#b8b8b8] rounded-lg px-4 py-4 text-white placeholder-[#777777] focus:outline-none transition"
                                 required
                             />
 
@@ -171,7 +127,7 @@ export const LoginPage = () => {
                                 placeholder="Password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full bg-gray-900 border border-gray-700 rounded-lg px-4 py-3 text-white placeholder-gray-600 focus:border-gray-500 focus:outline-none transition"
+                                className="w-full bg-[#1e1e1e] border-1 border-[#383939] focus:border-[#b8b8b8] rounded-xl px-4 py-4 text-white placeholder-[#777777] focus:outline-none transition"
                                 required
                             />
 
@@ -182,7 +138,7 @@ export const LoginPage = () => {
                             <Button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full bg-[#101010]/40 text-black hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed font-semibold py-3 rounded-lg transition duration-200"
+                                className="w-full bg-[#ffffff] border-1 border-[#383939] cursor-pointer text-black hover:scale-[101%] disabled:opacity-50 disabled:cursor-not-allowed font-semibold py-3 rounded-lg transition duration-200"
                             >
                                 {isLoading ? 'Logging in...' : 'Log in'}
                             </Button>
@@ -201,21 +157,26 @@ export const LoginPage = () => {
                             </div>
 
                             {/* Back to Instagram Login */}
-                            <button
-                                onClick={() => setLoginState('instagram')}
-                                className="block w-full text-blue-400 hover:text-blue-300 font-medium transition duration-200 py-2"
-                            >
-                                Back to Instagram login
-                            </button>
+                            {/*<button*/}
+                            {/*    onClick={() => setLoginState('instagram')}*/}
+                            {/*    className="block w-full text-blue-400 hover:text-blue-300 font-medium transition duration-200 py-2"*/}
+                            {/*>*/}
+                            {/*    Back to Instagram login*/}
+                            {/*</button>*/}
+                            <InstagramButtonLogin
+                                onClick={handleInstagramLogin}
+                                disabled={isLoading}
+                                className="w-full border-1 border-[#383939] hover:scale-[101%] cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-between group"
+                            />
                         </div>
 
-                        {/* Sign up link */}
-                        <p className="text-gray-400 text-sm pt-4">
-                            Don&#39;t have an account?{' '}
-                            <Link href="/signup" className="text-blue-400 hover:text-blue-300 transition duration-200">
-                                Sign up
-                            </Link>
-                        </p>
+                        {/*/!* Sign up link *!/*/}
+                        {/*<p className="text-gray-400 text-sm pt-4">*/}
+                        {/*    Don&#39;t have an account?{' '}*/}
+                        {/*    <Link href="/signup" className="text-blue-400 hover:text-blue-300 transition duration-200">*/}
+                        {/*        Sign up*/}
+                        {/*    </Link>*/}
+                        {/*</p>*/}
                     </div>
                 )}
             </div>
