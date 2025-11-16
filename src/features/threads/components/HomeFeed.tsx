@@ -2,16 +2,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Thread as ThreadComponent } from "@/features/threads/components/Thread";
 import { Thread } from "@/types";
+import ThreadlyComposer from "./ThreadlyComposer";
 
 interface HomeFeedProps {
     sampleThreads: Thread[];
     onLoadMore?: () => void;
+    isAuthenticated?: boolean;
 }
 
-const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
+type TabType = 'foryou' | 'following';
+
+const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthenticated = false }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const thumbRef = useRef<HTMLDivElement>(null);
     const [scrollInfo, setScrollInfo] = useState({ height: 0, top: 0 });
+    const [activeTab, setActiveTab] = useState<TabType>('foryou');
 
     const SCROLL_SPEED_MULTIPLIER = 4;
     useEffect(() => {
@@ -115,16 +120,36 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
         document.addEventListener("mouseup", handleMouseUp);
     };
 
+    const onClickAThread = (id: number) => {
+        console.log("Clicked thread with id:", id);
+    }
+
+    const tabs = [
+        { id: 'foryou', label: 'For you' },
+        { id: 'following', label: 'Following' },
+        { id: 'ghostposts', label: 'Ghost posts' }
+    ];
+
+    // console.log("isAuthenticated:", isAuthenticated);
+    // isAuthenticated = true; //testing
     return (
         <div className="w-full max-w-2xl mx-auto relative">
             <div className="md:relative w-full md:top-[2px] md:border-t-0 md:border-[#383939] bg-[#0A0A0A] md:h-[calc(100vh-80px)] md:overflow-hidden">
-                {/* Nội dung cuộn */}
+                {/* Tab Navigation & Compose Area */}
                 <div ref={scrollContainerRef} className="custom-scrollbar w-full h-full overflow-y-auto md:mt-6">
+                    {/* Compose area - only for authenticated users */}
+                    {isAuthenticated && (
+                        <div className="border-b border-[#383939] px-5 bg-[#181818] pb-3">
+                            {/* Your compose area JSX */}
+                            <ThreadlyComposer />
+                        </div>
+                    )}
+                    {/* Threads feed */}
                     {sampleThreads.map((thread: Thread, index: number) => (
-                        <div key={thread.id} className="w-full">
+                        <div key={thread.id} className="w-full" onClick={() => onClickAThread(thread.id)}>
                             <ThreadComponent
                                 thread={thread}
-                                className={`px-3 py-4 md:px-6 bg-[#101010] ${index === 0 ? 'transition-colors' : ''}
+                                className={`px-3 py-4 md:px-6 bg-[#181818] cursor-pointer ${index === 0 ? 'transition-colors' : ''}
                                     ${index === sampleThreads.length - 1 ? 'mb-6 md:pb-10' : ''}
                                 `}
                             />
@@ -136,8 +161,19 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore }) => {
 
             {/* Custom scrollbar positioned outside */}
             <div
-                className="absolute xl:-top-16 lg:top-8 w-2 h-[calc(100vh)] md:block hidden xl:right-[-633px] lg:right-0 right-2 bg-[#1A1A1A] rounded"
-            >
+                className={`
+                absolute 
+                xl:-top-16 
+                lg:top-8 
+                w-2 
+                h-[calc(100vh)] 
+                md:block hidden 
+                lg:right-0 
+                right-2 
+                bg-[#1A1A1A] 
+                rounded
+                ${isAuthenticated ? 'xl:-right-128' : 'xl:right-[-633px]'}
+                `}>
                 <div
                     ref={thumbRef}
                     className="w-2 bg-[#444444] rounded cursor-pointer hover:bg-[#555555] transition-colors"

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faSearch, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { Header, Sidebar, Layout } from '@/components/layout';
 import { Card, Input, Button } from '@/components/ui';
-import Avatar from '@/components/ui/Avatar';
+import Avatar from '@/components/ui/atoms/Avatar';
 
 interface Message {
   id: string;

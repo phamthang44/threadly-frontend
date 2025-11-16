@@ -1,9 +1,17 @@
 // `src/components/layout/LoginSidebar.tsx`
 import React from 'react';
 import Link from 'next/link';
-import InstagramIconBrand from "@/components/ui/InstagramIconBrand";
+import InstagramIconBrand from "@/components/ui/atoms/InstagramIconBrand";
 
-export const LoginSidebar: React.FC = () => {
+interface LoginSidebarProps {
+    isAuthenticated: boolean;
+}
+
+export const LoginSidebar: React.FC<LoginSidebarProps> = ({ isAuthenticated }) => {
+    if (isAuthenticated) {
+        return null;
+    }
+
     return (
         <aside className="hidden lg:block lg:fixed 2xl:right-70 xl:right-30 max-[1300px]:right-10 top-14 w-80 h-80 mt-4 rounded-4xl bg-[#1E1E1E] border-1 border-[#383939] p-4">
             <div className="flex flex-col items-center justify-center h-full">

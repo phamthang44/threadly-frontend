@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Button, Input } from '@/components/ui';
@@ -9,7 +9,9 @@ import { InstagramButtonLogin } from '@/features/auth/components';
 
 type LoginMode = 'instagram' | 'manual';
 
-export const LoginPage = () => {
+
+
+export const LoginPage:React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -67,7 +69,14 @@ export const LoginPage = () => {
                         </div>
                         <InstagramButtonLogin
                             onClick={handleInstagramLogin}
-                            className="w-full cursor-pointer border-1 border-[#383939] hover:scale-[101%] text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-between group"
+                            className="
+                            w-full cursor-pointer
+                            border-1 border-[#383939]
+                            hover:scale-[101%] text-white
+                            font-semibold py-3 px-4
+                            rounded-2xl transition
+                            duration-200 flex
+                            items-center justify-between group"
                         />
                         <div className="flex items-center gap-4">
                             <div className="flex-1 h-px bg-[#383939]" />
@@ -133,7 +142,14 @@ export const LoginPage = () => {
                             </button>
                             <InstagramButtonLogin
                                 onClick={handleInstagramLogin}
-                                className="w-full cursor-pointer border-1 border-[#383939] hover:scale-[101%] text-white font-semibold py-3 px-4 rounded-lg transition duration-200 flex items-center justify-between group"
+                                className="
+                                w-full cursor-pointer
+                                border-1 border-[#383939]
+                                hover:scale-[101%] text-white
+                                font-semibold py-3 px-4
+                                rounded-2xl transition
+                                duration-200 flex
+                                items-center justify-between group"
                             />
                         </div>
                     </div>

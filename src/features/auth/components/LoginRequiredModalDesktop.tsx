@@ -3,7 +3,8 @@
 import React from 'react';
 import { X } from 'lucide-react';
 import Link from 'next/link';
-import InstagramIconBrand from "@/components/ui/InstagramIconBrand";
+import InstagramIconBrand from "@/components/ui/atoms/InstagramIconBrand";
+import {InstagramButtonLogin} from "@/features/auth/components";
 
 interface LoginRequiredModalDesktopProps {
     isOpen: boolean;
@@ -66,43 +67,31 @@ const LoginRequiredModalDesktop: React.FC<LoginRequiredModalDesktopProps> = ({
                     {/* Description */}
                     <p className="text-center text-[#808080] text-sm mb-8 leading-relaxed">
                         Join Threadly to share your thoughts, find out
-                        what's going on, follow your people and more.
+                        what&#39;s going on, follow your people and more.
                     </p>
 
                     {/* Divider */}
                     <div className="w-full h-px bg-[#383939] mb-8" />
 
                     {/* Action Buttons */}
-                    <div className="flex flex-col gap-3">
+                    <div className="flex flex-col gap-3 mx-auto">
                         {/* Sign In Button */}
                         {/* CTA Button - Instagram Login */}
-                        <button
-                            onClick={() => console.log('Instagram Login Clicked')}
-                            className="
-                                w-full
-                                bg-gradient-to-r from-purple-600 to-pink-600
-                                hover:from-purple-700 hover:to-pink-700
-                                text-white
-                                font-semibold
-                                py-3
-                                px-4
-                                rounded-xl
-                                transition-all duration-200
-                                flex items-center justify-center gap-3
-                                mb-3
-                                cursor-pointer
-                              "
-                        >
-                            <InstagramIconBrand />
-                            <span>Continue with Instagram</span>
-                        </button>
+                        <InstagramButtonLogin
+                            onClick={() => {console.log("Instagram login clicked")}}
+                            className="flex items-center
+                            bg-[#262626]
+                            border border-[#383939]
+                            rounded-2xl py-1 px-4
+                            cursor-pointer hover:border-[#505050]
+                            hover:bg-[#2a2a2a]" />
 
                         {/* Sign Up Button */}
                         <Link
-                            href="/login"
+                            href="/login?mode=manual"
                             className="
                                 w-full
-                                py-3 px-4
+                                py-4 px-4
                                 rounded-2xl
                                 bg-[#262626]
                                 text-white

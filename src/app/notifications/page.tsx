@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBell, faHeart, faComment, faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Header, Sidebar, Layout } from '@/components/layout';
 import { Card, Button } from '@/components/ui';
-import Avatar from '@/components/ui/Avatar';
+import Avatar from '@/components/ui/atoms/Avatar';
 import Link from 'next/link';
 
 interface Notification {

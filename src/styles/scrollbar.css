@@ -46,6 +46,24 @@
     display: none; /* Chrome, Safari, Edge */
 }
 
+.custom-scrollbar-search::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar-search::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar-search::-webkit-scrollbar-thumb {
+    background: #383939;
+    border-radius: 4px;
+}
+
+.custom-scrollbar-search::-webkit-scrollbar-thumb:hover {
+    background: #505050;
+}
+
+
 /* Scrollbar ảo */
 .custom-scrollbar-wrapper {
     position: absolute;

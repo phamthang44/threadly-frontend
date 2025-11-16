@@ -18,7 +18,8 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: "Threadly - Share Your Thoughts",
+    metadataBase: new URL("https://threadly.app"),
+    title: "Threadly - Share Your Thoughts",
   description: "Social platform for sharing and discussing threads. Connect with people who share your interests.",
   keywords: ["social media", "threads", "community", "discussion"],
   authors: [{ name: "Threadly Team" }],

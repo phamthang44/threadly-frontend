@@ -1,5 +1,8 @@
 // src/app/page.tsx
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import { useAppSelector } from '@/store/hooks';
 import { Sidebar } from '@/features/navigation/components/Sidebar';
 import { Header } from '@/features/header/components/Header';
 import { LoginSidebar } from '@/components/layout/LoginSidebar';
@@ -7,8 +10,10 @@ import Layout from '@/components/layout/Layout';
 import { Thread as ThreadType } from '@/types/thread';
 import HomeFeed from "@/features/threads/components/HomeFeed";
 import {MobileNav} from "@/features/navigation/components/MobileNav";
-
+type TabType = 'foryou' | 'following';
 const ThreadsApp: React.FC = () => {
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
+    const [activeTab, setActiveTab] = useState<TabType>('foryou');
     const sampleThreads: ThreadType[] = [
         {
             id: 1,
@@ -18,7 +23,7 @@ const ThreadsApp: React.FC = () => {
             verified: false,
             content: 'CE28"',
             hashtags: ['controlracing', 'godung88', 'honda', 'civic', 'ef', 'ef9', 'vtec', 'jdm', 'ce28', 'bseries', 'hondanation', 'fblifestyle'],
-            image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop',
+            image: '',
             likes: 225,
             comments: 5,
             reposts: 5,
@@ -71,25 +76,20 @@ const ThreadsApp: React.FC = () => {
         }
     ];
 
+
+
     return (
         <Layout
             sidebar={<Sidebar />}
-            header={<Header />}
+            header={<Header isAuthenticated={isAuthenticated} activeTab={activeTab} onTabChange={setActiveTab} />}
             mobileNavbar={<MobileNav />}
-            rightSidebar={<LoginSidebar />}
+            rightSidebar={<LoginSidebar isAuthenticated={isAuthenticated} />}
+            isAuthenticated={isAuthenticated}
         >
-            <HomeFeed sampleThreads={sampleThreads} />
+            <HomeFeed sampleThreads={sampleThreads} isAuthenticated={isAuthenticated} />
 
         </Layout>
     );
 };
 
 export default ThreadsApp;
-// {/*<div className="flex gap-0">*/}
-// {/*    <div className="flex-1">*/}
-// {/*        */}
-// {/*    </div>*/}
-// {/*    <div className="hidden lg:block w-80 flex-shrink-0">*/}
-// {/*        */}
-// {/*    </div>*/}
-// {/*</div>*/}
