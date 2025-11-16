@@ -13,8 +13,8 @@ const LoginRoute = () => {
     // In a real app, you would authenticate here
     router.push('/');
   };
-
-  return <LoginPage onSubmit={handleLoginSubmit} />;
+    //onSubmit={handleLoginSubmit}
+  return <LoginPage />;
 };
 
 export default LoginRoute;

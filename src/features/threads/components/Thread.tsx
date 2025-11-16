@@ -2,7 +2,7 @@ import React from 'react';
 import { Avatar } from '@/features/profile/components/Avatar';
 import { ThreadHeader } from './ThreadHeader';
 import { ThreadActions } from './ThreadActions';
-import { ThreadProps } from '@/types';
+import { ThreadProps } from '@/features/threads/types';
 
 export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) => {
     return (
@@ -12,7 +12,6 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
                     src={thread.avatar}
                     alt={thread.username}
                     size="md"
-                    verified={thread.verified}
                 />
 
                 <div className="flex-1 min-w-0">
@@ -45,7 +44,7 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
                         <div className="rounded-2xl overflow-hidden mb-3">
                             <img
                                 src={thread.image}
-                                alt="Thread content"
+                                alt="ThreadModel content"
                                 className="w-full object-cover"
                             />
                         </div>

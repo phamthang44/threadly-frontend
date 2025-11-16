@@ -1,19 +1,12 @@
 import React from 'react';
-import { AvatarProps } from '@/types';
+import { AvatarProps } from '@/features/profile/types';
 import Image from 'next/image';
 
 export const Avatar: React.FC<AvatarProps> = ({
                                                   src,
                                                   alt,
                                                   size = 'md',
-                                                  verified = false
                                               }) => {
-
-    const generateAvatarRandomColor = () => {
-        const colors = ['bg-red-500', 'bg-green-500', 'bg-blue-500', 'bg-yellow-500', 'bg-purple-500', 'bg-pink-500', 'bg-indigo-500'];
-        // eslint-disable-next-line react-hooks/purity
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
 
     const sizes = {
         sm: 'w-8 h-8',
@@ -23,7 +16,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 
     return (
         <div className="relative flex-shrink-0">
-            <div className={`${sizes[size]} rounded-full overflow-hidden ${generateAvatarRandomColor()}`}>
+            <div className={`${sizes[size]} rounded-full overflow-hidden bg-gray-500`}>
                 {src ? (
                     <Image src={src} alt={alt} className="w-full h-full object-cover" />
                 ) : (

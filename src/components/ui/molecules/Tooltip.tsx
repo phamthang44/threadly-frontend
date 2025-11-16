@@ -112,12 +112,12 @@ const Tooltip: React.FC<TooltipProps> = ({
 
     const overlay = (
         <div
-            className="fixed z-50 px-3 py-2 text-sm text-white bg-gray-900 dark:bg-gray-700 rounded-md whitespace-nowrap pointer-events-none"
+            className="fixed z-50 px-3 py-2 text-sm text-white border-1 bg-[#181818] dark:bg-[#181818] rounded-md whitespace-nowrap pointer-events-none"
             style={{ top: coords.top, left: coords.left, transform: coords.transform }}
         >
             {content}
             <div
-                className={`absolute w-2 h-2 bg-gray-900 dark:bg-gray-700 rotate-45 ${
+                className={`absolute w-2 h-2 bg-[#181818] dark:bg-[#181818] border-l-1 border-b-1 rotate-45 ${
                     position === 'top'
                         ? 'left-1/2 -translate-x-1/2 bottom-0 translate-y-1/2'
                         : position === 'bottom'
@@ -133,7 +133,7 @@ const Tooltip: React.FC<TooltipProps> = ({
     return (
         <div
             ref={triggerRef}
-            className={`inline-block ${className}`}
+            className={`${className}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >

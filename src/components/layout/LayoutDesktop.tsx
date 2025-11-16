@@ -25,8 +25,9 @@ const LayoutDesktop: React.FC<LayoutDesktopProps> = ({
             <main className={`flex-1 flex justify-center ${isAuthenticated ? '' : 'pr-60'}`}>
                 <div className="max-w-2xl mx-auto w-full bg-[#0A0A0A] min-h-screen relative">
                     {header}
-                    <div className="absolute top-17 w-full h-6 bg-[#181818] rounded-t-full border-t border-l border-r border-[#383939] z-12"></div>
-                    <div className="border-l border-r border-t-0 border-[#383939] rounded-t-4xl pb-3 bg-[#0A0A0A] h-full">
+                    <div className="my-10"></div>
+                    <div className="absolute top-21 w-full h-12 bg-[#181818] rounded-t-4xl border-t border-l border-r border-[#383939] z-12"></div>
+                    <div className="border-l border-r border-t-0 border-[#383939] rounded-4xl pb-3 bg-[#181818] h-full">
                         {children}
                     </div>
                 </div>

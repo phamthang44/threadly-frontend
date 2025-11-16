@@ -4,7 +4,7 @@
 // import { useParams, useRouter } from 'next/navigation';
 // import { useAppSelector } from '@/store/hooks';
 // import { Header, Sidebar, Layout, LayoutMobile } from '@/components/layout';
-// import { Thread } from '@/features/threads/components/Thread';
+// import { ThreadModel } from '@/features/threads/components/ThreadModel';
 // import { LoginRequiredModal } from '@/components/modals';
 // import { useIsMobile } from '@/hooks/useIsMobile';
 //

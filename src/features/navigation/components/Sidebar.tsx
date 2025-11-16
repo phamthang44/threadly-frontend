@@ -3,10 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { Search, Plus, Heart, User } from 'lucide-react';
-import { HomeIconFilled, HomeIcon, ThreadLogoBrandWhite } from '@/components/ui';
-import {LoginRequiredModalDesktop} from "@/features/auth/components";
+import { HomeIconFilled, HomeIcon, ThreadLogoBrandWhite, Tooltip } from '@/components/ui';
+import { LoginRequiredModalDesktop } from "@/features/auth/components";
 import { usePathname } from "next/navigation";
-import { useLoginRequired } from "@/features/auth/hooks/useLoginRequired";
+import { useLoginRequired } from "@/features/auth/hooks";
+
 
 export const Sidebar: React.FC = () => {
     const pathname = usePathname();
@@ -34,33 +35,41 @@ export const Sidebar: React.FC = () => {
     return (
         <>
             <aside className="hidden md:flex flex-col justify-center items-center fixed left-0 top-0 h-screen w-25 bg-[#0A0A0A] py-6 gap-8">
-                <Link href="/" className="w-8 h-8 cursor-pointer">
-                    <ThreadLogoBrandWhite className="w-8 h-8" />
-                </Link>
-                <nav className="flex flex-col gap-6">
+                <Tooltip content="Threadly" position={"right"} delay={500}>
+                    <Link href="/" className="w-8 h-8 cursor-pointer">
+                        <ThreadLogoBrandWhite className="w-8 h-8" />
+                    </Link>
+                </Tooltip>
+                <nav className="flex flex-col gap-6 flex-1 items-center justify-center">
+
                     {tabs.map((tab) => {
                         const active = isActive(tab.href);
                         const Icon = tab.icon;
+                        const isCreateBtn = tab.id === 'create';
 
                         return (
-                            <Link
-                                key={tab.id}
-                                href={tab.href}
-                                onClick={(e) => handleClick(tab, e)}
-                                className={`py-4 px-6 hover:bg-[#1D1D1D] rounded-2xl cursor-pointer transition-colors ${
-                                    active ? 'text-white' : 'text-gray-400'
-                                }`}
-                                aria-label={tab.label}
-                            >
-                                {tab.id === 'home' && active ? (
-                                    <HomeIconFilled />
-                                ) : (
-                                    <Icon
-                                        className="w-7 h-7"
-                                        fill={tab.id !== 'search' && active ? 'currentColor' : 'none'}
-                                    />
-                                )}
-                            </Link>
+                            <Tooltip content={tab.label} position={"right"} delay={500} key={tab.id} className={"flex items-center justify-center"}>
+                                <Link
+                                    key={tab.id}
+                                    href={tab.href}
+                                    onClick={(e) => handleClick(tab, e)}
+                                    className={`py-4 px-6 rounded-2xl cursor-pointer transition-colors ${
+                                        isCreateBtn
+                                            ? 'bg-[#1D1D1D] hover:bg-[#2D2D2D] text-white'
+                                            : `${active ? 'text-white' : 'text-gray-400'} hover:bg-[#1D1D1D]`
+                                    }`}
+                                    aria-label={tab.label}
+                                >
+                                    {tab.id === 'home' && active ? (
+                                        <HomeIconFilled />
+                                    ) : (
+                                        <Icon
+                                            className={`w-7 h-7 ${isCreateBtn ? 'hover:text-white' : ''}`}
+                                            fill={tab.id !== 'search' && active ? 'currentColor' : 'none'}
+                                        />
+                                    )}
+                                </Link>
+                            </Tooltip>
                         );
                     })}
                 </nav>
