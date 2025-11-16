@@ -4,14 +4,14 @@ import { ThreadHeader } from './ThreadHeader';
 import { ThreadActions } from './ThreadActions';
 import { ThreadProps } from '@/types';
 
-export const Thread: React.FC<ThreadProps> = ({ thread, className }) => {
+export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) => {
     return (
-        <article className={className ? className : ""}>
+        <article className={className ? className : ""} {...props}>
             <div className="flex gap-3">
                 <Avatar
                     src={thread.avatar}
                     alt={thread.username}
-                    size="lg"
+                    size="md"
                     verified={thread.verified}
                 />
 

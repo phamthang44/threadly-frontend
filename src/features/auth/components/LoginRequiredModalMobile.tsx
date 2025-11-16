@@ -4,7 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import InstagramIconBrand from '../../../components/ui/InstagramIconBrand';
+import InstagramIconBrand from '../../../components/ui/atoms/InstagramIconBrand';
 
 interface LoginRequiredModalProps {
   isOpen: boolean;

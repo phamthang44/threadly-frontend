@@ -10,9 +10,10 @@ interface LayoutProps {
     sidebar?: React.ReactNode;
     rightSidebar?: React.ReactNode;
     mobileNavbar?: React.ReactNode;
+    isAuthenticated?: boolean;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children, header, sidebar, rightSidebar, mobileNavbar }) => {
+const Layout: React.FC<LayoutProps> = ({ children, header, sidebar, rightSidebar, mobileNavbar, isAuthenticated }) => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const Layout: React.FC<LayoutProps> = ({ children, header, sidebar, rightSidebar
             {children}
         </LayoutMobile>
     ) : (
-        <LayoutDesktop header={header} sidebar={sidebar} rightSidebar={rightSidebar}>
+        <LayoutDesktop header={header} sidebar={sidebar} rightSidebar={rightSidebar} isAuthenticated={isAuthenticated}>
             {children}
         </LayoutDesktop>
     );

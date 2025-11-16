@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface Thread {
     id: number;
     username: string;
