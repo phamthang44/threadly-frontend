@@ -1,6 +1,6 @@
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
-import { ThreadHeaderProps } from '@/types';
+import { ThreadHeaderProps } from '@/features/threads/types';
 import {VerifiedBadgeIcon, Tooltip} from "@/components/ui";
 
 export const ThreadHeader: React.FC<ThreadHeaderProps> = ({

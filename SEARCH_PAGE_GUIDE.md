@@ -15,7 +15,7 @@ Full-featured search page with:
 - Mobile responsive
 - Authentication checks
 
-### 2. **Search Input Component** (`src/components/molecules/SearchInput.tsx`)
+### 2. **Search Input Component** (`src/components/molecules/SearchBar.tsx`)
 Reusable search input component with:
 - Search icon
 - Clear button
@@ -55,13 +55,13 @@ Already implemented in `/search` route.
 ### Using Search Input Component
 
 ```typescriptreact
-import SearchInput from '@/components/molecules/SearchInput';
+import SearchBar from '@/components/molecules/SearchBar';
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState('');
 
   return (
-    <SearchInput
+    <SearchBar
       value={searchValue}
       onChange={setSearchValue}
       placeholder="Search Threadly"
@@ -168,7 +168,7 @@ const { query } = useSearch({ saveHistory: false });
 
 ### Customize Search Input
 ```typescript
-<SearchInput
+<SearchBar
   value={query}
   onChange={setQuery}
   placeholder="Find people..."

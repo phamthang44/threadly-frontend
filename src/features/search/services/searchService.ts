@@ -52,7 +52,7 @@ export const searchService = {
       });
       return response.data;
     } catch (error) {
-      console.error('Thread search error:', error);
+      console.error('ThreadModel search error:', error);
       throw error;
     }
   },

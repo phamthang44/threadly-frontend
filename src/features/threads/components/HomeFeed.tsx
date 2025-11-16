@@ -1,7 +1,7 @@
 'use client';
-import React, { useEffect, useRef, useState } from "react";
-import { Thread as ThreadComponent } from "@/features/threads/components/Thread";
-import { Thread } from "@/types";
+import React, {useEffect, useRef, useState} from "react";
+import {Thread as ThreadComponent} from "@/features/threads/components/Thread";
+import {Thread} from "@/features/threads/types";
 import ThreadlyComposer from "./ThreadlyComposer";
 
 interface HomeFeedProps {
@@ -10,13 +10,11 @@ interface HomeFeedProps {
     isAuthenticated?: boolean;
 }
 
-type TabType = 'foryou' | 'following';
-
 const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthenticated = false }) => {
     const scrollContainerRef = useRef<HTMLDivElement>(null);
     const thumbRef = useRef<HTMLDivElement>(null);
     const [scrollInfo, setScrollInfo] = useState({ height: 0, top: 0 });
-    const [activeTab, setActiveTab] = useState<TabType>('foryou');
+
 
     const SCROLL_SPEED_MULTIPLIER = 4;
     useEffect(() => {
@@ -107,8 +105,7 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthen
 
         const handleMouseMove = (moveEvent: MouseEvent) => {
             const deltaY = moveEvent.clientY - startY;
-            const newScrollTop = startScrollTop + deltaY / ratio;
-            container.scrollTop = newScrollTop;
+            container.scrollTop = startScrollTop + deltaY / ratio;
         };
 
         const handleMouseUp = () => {
@@ -123,12 +120,6 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthen
     const onClickAThread = (id: number) => {
         console.log("Clicked thread with id:", id);
     }
-
-    const tabs = [
-        { id: 'foryou', label: 'For you' },
-        { id: 'following', label: 'Following' },
-        { id: 'ghostposts', label: 'Ghost posts' }
-    ];
 
     // console.log("isAuthenticated:", isAuthenticated);
     // isAuthenticated = true; //testing

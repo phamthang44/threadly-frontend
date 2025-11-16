@@ -1,20 +1,10 @@
-// src/features/threads/components/ThreadActions.tsx
 'use client';
 
 import React, { useCallback, useMemo, useState } from 'react';
 import { Heart, MessageCircle, Repeat2, Send } from 'lucide-react';
-import { ThreadActionsProps } from '@/types';
+import { ThreadActionsProps, ThreadAction } from '@/features/threads/types';
 import { Tooltip } from '@/components/ui';
 
-type ThreadAction = {
-    key: string;
-    icon: React.ComponentType<{ className?: string }>;
-    label: string;
-    tooltip: string;
-    count?: number;
-    onClick?: () => void;
-    className?: string;
-};
 
 export const ThreadActions: React.FC<ThreadActionsProps> = ({
                                                                 likes,
