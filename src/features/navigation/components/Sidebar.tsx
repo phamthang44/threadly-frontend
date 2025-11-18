@@ -34,7 +34,7 @@ export const Sidebar: React.FC = () => {
 
     return (
         <>
-            <aside className="hidden md:flex flex-col justify-center items-center fixed left-0 top-0 h-screen w-25 bg-[#0A0A0A] py-6 gap-8">
+            <aside className="hidden md:flex flex-col justify-center items-center fixed left-0 top-0 h-screen w-25 bg-[#0A0A0A] py-6 gap-8 z-2">
                 <Tooltip content="Threadly" position={"right"} delay={500}>
                     <Link href="/" className="w-8 h-8 cursor-pointer">
                         <ThreadLogoBrandWhite className="w-8 h-8" />
