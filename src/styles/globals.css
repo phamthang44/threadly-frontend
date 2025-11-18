@@ -21,12 +21,21 @@
   :root {
     --background: #111827;
     --foreground: #f3f4f6;
+    --barcelona-box-shadow-04: rgba(0, 0, 0, 0.04);
+    --barcelona-primary-column-outline: rgb(45, 45, 45);
+    --barcelona-secondary-background: rgb(10, 10, 10);
+    --barcelona-column-layout-max-width: 640px;
+    --always-dark-overlay: rgba(0, 0, 0, 0.4);
+    --barcelona-primary-text: rgb(243, 245, 247);
+    --system-15-font-size: 15px;
+    --font-family-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    --barcelona-elevated-background: rgb(24, 24, 24);
   }
 }
 
 html {
   scroll-behavior: smooth;
-  @apply bg-gray-50 dark:bg-gray-900;
+  @apply  dark:bg-[#0A0A0A];
 }
 
 body {
@@ -34,18 +43,6 @@ body {
   font-family: var(--font-montserrat-sans), Arial, Helvetica, sans-serif;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  @apply w-2 h-2;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-gray-800;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-400 dark:bg-gray-600 rounded-full hover:bg-gray-500 dark:hover:bg-gray-500;
-}
 
 /* Utility Classes */
 .container-responsive {
@@ -101,4 +98,57 @@ body {
     justify-content: center;
     animation: spin 20s linear infinite;
     transform: scale(2) rotate(20deg);
+}
+
+.soft-shadow {
+    box-shadow:
+            0 0 12px 0 var(--barcelona-box-shadow-04),
+            0 0 0 48px var(--barcelona-secondary-background);
+}
+
+/* ==== BASE HEADING ==== */
+.heading {
+    position: relative;               /* x1n2onr6 */
+    display: block;                   /* x1lliihq */
+    max-width: 100%;                  /* x193iq5w */
+    min-width: 0;                     /* xeuugli */
+
+    color: var(--barcelona-primary-text); /* xp07o12 */
+
+    font-size: var(--system-15-font-size); /* xjohtrz */
+    font-family: var(--font-family-system); /* x1i0vuye */
+
+    font-weight: 600;                 /* x1s688f */
+    text-align: start;                /* x1yc453h */
+
+    white-space: pre-line;            /* x1fj9vlw */
+    word-wrap: break-word;            /* x1vvkbs */
+    word-break: break-word;           /* x13faqbe */
+
+    overflow-x: visible;              /* x1plvlek */
+    overflow-y: visible;              /* xryxfnj */
+
+    /* line-height từ CSS variables */
+    --line-height-base: calc(1.4 * 1em); /* --x---base-line-clamp-line-height */
+    line-height: var(--line-height-base); /* x15dsfln */
+}
+
+/* ==== INNER TEXT ==== */
+.heading-text {
+    display: block; /* x1lliihq */
+}
+
+/* ==== BEFORE / AFTER TRICKS ==== */
+/* tạo block rỗng để align baseline, hơi giống flex fallback */
+.heading::before,
+.heading::after {
+    content: "";     /* x1cpjm7i & x1s928wv */
+    display: block;  /* x1fgarty & xhkezso */
+    height: 0;       /* x1943h6x & x1gmr53x */
+}
+
+@keyframes xekv6nw-B{
+    0% {
+        opacity: 0;
+    }
 }

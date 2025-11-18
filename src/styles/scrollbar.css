@@ -1,50 +1,50 @@
-/*.custom-scrollbar {*/
-/*    scrollbar-width: none;*/
-/*    scrollbar-color: transparent transparent;*/
-/*    transition: scrollbar-color 0.4s ease;*/
-/*}*/
+/* ===========================
+   1. Scrollbar kiểu Threads
+   =========================== */
 
-/*.custom-scrollbar::-webkit-scrollbar-button {*/
-/*    display: none;*/
-/*}*/
-
-/*.custom-scrollbar:hover {*/
-/*    scrollbar-color: #383939 transparent;*/
-/*    transition: scrollbar-color 0.4s ease;*/
-/*}*/
-
-/*.custom-scrollbar::-webkit-scrollbar {*/
-/*    width: 8px;*/
-/*}*/
-
-/*.custom-scrollbar::-webkit-scrollbar-track {*/
-/*    background: transparent;*/
-/*}*/
-
-/*.custom-scrollbar::-webkit-scrollbar-thumb {*/
-/*    background: transparent;*/
-/*    border-radius: 4px;*/
-/*    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);*/
-/*}*/
-
-/*.custom-scrollbar:hover::-webkit-scrollbar-thumb {*/
-/*    background: #383939;*/
-/*}*/
-
-/*.custom-scrollbar::-webkit-scrollbar-thumb:hover {*/
-/*    background: #555555;*/
-/*}*/
-
-
-/* Ẩn hoàn toàn scrollbar thật */
 .custom-scrollbar {
     scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge cũ */
+    -ms-overflow-style: none; /* IE/Edge */
     position: relative;
 }
+
+/* Chrome/Safari: width = 8px nhưng mặc định ẩn thumb */
 .custom-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
+    width: 8px;
+    background: transparent;
 }
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 8px;
+    opacity: 0;
+    transition: background 0.25s ease, opacity 0.25s ease;
+}
+
+/* Hiện lên khi hover khu vực scroll */
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.20); /* Threads smoky white */
+    backdrop-filter: blur(2px);
+    opacity: 1;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.32);
+}
+
+/* Ẩn track piece Chrome */
+.custom-scrollbar::-webkit-scrollbar-track-piece {
+    background: transparent;
+}
+
+
+/* ===========================
+   2. Scrollbar luôn hiện (ô search)
+   =========================== */
 
 .custom-scrollbar-search::-webkit-scrollbar {
     width: 8px;
@@ -55,47 +55,25 @@
 }
 
 .custom-scrollbar-search::-webkit-scrollbar-thumb {
-    background: #383939;
+    background: #3f3f3f;  /* chỉnh màu xám đẹp hơn, đồng đều hơn */
     border-radius: 4px;
+    transition: background 0.25s ease;
 }
 
 .custom-scrollbar-search::-webkit-scrollbar-thumb:hover {
-    background: #505050;
+    background: #5a5a5a;
 }
 
 
-/* Scrollbar ảo */
-.custom-scrollbar-wrapper {
-    position: absolute;
-    top: 0;
-    right: 2px;
-    bottom: 0;
-    width: 8px;
-    background: transparent;
-    pointer-events: none;
-}
+/* ===========================
+   3. Hide scrollbar hoàn toàn (fallback cases)
+   =========================== */
 
-.custom-scrollbar-thumb {
-    position: absolute;
-    width: 100%;
-    background: #383939;
-    border-radius: 4px;
-    opacity: 0;
-    transition: opacity 0.3s, background 0.3s;
-}
-
-.custom-scrollbar:hover + .custom-scrollbar-wrapper .custom-scrollbar-thumb {
-    opacity: 1;
-}
-
-.custom-scrollbar-thumb:hover {
-    background: #555555;
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .hide-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-}
-.hide-scrollbar {
-    -ms-overflow-style: none;  /* IE, Edge */
-    scrollbar-width: none;     /* Firefox */
+    display: none;
 }

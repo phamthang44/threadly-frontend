@@ -69,7 +69,7 @@ const LoginRequiredModalMobile: React.FC<LoginRequiredModalProps> = ({
               {featureName} is only available to Threadly members.
             </p>
             <p className="text-[#808080] text-xs mb-8">
-              Join Threadly to share thoughts, find out what's going on, follow people and more.
+              Join Threadly to share thoughts, find out what&#39;s going on, follow people and more.
             </p>
 
             {/* Threads Logo Icon (optional decorative element) */}
@@ -102,7 +102,7 @@ const LoginRequiredModalMobile: React.FC<LoginRequiredModalProps> = ({
                 mb-3
               "
             >
-              <InstagramIconBrand />
+              <InstagramIconBrand className="w-6 h-6"/>
               <span>Continue with Instagram</span>
             </button>
 

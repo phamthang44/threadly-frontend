@@ -16,57 +16,6 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthen
     const [scrollInfo, setScrollInfo] = useState({ height: 0, top: 0 });
 
 
-    const SCROLL_SPEED_MULTIPLIER = 4;
-    useEffect(() => {
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        // let lastTouchY: number | null = null;
-
-        // Handle global wheel event
-        const handleGlobalScroll = (e: WheelEvent) => {
-
-            e.preventDefault();
-            // container.scrollTop += e.deltaY;
-            container.scrollBy({
-                top: e.deltaY * SCROLL_SPEED_MULTIPLIER, // tăng tốc độ
-                behavior: "smooth"
-            })
-        };
-
-        // const handleTouchStart = (e: TouchEvent) => {
-        //     lastTouchY = e.touches[0]?.clientY ?? null;
-        // };
-        //
-        // const handleTouchMove = (e: TouchEvent) => {
-        //     if (lastTouchY == null) return;
-        //     const currentY = e.touches[0]?.clientY ?? lastTouchY;
-        //     const delta = lastTouchY - currentY;
-        //     lastTouchY = currentY;
-        //
-        //     // prevent native page scroll when intentionally dragging
-        //     e.preventDefault();
-        //
-        //     container.scrollBy({
-        //         top: delta * 4,
-        //         behavior: 'auto'
-        //     });
-        // };
-
-        // Listen globally (so it works anywhere on the page)
-        // Desktop wheel
-        window.addEventListener('wheel', handleGlobalScroll, { passive: false });
-        // Mobile touch
-        // container.addEventListener('touchstart', handleTouchStart, { passive: true });
-        // container.addEventListener('touchmove', handleTouchMove, { passive: false });
-
-        return () => {
-            window.removeEventListener("wheel", handleGlobalScroll);
-            // container.removeEventListener('touchstart', handleTouchStart);
-            // container.removeEventListener('touchmove', handleTouchMove);
-        }
-    }, []);
-
     useEffect(() => {
         const container = scrollContainerRef.current;
         if (!container) return;
@@ -93,30 +42,6 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthen
         };
     }, [onLoadMore]);
 
-    const handleThumbMouseDown = (e: React.MouseEvent) => {
-        e.preventDefault();
-        const container = scrollContainerRef.current;
-        if (!container) return;
-
-        const startY = e.clientY;
-        const startScrollTop = container.scrollTop;
-        const { scrollHeight, clientHeight } = container;
-        const ratio = clientHeight / scrollHeight;
-
-        const handleMouseMove = (moveEvent: MouseEvent) => {
-            const deltaY = moveEvent.clientY - startY;
-            container.scrollTop = startScrollTop + deltaY / ratio;
-        };
-
-        const handleMouseUp = () => {
-            document.removeEventListener("mousemove", handleMouseMove);
-            document.removeEventListener("mouseup", handleMouseUp);
-        };
-
-        document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseup", handleMouseUp);
-    };
-
     const onClickAThread = (id: number) => {
         console.log("Clicked thread with id:", id);
     }
@@ -124,10 +49,10 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthen
     // console.log("isAuthenticated:", isAuthenticated);
     // isAuthenticated = true; //testing
     return (
-        <div className="w-full max-w-2xl mx-auto relative">
-            <div className="md:relative w-full md:top-[2px] md:border-t-0 md:border-[#383939] bg-[#0A0A0A] md:h-[calc(100vh-80px)] md:overflow-hidden">
+        <>
+            <div className="w-full md:top-0 md:border-t-0 md:border-[#383939] bg-[#181818] relative">
                 {/* Tab Navigation & Compose Area */}
-                <div ref={scrollContainerRef} className="custom-scrollbar w-full h-full overflow-y-auto md:mt-6">
+                <div ref={scrollContainerRef} className="w-full h-full md:mt-6">
                     {/* Compose area - only for authenticated users */}
                     {isAuthenticated && (
                         <div className="border-b border-[#383939] px-5 bg-[#181818] pb-3">
@@ -149,34 +74,7 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthen
                     ))}
                 </div>
             </div>
-
-            {/* Custom scrollbar positioned outside */}
-            <div
-                className={`
-                absolute 
-                xl:-top-16 
-                lg:top-8 
-                w-2 
-                h-[calc(100vh)] 
-                md:block hidden 
-                lg:right-0 
-                right-2 
-                bg-[#1A1A1A] 
-                rounded
-                ${isAuthenticated ? 'xl:-right-128' : 'xl:right-[-633px]'}
-                `}>
-                <div
-                    ref={thumbRef}
-                    className="w-2 bg-[#444444] rounded cursor-pointer hover:bg-[#555555] transition-colors"
-                    style={{
-                        height: `${scrollInfo.height}px`,
-                        top: `${scrollInfo.top}px`,
-                        position: 'absolute'
-                    }}
-                    onMouseDown={handleThumbMouseDown}
-                />
-            </div>
-        </div>
+        </>
     );
 };
 
