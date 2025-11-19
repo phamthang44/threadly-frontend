@@ -3,15 +3,14 @@
 import React, { useCallback } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Button, Input } from '@/components/ui';
 import { useAuthLogin } from '@/features/auth/hooks/useAuthLogin';
-import { InstagramButtonLogin } from '@/features/auth/components';
+import {InstagramButtonLogin, LoginForm} from '@/features/auth/components';
 
 type LoginMode = 'instagram' | 'manual';
 
 
 
-export const LoginPage:React.FC = () => {
+export const LoginView:React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -96,38 +95,17 @@ export const LoginPage:React.FC = () => {
                         </p>
                     </div>
                 ) : (
-                    <div className="text-center space-y-6 mt-20">
+                    <div className="text-center space-y-6 mt-45">
                         <div className="space-y-2 mb-8">
                             <h1 className="text-xl font-bold text-white">Log in with your Instagram account</h1>
                         </div>
-                        <form onSubmit={handleManualLogin} className="space-y-4">
-                            <Input
-                                name="email"
-                                type="text"
-                                placeholder="Username, phone or email"
-                                className="w-full bg-[#1e1e1e] border-1 border-[#383939] focus:border-[#b8b8b8] rounded-lg px-4 py-4 text-white placeholder-[#777777] focus:outline-none transition"
-                                required
-                            />
-                            <Input
-                                name="password"
-                                type="password"
-                                placeholder="Password"
-                                className="w-full bg-[#1e1e1e] border-1 border-[#383939] focus:border-[#b8b8b8] rounded-xl px-4 py-4 text-white placeholder-[#777777] focus:outline-none transition"
-                                required
-                            />
-                            <Button
-                                type="submit"
-                                className="w-full bg-[#ffffff] border-1 border-[#383939] text-[#555658] cursor-pointer hover:scale-[101%] font-semibold py-3 rounded-lg transition duration-200"
-                            >
-                                Log in
-                            </Button>
-                        </form>
+                        <LoginForm handleManualLogin={handleManualLogin} />
                         <div className="space-y-3 pt-4">
                             <Link
                                 href="/forgot-password"
                                 className="block text-[#555658] hover:text-white text-sm transition duration-200"
                             >
-                                Forgot password?
+                                <span className="select-none">Forgot password?</span>
                             </Link>
                             <div className="flex items-center gap-2 justify-center">
                                 <div className="h-px w-12 bg-[#383939]" />

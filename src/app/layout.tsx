@@ -7,6 +7,7 @@ import ReduxProvider from "@/providers/ReduxProvider";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import AuthInitializer from "@/components/AuthInitializer";
+import React from "react";
 
 
 config.autoAddCss = false

@@ -118,7 +118,7 @@ const NotificationsPage = () => {
           {/* Notifications List */}
           <div className="divide-y divide-light-200 dark:divide-dark-700">
             {notifications.map((notification) => (
-              <Link key={notification.id} href={notification.relatedId ? `/threads/${notification.relatedId}` : '#'}>
+              <Link key={notification.id} href={notification.relatedId ? `/thread/${notification.relatedId}` : '#'}>
                 <Card
                   className={`m-0 p-4 rounded-none border-none cursor-pointer hover:bg-light-100 dark:hover:bg-dark-700 transition-colors ${
                     !notification.read ? 'bg-primary-50 dark:bg-primary-900 dark:bg-opacity-20' : ''

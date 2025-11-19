@@ -39,7 +39,7 @@ const LayoutDesktop: React.FC<LayoutDesktopProps> = ({
                                                         className="w-full min-h-[60px] top-0 sticky flex items-center z-1">
                                                         {/* Left Corner Border Radius */}
                                                         <div
-                                                            className="absolute top-[48px] h-[36px] w-[36px] overflow-hidden z-[1]"
+                                                            className="absolute top-[48px] h-[36px] w-[36px] overflow-hidden z-1"
                                                             style={{ insetInlineStart: '-12px' }}
                                                         >
                                                             <div
