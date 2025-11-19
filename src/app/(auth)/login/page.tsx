@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import { LoginPage } from '@/features/auth/components';
+import { LoginView } from '@/features/auth/components';
 import { useRouter } from 'next/navigation';
 
-const LoginRoute = () => {
+const LoginPage = () => {
   const router = useRouter();
 
   const handleLoginSubmit = async (email: string, password: string) => {
@@ -14,8 +14,8 @@ const LoginRoute = () => {
     router.push('/');
   };
     //onSubmit={handleLoginSubmit}
-  return <LoginPage />;
+  return <LoginView />;
 };
 
-export default LoginRoute;
+export default LoginPage;
 

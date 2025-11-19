@@ -64,45 +64,9 @@ const ThreadsUI = () => {
 
     return (
         <div className="bg-black text-white min-h-screen">
-            {/* Left Sidebar */}
-            <Sidebar />
             {/* Main Content */}
             <div className="mx-auto max-w-2xl flex flex-col">
                 {/* Header */}
-                <div className=" bg-black border-b border-gray-800 w-full sticky top-0">
-                    <div className="max-w-2xl mx-auto px-4">
-                        {/* Tabs */}
-                        <div className="flex gap-8 text-sm justify-center items-center w-full h-16">
-                            <button
-                                onClick={() => setActiveTab('foryou')}
-                                className={`pb-3 px-1 relative ${activeTab === 'foryou' ? 'text-white' : 'text-gray-500'}`}
-                            >
-                                For you
-                                {activeTab === 'foryou' && (
-                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />
-                                )}
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('following')}
-                                className={`pb-3 px-1 relative ${activeTab === 'following' ? 'text-white' : 'text-gray-500'}`}
-                            >
-                                Following
-                                {activeTab === 'following' && (
-                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />
-                                )}
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('ghost')}
-                                className={`pb-3 px-1 relative ${activeTab === 'ghost' ? 'text-white' : 'text-gray-500'}`}
-                            >
-                                Ghost posts
-                                {activeTab === 'ghost' && (
-                                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-white" />
-                                )}
-                            </button>
-                        </div>
-                    </div>
-                </div>
                 {/* New Post */}
                 <div className="border-b border-gray-800 pb-4 mb-4">
                     <div className="flex gap-3">

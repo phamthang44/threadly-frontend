@@ -3,7 +3,7 @@ import React from 'react';
 interface AvatarProps {
   src?: string;
   alt?: string;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  size?: 'xs' | 'sm' | 'nm' | 'md' | 'lg' | 'xl';
   initials?: string;
   className?: string;
 }
@@ -18,6 +18,7 @@ const Avatar: React.FC<AvatarProps> = ({
   const sizeStyles = {
     xs: 'w-6 h-6 text-xs',
     sm: 'w-8 h-8 text-sm',
+    nm: 'w-9 h-9 text-sm',
     md: 'w-10 h-10 text-base',
     lg: 'w-12 h-12 text-lg',
     xl: 'w-16 h-16 text-2xl',
@@ -25,6 +26,7 @@ const Avatar: React.FC<AvatarProps> = ({
 
   if (src) {
     return (
+        // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src}
         alt={alt}

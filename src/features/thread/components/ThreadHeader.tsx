@@ -1,6 +1,6 @@
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
-import { ThreadHeaderProps } from '@/features/threads/types';
+import { ThreadHeaderProps } from '@/features/thread/types';
 import {VerifiedBadgeIcon, Tooltip} from "@/components/ui";
 
 export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
@@ -21,8 +21,8 @@ export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
             </div>
             <div className="flex items-center gap-3 ml-auto relative">
                 <Tooltip content="More options" delay={500} position={"right"}>
-                    <button className="absolute -left-9 text-gray-400 hover:text-gray-300 cursor-pointer hover:bg-[#1e1e1e] rounded-full p-3" aria-label="More options">
-                        <MoreHorizontal className="w-5 h-5" />
+                    <button className="absolute top-1/2 -translate-y-1/2 -left-9 text-gray-400 hover:text-gray-300 cursor-pointer hover:bg-[#1e1e1e] rounded-full p-3" aria-label="More options">
+                        <MoreHorizontal className="w-4 h-4" />
                     </button>
                 </Tooltip>
             </div>

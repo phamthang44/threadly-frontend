@@ -2,7 +2,7 @@
 
 import React, { useCallback, useMemo, useState } from 'react';
 import { Heart, MessageCircle, Repeat2, Send } from 'lucide-react';
-import { ThreadActionsProps, ThreadAction } from '@/features/threads/types';
+import { ThreadActionsProps, ThreadAction } from '@/features/thread/types';
 import { Tooltip } from '@/components/ui';
 
 

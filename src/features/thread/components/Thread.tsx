@@ -2,7 +2,8 @@ import React from 'react';
 import { Avatar } from '@/features/profile/components/Avatar';
 import { ThreadHeader } from './ThreadHeader';
 import { ThreadActions } from './ThreadActions';
-import { ThreadProps } from '@/features/threads/types';
+import { ThreadProps } from '@/features/thread/types';
+import {ThreadContent} from "@/features/thread/components/index";
 
 export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) => {
     return (
@@ -30,7 +31,7 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
                     )}
 
                     <div className="text-white mb-3">
-                        <p className="mb-2">{thread.content}</p>
+                        <ThreadContent content={thread.content} />
                         {thread.hashtags && (
                             <p className="text-blue-400 line-clamp-2">
                                 {thread.hashtags.map((tag, i) => (
