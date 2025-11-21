@@ -22,3 +22,5 @@ export { default as RepostIcon } from './atoms/RepostIcon';
 export { default as RepostedIcon } from './atoms/RepostedIcon';
 export { default as ReplyIcon } from './atoms/ReplyIcon';
 export { default as ShareIcon } from './atoms/ShareIcon';
+export { default as MoreIconDown } from './atoms/MoreIconDown';
+export { default as FollowIcon } from './atoms/FollowIcon';

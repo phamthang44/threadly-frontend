@@ -33,13 +33,70 @@ const ThreadsPage = () => {
                 handle: 'momoland22',
                 avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=momoland',
             },
-            content: 'nên tuỳ nó phải tập độ trợ công bệnh viện có vai người cho dỡ sơ. Ông đó tập độ theo luôn, đầu kê bên và văn nhìn chầm chầm tuỳ nó. Mãi 1 lúc ông vừa bổ đi là t cùng vừa chạy tới, t nghe kê r cùng thời chắc kh có gì đâu.',
+            content: 'nên tuỳ nó phải tập độ trợ công bệnh viện có vai người cho dỡ sơ. Ông đó tập độ theo luôn, đầu kê bên và văn nhìn chầm chầm tuỳ nó.',
             timestamp: '2d',
             likes: 45,
             replies: 3,
             isLiked: false,
+            level: 2, // Direct reply to main thread
+            parentId: threadId,
+            children: [
+                {
+                    id: '1-1',
+                    author: {
+                        id: 'user-5',
+                        name: 'reply_user',
+                        handle: 'replyuser',
+                        avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=reply1',
+                    },
+                    content: 'This is a reply to comment 1',
+                    timestamp: '1d',
+                    likes: 12,
+                    replies: 1,
+                    isLiked: false,
+                    level: 3, // Reply to a comment
+                    parentId: '1',
+                    children: [
+                        {
+                            id: '1-1-1',
+                            author: {
+                                id: 'user-6',
+                                name: 'nested_user',
+                                handle: 'nesteduser',
+                                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=nested1',
+                            },
+                            content: 'Maximum level nested reply',
+                            timestamp: '1d',
+                            likes: 5,
+                            replies: 0,
+                            isLiked: false,
+                            level: 3, // Maximum level
+                            parentId: '1-1',
+                            children: [], // No more nesting allowed
+                        }
+                    ],
+                }
+            ],
+        },
+        {
+            id: '2',
+            author: {
+                id: 'user-3',
+                name: 'different_user',
+                handle: 'aaaa',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=momoland',
+            },
+            content: 'abc 123 @gmail.com',
+            timestamp: '21/11/2025 6:30 PM', //logic nếu vuot qua 7 ngay thi hien thi ngay thang nam
+            likes: 45,
+            replies: 0,
+            isLiked: false,
+            level: 2,
+            parentId: threadId,
+            children: [],
         },
     ];
+
 
 
 

@@ -34,8 +34,16 @@
     --font-family-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     --barcelona-elevated-background: rgb(24, 24, 24);
     --barcelona-secondary-text: rgb(119, 119, 119);
+    --barcelona-secondary-icon: rgb(119, 119, 119);
     --barcelona-notification-badge-background: color(display-p3 1 0.18 0.25 / 1);
-    --barcelona-liked-text: color(display-p3 1 0.18 0.25 / 1)
+    --barcelona-liked-text: color(display-p3 1 0.18 0.25 / 1);
+    --barcelona-primary-outline: rgba(243, 245, 247, 0.15);
+    --barcelona-threadline-column-width: 48px;
+    --grey-1: rgb(239, 239, 239);
+    --barcelona-tertiary-background: rgb(30, 30, 30);
+      --barcelona-primary-button: rgb(255, 255, 255);
+      --barcelona-columns-item-horizontal-padding: 48px;
+      --x-6wlwus: 24px;
   }
 }
 
@@ -188,4 +196,22 @@ input[type="password"]::-ms-clear {
 svg:not(:root) {
     overflow-clip-margin: content-box;
     overflow: hidden;
+}
+
+@container (max-width: 699px) {
+    .x1f9n5g.x1f9n5g {
+        padding-inline-start: var(--x-6wlwus);
+    }
+}
+
+@container (max-width: 699px) {
+    .x17dsfyh.x17dsfyh {
+        padding-inline-end: var(--x-6wlwus);
+    }
+}
+
+@container (max-width: 699px) {
+    .xvpo8qx.xvpo8qx {
+        inset-inline-start: var(--x-qjlhbe);
+    }
 }
