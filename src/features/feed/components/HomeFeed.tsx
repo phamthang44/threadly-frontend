@@ -6,48 +6,15 @@ import ThreadlyComposer from "../../thread/components/ThreadlyComposer";
 
 interface HomeFeedProps {
     sampleThreads: Thread[];
-    onLoadMore?: () => void;
     isAuthenticated?: boolean;
 }
 
-const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, onLoadMore, isAuthenticated = false }) => {
-    // const scrollContainerRef = useRef<HTMLDivElement>(null);
-    // const thumbRef = useRef<HTMLDivElement>(null);
-    // const [scrollInfo, setScrollInfo] = useState({ height: 0, top: 0 });
-    //
-    //
-    // useEffect(() => {
-    //     const container = scrollContainerRef.current;
-    //     if (!container) return;
-    //
-    //     const handleScroll = () => {
-    //         const { scrollTop, scrollHeight, clientHeight } = container;
-    //         const ratio = clientHeight / scrollHeight;
-    //         const thumbHeight = Math.max(clientHeight * ratio, 30);
-    //         const thumbTop = (scrollTop / scrollHeight) * clientHeight;
-    //
-    //         setScrollInfo({ height: thumbHeight, top: thumbTop });
-    //
-    //         if (scrollHeight - (scrollTop + clientHeight) < scrollHeight * 0.2) {
-    //             onLoadMore?.();
-    //         }
-    //     };
-    //
-    //     handleScroll();
-    //     container.addEventListener("scroll", handleScroll);
-    //     window.addEventListener("resize", handleScroll);
-    //     return () => {
-    //         container.removeEventListener("scroll", handleScroll);
-    //         window.removeEventListener("resize", handleScroll);
-    //     };
-    // }, [onLoadMore]);
+const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, isAuthenticated = false }) => {
 
     const onClickAThread = (id: number) => {
         console.log("Clicked thread with id:", id);
     }
 
-    // console.log("isAuthenticated:", isAuthenticated);
-    // isAuthenticated = true; //testing
     return (
         <>
             <div className="w-full md:top-0 md:border-t-0 md:border-[#383939] bg-[#181818] relative">

@@ -1,4 +1,5 @@
 export interface Thread {
+    isLiked: boolean;
     id: number;
     username: string;
     avatar?: string;
