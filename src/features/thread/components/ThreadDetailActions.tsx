@@ -1,80 +1,100 @@
-// components/ThreadDetailActions.tsx
-import React from "react";
-import { useThreadActionBase } from "../hooks/useThreadActionBase";
+'use client';
+
+import React, { useState, useCallback, useMemo } from "react";
+import ThreadActionBar from "./ThreadActionBar";
+import {
+    LikeIcon, LikeIconFilled,
+    ReplyIcon,
+    RepostedIcon, RepostIcon,
+    ShareIcon
+} from "@/components/ui";
 
 interface ThreadDetailActionsProps {
-    actions: {
-        key: string;
-        icon: React.ReactNode;
-        interactionsNumber: string;
-    }[];
+    thread: {
+        id: string;
+        likes: number;
+        isLiked: boolean;
+        replies: number;
+        reposts: number; // Nhận số lượng ban đầu
+        isReposted?: boolean;
+    };
 }
 
-const ThreadDetailActions: React.FC<ThreadDetailActionsProps> = ({ actions }) => {
-    const { enrichedActions, onHoverStart, onHoverEnd } = useThreadActionBase(actions);
+const ThreadDetailActions: React.FC<ThreadDetailActionsProps> = ({ thread }) => {
+    // --- 1. LOCAL STATE ---
+    const [isLiked, setIsLiked] = useState(thread.isLiked);
+    const [likeCount, setLikeCount] = useState(thread.likes);
+
+    const [isReposted, setIsReposted] = useState(thread.isReposted || false);
+    const [repostCount, setRepostCount] = useState(thread.reposts || 0);
+
+    // --- FIX HANDLER LIKE ---
+    const handleLike = useCallback(() => {
+        if (isLiked) {
+            // Đang like -> Bấm cái nữa là Unlike
+            setIsLiked(false);
+            setLikeCount(prev => prev - 1);
+        } else {
+            // Chưa like -> Bấm là Like
+            setIsLiked(true);
+            setLikeCount(prev => prev + 1);
+        }
+        // API call here...
+    }, [isLiked]); // Thêm isLiked vào dependency
+
+    // --- FIX HANDLER REPOST ---
+    const handleRepost = useCallback(() => {
+        if (isReposted) {
+            setIsReposted(false);
+            setRepostCount(prev => prev - 1);
+        } else {
+            setIsReposted(true);
+            setRepostCount(prev => prev + 1);
+        }
+        // API call here...
+    }, [isReposted]); // Thêm isReposted vào dependency
+
+    // --- 3. CONFIGURATION ---
+    const actionsData = useMemo(() => [
+        {
+            key: 'like',
+            icon: <LikeIcon />,
+            filledIcon: <LikeIconFilled />,
+            interactionsNumber: likeCount,
+            isActive: isLiked,
+            activeColor: "text-[#ff0033]",
+            onClick: handleLike
+        },
+        {
+            key: 'reply',
+            icon: <ReplyIcon />,
+            interactionsNumber: thread.replies,
+            onClick: () => console.log('Reply')
+        },
+        {
+            key: 'repost',
+            icon: <RepostIcon />,
+            filledIcon: <RepostedIcon />, // Icon khác khi active (nếu có)
+            // Quan trọng: Dùng state repostCount để hiển thị số động
+            interactionsNumber: repostCount > 0 ? repostCount : '',
+            isActive: isReposted,
+            activeColor: "text-[var(--barcelona-primary-text)]", // Hoặc màu xanh/đen đậm tùy design
+            onClick: handleRepost
+        },
+        {
+            key: 'share',
+            icon: <ShareIcon />,
+            interactionsNumber: '',
+            onClick: () => console.log('Share')
+        },
+    ], [likeCount, isLiked, thread.replies, repostCount, isReposted, handleLike, handleRepost]);
 
     return (
-        <div className="flex items-center mt-1.5 -mb-1 -ml-2">
-            {enrichedActions.map((action) => {
-                const {
-                    key, icon, interactionsNumber,
-                    isHovered, hasCount, displayWidth, displayOpacity
-                } = action;
-
-                return (
-                    <div
-                        key={key}
-                        onMouseEnter={() => onHoverStart(key)}
-                        onMouseLeave={onHoverEnd}
-                        // CONTAINER CHÍNH
-                        // - Nếu không có số (hasCount=false): Ép cứng w-9 h-9 để luôn tròn và icon luôn giữa.
-                        // - Nếu có số: w-auto để giãn theo nội dung + padding horizontal (px-2).
-                        className={`
-                            group relative flex items-center justify-center 
-                            h-9 cursor-pointer touch-manipulation transition-all duration-200
-                            ${hasCount ? "w-auto px-3" : "w-9"} 
-                        `}
-                    >
-                        {/* --- LAYER 1: BACKGROUND BUBBLE --- */}
-                        {/* - inset-0: Lấp đầy container cha.
-                           - rounded-full: Tự động bo tròn (nếu vuông) hoặc bo pill (nếu chữ nhật).
-                           - Fix lỗi lệch: Vì nó lấp đầy cha, cha ở đâu nó ở đó, không bao giờ lệch.
-                        */}
-                        <div
-                            className={`
-                                absolute inset-0 bg-[#1e1e1e] rounded-full transition-all duration-200 ease-out
-                                ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-50"}
-                            `}
-                        />
-
-                        {/* --- LAYER 2: CONTENT --- */}
-                        <div className="relative z-10 flex items-center justify-center">
-                            {/* Icon Wrapper: Giữ icon ổn định */}
-                            <div className="text-[var(--barcelona-charcoal-text)] flex items-center justify-center">
-                                {icon}
-                            </div>
-
-                            {/* Number Container: Slide Animation */}
-                            <div
-                                style={{
-                                    width: displayWidth,
-                                    opacity: displayOpacity,
-                                }}
-                                className={`
-                                    overflow-hidden flex items-center
-                                    transition-all duration-300 ease-[cubic-bezier(0.2,0.8,0.2,1)]
-                                    ${hasCount ? "ml-1" : "ml-0"} 
-                                `}
-                            >
-                                <span className="text-[13px] font-normal text-[var(--barcelona-charcoal-text)] whitespace-nowrap">
-                                    {interactionsNumber}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                );
-            })}
-        </div>
+        <ThreadActionBar
+            actions={actionsData}
+            // className giữ nguyên css gốc của detail action cũ để khớp vị trí
+            className="mt-1.5 -mb-1 -ml-2"
+        />
     );
 };
 

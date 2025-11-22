@@ -1,13 +1,21 @@
+'use client';
+
 import React from "react";
 import { ArrowLeft, MoreHorizontal } from "lucide-react";
+import { useRouter } from "next/navigation";
 const ThreadDetailHeaderDesktop: React.FC = () => {
+    const router = useRouter();
+
+    const handleBack = () => {
+        router.back();
+    };
     return (
         <>
             <div className="flex [padding-inline-start:8px] items-center justify-start">
                 <div className="w-[36px]"></div>
             </div>
             <div className="flex justify-between [column-gap:8px] items-center w-full relative">
-                <button className="rounded-full hover:bg-[#1d1d1d] cursor-pointer p-2 transition absolute -left-10">
+                <button className="rounded-full hover:bg-[#1d1d1d] cursor-pointer p-2 transition absolute -left-10" onClick={handleBack}>
                     <ArrowLeft size={20}/>
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">

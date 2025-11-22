@@ -2,6 +2,7 @@ import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { ThreadHeaderProps } from '@/features/thread/types';
 import {VerifiedBadgeIcon, Tooltip} from "@/components/ui";
+import TimeAgo from '@/components/TimeAgo';
 
 export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
                                                           username,
@@ -17,7 +18,9 @@ export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
                         <VerifiedBadgeIcon />
                     </div>
                 )}
-                <span className="text-gray-500 text-sm">{timestamp}</span>
+                <span className="text-gray-500 text-sm">
+                    <TimeAgo datetime={timestamp} />
+                </span>
             </div>
             <div className="flex items-center gap-3 ml-auto relative">
                 <Tooltip content="More options" delay={500} position={"right"}>

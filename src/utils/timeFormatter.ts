@@ -1,41 +1,26 @@
 export function formatRelativeTime(dateISO: string): string {
-    const now = new Date();
     const date = new Date(dateISO);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
 
-    const diffSec = (now.getTime() - date.getTime()) / 1000;
-    const sec = diffSec;
-    const min = sec / 60;
-    const hour = min / 60;
-    const day = hour / 24;
+    // --- FIX QUAN TRỌNG: CHẶN SỐ ÂM ---
+    if (diffInSeconds < 0) {
+        return "now"; // Hoặc "Just now"
+    }
 
-    if (sec < 60) return `${Math.floor(sec)}s`;
-    if (min < 60) return `${Math.floor(min)}m`;
-    if (hour < 24) return `${Math.floor(hour)}h`;
-    if (day < 7) return `${Math.floor(day)}d`;
+    if (diffInSeconds < 60) return `${diffInSeconds}s`;
 
-    return date.toLocaleString("vi-VN", {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-        hour: "2-digit",
-        minute: "2-digit"
-    });
+    const diffInMinutes = Math.floor(diffInSeconds / 60);
+    if (diffInMinutes < 60) return `${diffInMinutes}m`;
+
+    const diffInHours = Math.floor(diffInMinutes / 60);
+    if (diffInHours < 24) return `${diffInHours}h`;
+
+    const diffInDays = Math.floor(diffInHours / 24);
+    if (diffInDays < 7) return `${diffInDays}d`;
+
+    // Fallback sang ngày tháng nếu quá lâu
+    return date.toLocaleDateString('en-US');
 }
 
-export function renderTimeTag(dateISO: string): string {
-    const relative = formatRelativeTime(dateISO);
-    const full = new Date(dateISO).toLocaleString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-    });
-
-    return `
-<time datetime="${dateISO}" title="${full}">
-    <span><abbr>${relative}</abbr></span>
-</time>
-`.trim();
-}
 

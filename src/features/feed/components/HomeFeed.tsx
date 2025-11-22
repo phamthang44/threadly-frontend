@@ -11,10 +11,6 @@ interface HomeFeedProps {
 
 const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, isAuthenticated = false }) => {
 
-    const onClickAThread = (id: number) => {
-        console.log("Clicked thread with id:", id);
-    }
-
     return (
         <>
             <div className="w-full md:top-0 md:border-t-0 md:border-[#383939] bg-[#181818] relative">
@@ -29,7 +25,7 @@ const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, isAuthenticated = fa
                     )}
                     {/* Threads feed */}
                     {sampleThreads.map((thread: Thread, index: number) => (
-                        <div key={thread.id} className="w-full" onClick={() => onClickAThread(thread.id)}>
+                        <div key={thread.id} className="w-full">
                             <ThreadComponent
                                 thread={thread}
                                 className={`px-3 py-4 md:px-4 bg-[#181818] cursor-pointer ${index === 0 ? 'transition-colors' : ''}
