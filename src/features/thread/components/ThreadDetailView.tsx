@@ -2,63 +2,21 @@
 
 import React, { useState } from 'react';
 import { PlusIcon, MoreHorizontal } from 'lucide-react';
-import { Avatar, LikeIcon, ReplyIcon, RepostIcon, ShareIcon, MoreIconDown } from "@/components/ui"; // Giả sử path này đúng
+import { Avatar, MoreIconDown } from "@/components/ui";
 import TimeAgo from "@/components/TimeAgo";
 import { ThreadContent } from "@/features/thread/components/index";
 import ReplyComment from '@/features/thread/components/ReplyComment';
-import ThreadActionBar from '@/features/thread/components/ThreadActionBar';
-
-// --- TYPES ---
-interface Comment {
-    id: string;
-    author: {
-        id: string;
-        name: string;
-        handle: string;
-        avatar: string;
-    };
-    content: string;
-    timestamp: string;
-    likes: number;
-    replies: number;
-    isLiked: boolean;
-    level: number;
-    parentId: string;
-    children: Comment[];
-}
+import ThreadDetailActions from "@/features/thread/components/ThreadDetailActions";
+import {Thread} from "@/features/thread/types";
+import {User} from "@/features/profile/types";
 
 interface ThreadDetailProps {
-    threadId: string; // Nếu cần dùng để fetch
-    thread: {
-        id: string;
-        author: {
-            id: string;
-            name: string;
-            handle: string;
-            avatar: string;
-        };
-        content: string;
-        image?: string;
-        timestamp: string;
-        likes: number;
-        replies: number;
-        reposts: number;
-        isLiked: boolean;
-    };
-    comments: Comment[];
+    rootThread: Thread;
 }
-
-// --- CONFIG ---
-const ACTIONS_DATA = [
-    { key: 'like', icon: <LikeIcon />, interactionsNumber: '2.1K' },
-    { key: 'reply', icon: <ReplyIcon />, interactionsNumber: '117' },
-    { key: 'repost', icon: <RepostIcon />, interactionsNumber: '121' },
-    { key: 'share', icon: <ShareIcon />, interactionsNumber: '' },
-];
 
 // --- SUB-COMPONENTS (Để code gọn hơn) ---
 
-const ThreadHeader = ({ author, timestamp }: { author: any, timestamp: string }) => (
+const ThreadHeader = ({ author, timestamp }: { author: User, timestamp: string }) => (
     <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-3">
             {/* Avatar & Follow Button */}
@@ -106,12 +64,14 @@ const SortDropdown = ({ currentSort, onToggle }: { currentSort: string, onToggle
 
 // --- MAIN COMPONENT ---
 
-const ThreadDetailView: React.FC<ThreadDetailProps> = ({ thread, comments }) => {
+const ThreadDetailView: React.FC<ThreadDetailProps> = ({ rootThread }) => {
     const [sortOption, setSortOption] = useState<'Top' | 'Recent'>('Top');
 
     const handleSortToggle = () => {
         setSortOption(prev => prev === 'Top' ? 'Recent' : 'Top');
     };
+
+    const replies = rootThread.children || [];
 
     return (
         <div className="w-full bg-[#181818] min-h-screen relative md:border-t-0 border-[#383939]">
@@ -120,18 +80,18 @@ const ThreadDetailView: React.FC<ThreadDetailProps> = ({ thread, comments }) => 
             <div className="px-4 pt-4 pb-2 border-b border-[#2a2a2a]">
 
                 {/* A. Header Info */}
-                <ThreadHeader author={thread.author} timestamp={thread.timestamp} />
+                <ThreadHeader author={rootThread.author} timestamp={rootThread.timestamp} />
 
                 {/* B. Content Body */}
                 <div className="text-[15px] leading-relaxed text-[var(--barcelona-primary-text)] whitespace-pre-line">
-                    <ThreadContent content={thread.content} />
+                    <ThreadContent content={rootThread.content} />
                 </div>
 
                 {/* C. Image Attachment */}
-                {thread.image && (
+                {rootThread.image && (
                     <div className="mt-3 rounded-xl overflow-hidden border border-[var(--barcelona-primary-outline)]">
                         <img
-                            src={thread.image}
+                            src={rootThread.image}
                             alt="Thread attachment"
                             className="w-full h-auto object-cover max-h-[500px]"
                         />
@@ -140,8 +100,8 @@ const ThreadDetailView: React.FC<ThreadDetailProps> = ({ thread, comments }) => 
 
                 {/* D. Interaction Actions (Like, Reply...) */}
                 {/* Sử dụng component ThreadDetailActions đã refactor ở bài trước */}
-                <div className="mt-2">
-                    <ThreadActionBar actions={ACTIONS_DATA} className="mt-1 -ml-2" />
+                <div className="mt-2 px-3">
+                    <ThreadDetailActions thread={rootThread} />
                 </div>
 
                 {/* E. Sort Filter */}
@@ -150,21 +110,20 @@ const ThreadDetailView: React.FC<ThreadDetailProps> = ({ thread, comments }) => 
 
             {/* 2. COMMENTS SECTION */}
             <div className="flex flex-col">
-                {comments.map((comment, index) => {
-                    const isLastChild = index === comments.length - 1;
+                {replies.map((reply, index) => {
+                    const isLastChild = index === replies.length - 1;
                     return (
                         <ReplyComment
-                            key={comment.id}
-                            comment={comment}
-                            hasReplies={comment.children.length > 0}
-                            position={index}
+                            key={reply.id}
+                            data={reply}
+                            position={0}
                             isLastChild={isLastChild}
                         />
                     );
                 })}
 
                 {/* Empty State (Optional) */}
-                {comments.length === 0 && (
+                {replies.length === 0 && (
                     <div className="py-8 text-center text-[var(--barcelona-secondary-text)] text-sm">
                         No replies yet. Be the first to say something.
                     </div>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { AvatarProps } from '@/features/profile/types';
-import Image from 'next/image';
 
 export const Avatar: React.FC<AvatarProps> = ({
                                                   src,
@@ -18,7 +17,7 @@ export const Avatar: React.FC<AvatarProps> = ({
         <div className="relative flex-shrink-0">
             <div className={`${sizes[size]} rounded-full overflow-hidden bg-gray-500`}>
                 {src ? (
-                    <Image src={src} alt={alt} className="w-full h-full object-cover" />
+                    <img src={src} alt={alt} className="w-full h-full object-cover" />
                 ) : (
                     <div className="w-full h-full flex items-center justify-center text-[#121212]">
                         {alt?.[0]?.toUpperCase()}
