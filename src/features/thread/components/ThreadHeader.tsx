@@ -12,7 +12,9 @@ export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
     return (
         <div className="flex items-center mb-2 justify-center">
             <div className="flex items-center gap-2">
-                <span className="font-semibold text-white">{username}</span>
+                <span className="font-semibold text-white hover:underline">
+                    {username}
+                </span>
                 {verified && (
                     <div className="w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
                         <VerifiedBadgeIcon />

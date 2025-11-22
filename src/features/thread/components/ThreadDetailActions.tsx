@@ -8,16 +8,10 @@ import {
     RepostedIcon, RepostIcon,
     ShareIcon
 } from "@/components/ui";
+import {Thread} from "@/features/thread/types";
 
 interface ThreadDetailActionsProps {
-    thread: {
-        id: string;
-        likes: number;
-        isLiked: boolean;
-        replies: number;
-        reposts: number; // Nhận số lượng ban đầu
-        isReposted?: boolean;
-    };
+    thread: Thread
 }
 
 const ThreadDetailActions: React.FC<ThreadDetailActionsProps> = ({ thread }) => {
