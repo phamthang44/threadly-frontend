@@ -24,3 +24,4 @@ export { default as ReplyIcon } from './atoms/ReplyIcon';
 export { default as ShareIcon } from './atoms/ShareIcon';
 export { default as MoreIconDown } from './atoms/MoreIconDown';
 export { default as FollowIcon } from './atoms/FollowIcon';
+export { default as TimeAgo } from '../TimeAgo';
