@@ -13,14 +13,13 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
     const router = useRouter();
 
     const navigateToDetail = () => {
-        router.push(`/thread/${thread.id}`);
+        router.push(`/@${thread.author.handle}/post/${thread.id}`);
     };
-
 
     return (
         <article
             className={`cursor-pointer p-4 border-b border-[#2a2a2a] ${className || ""}`}
-            onClick={navigateToDetail} // Bấm vào thread thì vào chi tiết
+            onClick={navigateToDetail}
             {...props}
         >
             <div className="flex gap-3">
