@@ -27,6 +27,7 @@
     --barcelona-column-layout-max-width: 640px;
     --always-dark-overlay: rgba(0, 0, 0, 0.4);
     --barcelona-primary-text: rgb(243, 245, 247);
+    --barcelona-primary-icon: rgb(243, 245, 247);
     --system-15-font-size: 15px;
     --system-13-font-size: 13px;
     --barcelona-charcoal-text: rgb(204, 204, 204);
@@ -41,9 +42,9 @@
     --barcelona-threadline-column-width: 48px;
     --grey-1: rgb(239, 239, 239);
     --barcelona-tertiary-background: rgb(30, 30, 30);
-      --barcelona-primary-button: rgb(255, 255, 255);
-      --barcelona-columns-item-horizontal-padding: 48px;
-      --x-6wlwus: 24px;
+    --barcelona-primary-button: rgb(255, 255, 255);
+    --barcelona-columns-item-horizontal-padding: 48px;
+    --x-6wlwus: 24px;
   }
 }
 

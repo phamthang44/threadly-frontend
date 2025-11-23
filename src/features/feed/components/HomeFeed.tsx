@@ -3,14 +3,14 @@ import React, {useEffect, useRef, useState} from "react";
 import {Thread as ThreadComponent} from "@/features/thread/components/Thread";
 import {Thread} from "@/features/thread/types";
 import ThreadlyComposer from "../../thread/components/ThreadlyComposer";
+import {useAppSelector} from "@/store/hooks";
 
 interface HomeFeedProps {
     sampleThreads: Thread[];
-    isAuthenticated?: boolean;
 }
 
-const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads, isAuthenticated = false }) => {
-
+const HomeFeed: React.FC<HomeFeedProps> = ({ sampleThreads}) => {
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
     return (
         <>
             <div className="w-full md:top-0 md:border-t-0 md:border-[#383939] bg-[#181818] relative">

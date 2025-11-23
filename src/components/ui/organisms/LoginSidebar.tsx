@@ -1,13 +1,15 @@
 // `src/components/layout/LoginSidebar.tsx`
+'use client';
 import React from 'react';
 import Link from 'next/link';
 import InstagramIconBrand from "@/components/ui/atoms/InstagramIconBrand";
+import {useAppSelector} from "@/store/hooks";
 
-interface LoginSidebarProps {
-    isAuthenticated: boolean;
-}
 
-export const LoginSidebar: React.FC<LoginSidebarProps> = ({ isAuthenticated }) => {
+
+export const LoginSidebar: React.FC = () => {
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
+
     if (isAuthenticated) {
         return null;
     }

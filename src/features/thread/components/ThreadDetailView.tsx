@@ -85,6 +85,13 @@ const ThreadDetailView: React.FC<ThreadDetailProps> = ({ rootThread }) => {
                 {/* B. Content Body */}
                 <div className="text-[15px] leading-relaxed text-[var(--barcelona-primary-text)] whitespace-pre-line">
                     <ThreadContent content={rootThread.content} />
+                    {rootThread.hashtags && rootThread.hashtags.length > 0 && (
+                        <p className="text-[var(--barcelona-secondary-text)] mt-1 text-[15px]">
+                            {rootThread.hashtags.map((tag, i) => (
+                                <span key={i} className="mr-1 hover:underline text-[#0095f6]">#{tag}</span>
+                            ))}
+                        </p>
+                    )}
                 </div>
 
                 {/* C. Image Attachment */}

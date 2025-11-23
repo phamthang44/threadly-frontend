@@ -1,18 +1,49 @@
 'use client';
 
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import Link from 'next/link';
-import { Search, Plus, Heart, User } from 'lucide-react';
+import {
+    Search,
+    Plus,
+    Heart,
+    User,
+} from 'lucide-react';
 import { HomeIconFilled, HomeIcon, ThreadLogoBrandWhite, Tooltip } from '@/components/ui';
 import { LoginRequiredModalDesktop } from "@/features/auth/components";
 import { usePathname } from "next/navigation";
 import { useLoginRequired } from "@/features/auth/hooks";
-
+import MoreIcon from "../../../components/ui/atoms/MoreIcon";
+import ActionMenu , {MenuGroup} from "@/components/ui/organisms/ActionMenu";
 
 export const Sidebar: React.FC = () => {
     const pathname = usePathname();
     const { isOpen, closeModal, featureName, checkAuthAndProceed } = useLoginRequired();
-
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const triggerRef = useRef<HTMLElement | null>(null);
+    const menuDataImage2: MenuGroup[] = [
+        {
+            id: 'settings-group',
+            items: [
+                { id: 'appearance', label: 'Appearance', hasSubmenu: true }, // Tự hiện mũi tên >
+                { id: 'insights', label: 'Insights' },
+                { id: 'settings', label: 'Settings' },
+            ]
+        },
+        {
+            id: 'saved-group',
+            items: [
+                { id: 'saved', label: 'Saved' },
+                { id: 'liked', label: 'Liked' },
+            ]
+        },
+        {
+            id: 'logout-group',
+            items: [
+                { id: 'report', label: 'Report a problem' },
+                { id: 'logout', label: 'Log out', variant: 'danger' },
+            ]
+        }
+    ];
     const tabs = [
         { id: 'home', icon: HomeIcon, label: 'Home', href: '/', protected: false },
         { id: 'search', icon: Search, label: 'Search', href: '/search', protected: false },
@@ -73,6 +104,19 @@ export const Sidebar: React.FC = () => {
                         );
                     })}
                 </nav>
+                <div>
+                    <button className="cursor-pointer" onClick={() => setIsMenuOpen(!isMenuOpen)} ref={(node) => {
+                        triggerRef.current = node;
+                    }}>
+                        <MoreIcon className="text-[var(--barcelona-secondary-icon)] hover:text-[var(--barcelona-primary-icon)]" />
+                    </button>
+                    <ActionMenu
+                        triggerRef={triggerRef}
+                        isOpen={isMenuOpen}
+                        onClose={() => setIsMenuOpen(false)}
+                        groups={menuDataImage2}
+                    />
+                </div>
             </aside>
 
             {/* Modal */}

@@ -12,15 +12,29 @@ import HomeThreadActions from "@/features/thread/components/HomeThreadActions";
 export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) => {
     const router = useRouter();
 
-    const navigateToDetail = () => {
+    const navigateToDetail = (e: React.MouseEvent) => {
+        const target = e.target as HTMLElement;
+
+        // 1. Nếu user đang bôi đen văn bản -> Không chuyển trang
+        const selection = window.getSelection();
+        if (selection && selection.toString().length > 0) return;
+
+        // 2. QUAN TRỌNG: Kiểm tra xem user có bấm vào phần tử tương tác nào không
+        // .closest(...) sẽ kiểm tra chính phần tử đó VÀ các cha của nó
+        // Nếu bấm vào: Link (a), Button, Icon (svg, path), Ảnh (img) -> THÌ DỪNG LẠI
+        if (target.closest('a, button, svg, path, img, [role="button"], span')) {
+            return;
+        }
+
+        // 3. Nếu bấm vào vùng trống (background) -> Mới chuyển trang
         router.push(`/@${thread.author.handle}/post/${thread.id}`);
     };
 
     return (
         <article
-            className={`cursor-pointer p-4 border-b border-[#2a2a2a] ${className || ""}`}
-            onClick={navigateToDetail}
+            className={`p-4 border-b border-[#2a2a2a] ${className || ""}`}
             {...props}
+            onClick={navigateToDetail}
         >
             <div className="flex gap-3">
                 {/* Cột trái: Avatar + Line (nếu cần) */}
@@ -34,7 +48,7 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
                 </div>
 
                 {/* Cột phải: Content */}
-                <div className="flex-1 min-w-0">
+                <div className="flex-1 min-w-0" >
                     <ThreadHeader
                         username={thread.author.name}
                         timestamp={thread.timestamp}

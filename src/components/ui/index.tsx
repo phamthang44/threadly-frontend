@@ -25,3 +25,4 @@ export { default as ShareIcon } from './atoms/ShareIcon';
 export { default as MoreIconDown } from './atoms/MoreIconDown';
 export { default as FollowIcon } from './atoms/FollowIcon';
 export { default as TimeAgo } from '../TimeAgo';
+export { default as MoreIcon } from './atoms/MoreIcon';
