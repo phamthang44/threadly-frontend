@@ -104,7 +104,7 @@ export default function SearchPage() {
 
                 {/* Right Column - Login/Info Panel */}
                 {!isAuthenticated && (
-                    <LoginSidebar isAuthenticated={isAuthenticated} />
+                    <LoginSidebar />
                 )}
 
                 {/* Right Column - Padding for authenticated users */}
