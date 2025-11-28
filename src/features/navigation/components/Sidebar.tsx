@@ -8,25 +8,49 @@ import {
     Heart,
     User,
 } from 'lucide-react';
-import { HomeIconFilled, HomeIcon, ThreadLogoBrandWhite, Tooltip } from '@/components/ui';
+import {HomeIconFilled, HomeIcon, ThreadLogoBrandWhite, Tooltip, ThreadLogoBrandBlack} from '@/components/ui';
 import { LoginRequiredModalDesktop } from "@/features/auth/components";
 import { usePathname } from "next/navigation";
 import { useLoginRequired } from "@/features/auth/hooks";
 import MoreIcon from "../../../components/ui/atoms/MoreIcon";
 import ActionMenu , {MenuGroup} from "@/components/ui/organisms/ActionMenu";
+import ThemeSwitcher from "@/components/ui/molecules/ThemeSwitcher";
+import {useTheme} from "next-themes";
 
 export const Sidebar: React.FC = () => {
     const pathname = usePathname();
     const { isOpen, closeModal, featureName, checkAuthAndProceed } = useLoginRequired();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const triggerRef = useRef<HTMLElement | null>(null);
-    const menuDataImage2: MenuGroup[] = [
+    const theme = useTheme();
+
+    console.log('Current theme:', theme.theme);
+
+    const appearanceSubmenu: MenuGroup[] = [
+        {
+            id: 'theme-control-group',
+            items: [
+                {
+                    id: 'theme-switcher',
+                    label: 'Appearance',
+                    subMenuTitle: 'Appearance',
+                    customRender: <ThemeSwitcher />
+                },
+            ]
+        }
+    ];
+
+    const mainMenu: MenuGroup[] = [
         {
             id: 'settings-group',
             items: [
-                { id: 'appearance', label: 'Appearance', hasSubmenu: true }, // Tự hiện mũi tên >
+                {
+                    id: 'appearance',
+                    label: 'Appearance',
+                    submenu: appearanceSubmenu,
+                    subMenuTitle: 'Appearance'
+                },
                 { id: 'insights', label: 'Insights' },
-                { id: 'settings', label: 'Settings' },
             ]
         },
         {
@@ -65,10 +89,10 @@ export const Sidebar: React.FC = () => {
 
     return (
         <>
-            <aside className="hidden md:flex flex-col justify-center items-center fixed left-0 top-0 h-screen w-25 bg-[#0A0A0A] py-6 gap-8 z-2">
+            <aside className="hidden md:flex flex-col justify-center items-center fixed left-0 top-0 h-screen w-25 bg-[var(--bg-body)] py-6 gap-8 z-2">
                 <Tooltip content="Threadly" position={"right"} delay={500}>
                     <Link href="/" className="w-8 h-8 cursor-pointer">
-                        <ThreadLogoBrandWhite className="w-8 h-8" />
+                        {theme.theme === 'light' ? <ThreadLogoBrandBlack className="w-8 h-8" /> : <ThreadLogoBrandWhite className="w-8 h-8" />}
                     </Link>
                 </Tooltip>
                 <nav className="flex flex-col gap-6 flex-1 items-center justify-center">
@@ -86,8 +110,8 @@ export const Sidebar: React.FC = () => {
                                     onClick={(e) => handleClick(tab, e)}
                                     className={`py-4 px-6 rounded-2xl cursor-pointer transition-colors ${
                                         isCreateBtn
-                                            ? 'bg-[#1D1D1D] hover:bg-[#2D2D2D] text-white'
-                                            : `${active ? 'text-white' : 'text-gray-400'} hover:bg-[#1D1D1D]`
+                                            ? 'bg-[var(--sidebar-button-bg-primary)] hover:bg-[var(--sidebar-button-bg-primary-hover)] text-[var(--sidebar-text-primary)]'
+                                            : `${active ? 'text-[var(--sidebar-text-active)]' : 'text-[var(--sidebar-text-primary)]'} hover:bg-[var(--sidebar-button-bg-primary)]`
                                     }`}
                                     aria-label={tab.label}
                                 >
@@ -95,7 +119,7 @@ export const Sidebar: React.FC = () => {
                                         <HomeIconFilled />
                                     ) : (
                                         <Icon
-                                            className={`w-7 h-7 ${isCreateBtn ? 'hover:text-white' : ''}`}
+                                            className={`w-7 h-7 ${isCreateBtn ? 'hover:text-[var(--sidebar-create-button-text-hover)]' : ''}`}
                                             fill={tab.id !== 'search' && active ? 'currentColor' : 'none'}
                                         />
                                     )}
@@ -114,7 +138,7 @@ export const Sidebar: React.FC = () => {
                         triggerRef={triggerRef}
                         isOpen={isMenuOpen}
                         onClose={() => setIsMenuOpen(false)}
-                        groups={menuDataImage2}
+                        groups={mainMenu}
                     />
                 </div>
             </aside>

@@ -1,218 +1,363 @@
 @import "tailwindcss";
 @import 'tailwind-scrollbar-hide/v4';
-@layer base {
-  * {
-    @apply transition-colors duration-200;
-  }
-}
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* =========================================
+   1. CONFIGURATION & THEME
+   ========================================= */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-montserrat-sans: var(--font-montserrat);
+    --font-montserrat-sans: var(--font-montserrat);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #111827;
-    --foreground: #f3f4f6;
-    --barcelona-box-shadow-04: rgba(0, 0, 0, 0.04);
-    --barcelona-primary-column-outline: rgb(45, 45, 45);
-    --barcelona-secondary-background: rgb(10, 10, 10);
-    --barcelona-column-layout-max-width: 640px;
-    --always-dark-overlay: rgba(0, 0, 0, 0.4);
-    --barcelona-primary-text: rgb(243, 245, 247);
-    --barcelona-primary-icon: rgb(243, 245, 247);
-    --system-15-font-size: 15px;
-    --system-13-font-size: 13px;
-    --barcelona-charcoal-text: rgb(204, 204, 204);
-    --barcelona-charcoal-icon: rgb(204, 204, 204);
-    --font-family-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    --barcelona-elevated-background: rgb(24, 24, 24);
-    --barcelona-secondary-text: rgb(119, 119, 119);
-    --barcelona-secondary-icon: rgb(119, 119, 119);
-    --barcelona-notification-badge-background: color(display-p3 1 0.18 0.25 / 1);
-    --barcelona-liked-text: color(display-p3 1 0.18 0.25 / 1);
-    --barcelona-primary-outline: rgba(243, 245, 247, 0.15);
-    --barcelona-threadline-column-width: 48px;
-    --grey-1: rgb(239, 239, 239);
-    --barcelona-tertiary-background: rgb(30, 30, 30);
-    --barcelona-primary-button: rgb(255, 255, 255);
-    --barcelona-columns-item-horizontal-padding: 48px;
-    --x-6wlwus: 24px;
-  }
-}
-
-html {
-  scroll-behavior: smooth;
-  @apply  dark:bg-[#0A0A0A];
-}
-
-body {
-  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-50;
-  font-family: var(--font-montserrat-sans), Arial, Helvetica, sans-serif;
-}
-
-
-/* Utility Classes */
-.container-responsive {
-  @apply mx-auto px-4 sm:px-6 lg:px-8;
-}
-
-.text-truncate-line {
-  @apply truncate;
-}
-
-.text-truncate-lines-2 {
-  @apply line-clamp-2;
-}
-
-.text-truncate-lines-3 {
-  @apply line-clamp-3;
-}
-
-.btn-focus-ring {
-  @apply outline-none ring-2 ring-offset-2 ring-[#8b5cf6];
-}
-
-/*.fade-enter {*/
-/*  @apply animate-fadeIn;*/
-/*}*/
-
-/*.slide-enter {*/
-/*  @apply animate-slide;*/
-/*}*/
-
-/* Ẩn scrollbar cho tất cả div dùng class 'no-scrollbar' */
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
-
-.no-scrollbar {
-    -ms-overflow-style: none; /* IE và Edge */
-    scrollbar-width: none; /* Firefox */
-}
-
-.loop {
-    font-size: 32px;
-    font-weight: 600;
-    color: white;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: spin 20s linear infinite;
-    transform: scale(2) rotate(20deg);
-}
-
-.soft-shadow {
-    box-shadow:
-            0 0 12px 0 var(--barcelona-box-shadow-04),
-            0 0 0 48px var(--barcelona-secondary-background);
-}
-
-/* ==== BASE HEADING ==== */
-.heading {
-    position: relative;               /* x1n2onr6 */
-    display: block;                   /* x1lliihq */
-    max-width: 100%;                  /* x193iq5w */
-    min-width: 0;                     /* xeuugli */
-
-    color: var(--barcelona-primary-text); /* xp07o12 */
-
-    font-size: var(--system-15-font-size); /* xjohtrz */
-    font-family: var(--font-family-system); /* x1i0vuye */
-
-    font-weight: 600;                 /* x1s688f */
-    text-align: start;                /* x1yc453h */
-
-    white-space: pre-line;            /* x1fj9vlw */
-    word-wrap: break-word;            /* x1vvkbs */
-    word-break: break-word;           /* x13faqbe */
-
-    overflow-x: visible;              /* x1plvlek */
-    overflow-y: visible;              /* xryxfnj */
-
-    /* line-height từ CSS variables */
-    --line-height-base: calc(1.4 * 1em); /* --x---base-line-clamp-line-height */
-    line-height: var(--line-height-base); /* x15dsfln */
-}
-
-/* ==== INNER TEXT ==== */
-.heading-text {
-    display: block; /* x1lliihq */
-}
-
-/* ==== BEFORE / AFTER TRICKS ==== */
-/* tạo block rỗng để align baseline, hơi giống flex fallback */
-.heading::before,
-.heading::after {
-    content: "";     /* x1cpjm7i & x1s928wv */
-    display: block;  /* x1fgarty & xhkezso */
-    height: 0;       /* x1943h6x & x1gmr53x */
-}
-
-@keyframes xekv6nw-B{
-    0% {
-        opacity: 0;
+@layer base {
+    /* Hiệu ứng chuyển màu mượt cho toàn bộ app */
+    *, *::before, *::after {
+        @apply transition-colors duration-200;
     }
 }
 
-.tab-button::before,
-.tab-button::after {
-    content: "";
-    height: 0;
+/* =========================================
+   2. CSS VARIABLES SYSTEM
+   ========================================= */
+
+/* --- LIGHT MODE (DEFAULT) --- */
+:root {
+    /* Generic Layout Colors */
+    --bg-body: #FAFAFA;
+    --bg-surface: #FFFFFF;
+    --bg-wash: #F0F2F5;
+    --bg-input: #FFFFFF;
+
+    /* Generic Text Colors */
+    --text-primary: #050505;
+    --text-secondary: #65676B;
+
+    /* Generic Buttons */
+    --btn-primary-bg: rgb(0, 0, 0);
+    --btn-primary-text: rgb(255, 255, 255);
+    --btn-secondary-bg: #E4E6EB;
+
+    /* Generic Borders */
+    --border-color: #CED0D4;
+
+    /* System Fonts */
+    --font-family-system: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    /* 2. Barcelona Specifics (Các thông số bạn lấy từ Threads/Instagram) */
+    /* Barcelona Light Mode Variables */
+    --barcelona-primary-background: rgb(250, 250, 250);
+    --barcelona-secondary-background: rgb(250, 250, 250);
+    --barcelona-tertiary-background: rgb(229, 229, 229);
+    --barcelona-elevated-background: rgb(255, 255, 255);
+
+    --barcelona-primary-text: rgb(5, 5, 5);
+    --barcelona-secondary-text: rgb(101, 103, 107);
+    --barcelona-charcoal-text: rgb(80, 80, 80);
+    --barcelona-liked-text: rgb(244, 0, 57);
+
+    --barcelona-primary-icon: rgb(5, 5, 5);
+    --barcelona-secondary-icon: rgb(101, 103, 107);
+    --barcelona-charcoal-icon: rgb(80, 80, 80);
+
+    --barcelona-primary-column-outline: rgb(206, 208, 212);
+    --barcelona-primary-outline: rgba(5, 5, 5, 0.15);
+
+    --barcelona-box-shadow-04: rgba(0, 0, 0, 0.04);
+    --barcelona-notification-badge-background: rgb(244, 0, 57);
+    --barcelona-primary-button: rgb(0, 0, 0);
+
+    --always-dark-overlay: rgba(0, 0, 0, 0.4);
+    --grey-1: rgb(80, 80, 80);
+
+    --barcelona-column-layout-max-width: 640px;
+    --barcelona-threadline-column-width: 48px;
+    --barcelona-columns-item-horizontal-padding: 48px;
+    --system-15-font-size: 15px;
+    --system-13-font-size: 13px;
+    --x-6wlwus: 24px;
+    /*   Theme Switcher */
+    --theme-switcher-bg: #fafafa;
+    --theme-switcher-border: #d7d7d7FF;
+
+    --theme-switcher-text-primary: #999999;
+    --theme-switcher-active-text: #000000;
+    --theme-switcher-text-hover: #d4d4d8;
+
+    --theme-swithcer-button-active-bg: #f2f2f2;
+    --theme-swithcer-button-active-text: #ffffff;
+    --theme-swithcer-button-active-border: rgba(0, 0, 0, 0.15);
+
+    /*  Action Menu  */
+    --action-menu-bg: #ffffff;
+    --action-menu-border: #d7d7d7FF;
+    --action-menu-text-primary: #050505;
+    --action-menu-text-hover: #000000;
+    --action-menu-text-disable: #fb2c36;
+
+    --action-menu-hover: #f5f5f5;
+    --action-menu-button-active: #e5e5e5;
+    --action-submenu-text-primary: #9f9fa9;
+
+    /* Side bar*/
+    --sidebar-bg: var(--bg-body);
+    --sidebar-text-primary: #d8d8d8;
+    --sidebar-button-bg-primary: #f1f1f1;
+    --sidebar-button-bg-primary-hover: #f2f2f2;
+    --sidebar-text-active: #000000;
+    --sidebar-create-button-text-hover: #000000;
+
+    /* Login Sidebar  */
+    --login-sidebar-bg: #FFFFFF;
+    --login-sidebar-border: #DBDBDB;
+    --login-sidebar-text-primary: #737373;
+    --login-sidebar-text-secondary: #000000;
+    --login-sidebar-instagram-button-bg: var(--bg-body);
+    --login-sidebar-instagram-button-text: #000000;
+
+    /*  Home Feed  */
+    --home-feed-bg: var(--bg-surface);
+    --home-feed-border: #383939;
+
+
+    /*  Thread Component  */
+    --thread-primary-border: #f0f0f0;
+    --thread-hashtag-text: #0095f6;
+    --thread-border-image: #383838;
+    --thread-header-time-text: #6a7282;
+    --thread-header-primary-text: #000000;
+    --thread-header-secondary-text: #65676B;
+    --thread-header-secondary-text-hover: #050505;
+    --thread-header-bg-hover: rgba(245, 245, 245, 0.8);
+    --thread-action-bar-bg: #f5f5f5;
+
+}
+
+/* --- DARK MODE (OVERRIDES) --- */
+/* Class .dark được thêm bởi next-themes hoặc logic JS của bạn */
+.dark {
+
+    /* #0A0A0A: Dùng cho nền chính (Body) - Sâu hơn, đen hơn */
+    --bg-body: #0A0A0A;
+
+    /* #181818: Dùng cho các khối nổi (Surface/Card/Menu) */
+    --bg-surface: #181818;
+    --bg-input: #181818;
+    /*--bg-surface: #242526;            !* --card-background *!*/
+    --bg-wash: #18191A;               /* --web-wash */
+    /*--bg-input: #242526;              !* --input-background *!*/
+
+    --text-primary: #E4E6EB;          /* --primary-text */
+    --text-secondary: #B0B3B8;        /* --secondary-text */
+
+    --btn-primary-bg: rgb(255, 255, 255);
+    --btn-primary-text: rgb(0, 0, 0);
+    --btn-secondary-bg: rgba(255, 255, 255, 0.1);
+
+    --border-color: #3E4042;          /* --divider */
+
+    /* 2. Barcelona Specifics (Các thông số bạn lấy từ Threads/Instagram) */
+    --barcelona-primary-background: rgb(16, 16, 16); /* Map lại từ bg-body cho đồng bộ */
+    --barcelona-secondary-background: rgb(10, 10, 10);
+    --barcelona-tertiary-background: rgb(30, 30, 30);
+    --barcelona-elevated-background: rgb(24, 24, 24);
+
+    --barcelona-primary-text: rgb(243, 245, 247);
+    --barcelona-secondary-text: rgb(119, 119, 119);
+    --barcelona-charcoal-text: rgb(204, 204, 204);
+    --barcelona-liked-text: color(display-p3 1 0.18 0.25 / 1);
+
+    --barcelona-primary-icon: rgb(243, 245, 247);
+    --barcelona-secondary-icon: rgb(119, 119, 119);
+    --barcelona-charcoal-icon: rgb(204, 204, 204);
+
+    --barcelona-primary-column-outline: rgb(45, 45, 45);
+    --barcelona-primary-outline: rgba(243, 245, 247, 0.15);
+
+    --barcelona-box-shadow-04: rgba(0, 0, 0, 0.04);
+    --barcelona-notification-badge-background: color(display-p3 1 0.18 0.25 / 1);
+    --barcelona-primary-button: rgb(255, 255, 255);
+
+    --always-dark-overlay: rgba(0, 0, 0, 0.4);
+    --grey-1: rgb(239, 239, 239);
+
+    /* Dimensions & Sizes (Giữ nguyên dù là Dark/Light nhưng bạn để trong block dark cũ) */
+    --barcelona-column-layout-max-width: 640px;
+    --barcelona-threadline-column-width: 48px;
+    --barcelona-columns-item-horizontal-padding: 48px;
+    --system-15-font-size: 15px;
+    --system-13-font-size: 13px;
+    --x-6wlwus: 24px;
+
+    /*  Theme Switcher */
+    --theme-switcher-bg: #0a0a0a;
+    --theme-switcher-border: #27272a;
+
+    --theme-switcher-text-primary: #71717b;
+    --theme-switcher-active-text: #ffffff;
+    --theme-switcher-text-hover: #d4d4d8;
+
+    --theme-swithcer-button-active-bg: #1d1d1d;
+    --theme-swithcer-button-active-text: #ffffff;
+    --theme-swithcer-button-active-border: #353636FF;
+
+    /*  Action Menu  */
+    --action-menu-bg: #1E1E1E;
+    --action-menu-border: #27272A;
+    --action-menu-text-primary: #FFFFFF;
+    --action-menu-text-disable: #fb2c36;
+    --action-menu-text-hover: #000000;
+
+    --action-menu-hover: #27272a;
+    --action-menu-button-active: #3f3f46;
+    --action-submenu-text-primary: #9f9fa9;
+
+    /*  Sidebar  */
+    --sidebar-bg: #181818;
+    --sidebar-text-primary: #99a1afFF;
+    --sidebar-button-bg-primary: #1D1D1D;
+    --sidebar-button-bg-primary-hover: #2D2D2D;
+    --sidebar-text-active: #FFFFFF;
+    --sidebar-create-button-text-hover: #ffffff;
+
+    /* Login side bar  */
+    --login-sidebar-bg: #1E1E1E;
+    --login-sidebar-border: #383939;
+    --login-sidebar-text-primary: #777777;
+    --login-sidebar-text-secondary: #ffffff;
+    --login-sidebar-instagram-button-bg: var(--bg-body);
+    --login-sidebar-instagram-button-text: #ECEEF0;
+
+    /*  Home Feed  */
+    --home-feed-bg: var(--bg-surface);
+    --home-feed-border: #383939;
+
+    /*  Thread Component  */
+    --thread-primary-border: #2a2a2a;
+    --thread-hashtag-text: #0095f6;
+    --thread-border-image: #383838;
+    --thread-header-time-text: #6a7282;
+    --thread-header-primary-text: #ffffff;
+    --thread-header-secondary-text: #99a1af;
+    --thread-header-secondary-text-hover: #d1d5dc;
+    --thread-header-bg-hover: #1e1e1e;
+    --thread-action-bar-bg: #1e1e1e;
+}
+
+/* =========================================
+   3. BASE ELEMENTS
+   ========================================= */
+
+html {
+    scroll-behavior: smooth;
+    /* Dùng biến màu để đảm bảo đồng bộ theme */
+    background-color: var(--bg-body);
+}
+
+body {
+    /* Kết hợp Tailwind text base và biến màu custom */
+    @apply text-base antialiased;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    font-family: var(--font-montserrat-sans), var(--font-family-system), Arial, Helvetica, sans-serif;
+}
+
+/* =========================================
+   4. UTILITY CLASSES
+   ========================================= */
+
+/* Layout Utilities */
+.container-responsive {
+    @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Text Utilities */
+.text-truncate-line {
+    @apply truncate;
+}
+.text-truncate-lines-2 {
+    @apply line-clamp-2;
+}
+.text-truncate-lines-3 {
+    @apply line-clamp-3;
+}
+
+/* Focus Ring */
+.btn-focus-ring {
+    @apply outline-none ring-2 ring-offset-2 ring-[#8b5cf6];
+}
+
+/* Hide Scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.no-scrollbar {
+    -ms-overflow-style: none; /* IE & Edge */
+    scrollbar-width: none;    /* Firefox */
+}
+
+/* =========================================
+   5. COMPONENT STYLES (LEGACY / SPECIFIC)
+   ========================================= */
+
+/* Heading Logic */
+.heading {
+    position: relative;
+    display: block;
+    max-width: 100%;
+    min-width: 0;
+    color: var(--barcelona-primary-text); /* Lưu ý: Biến này cần có giá trị ở Light Mode nếu muốn hiện đúng */
+    font-size: var(--system-15-font-size);
+    font-family: var(--font-family-system);
+    font-weight: 600;
+    text-align: start;
+    white-space: pre-line;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-x: visible;
+    overflow-y: visible;
+    --line-height-base: calc(1.4 * 1em);
+    line-height: var(--line-height-base);
+}
+
+.heading-text {
     display: block;
 }
 
+/* Spacer Hacks (Before/After) */
+.heading::before,
+.heading::after,
+.tab-button::before,
+.tab-button::after,
+.content-line-thread-detail::before,
+.content-line-thread-detail::after,
+.action-text::before,
+.action-text::after {
+    content: "";
+    display: block;
+    height: 0;
+}
+
+/* Password Input Reveal Fix */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
     display: none;
 }
 
-.content-line-thread-detail::before,
-.content-line-thread-detail::after {
-    content: "";
-    height: 0;
-    display: block;
-}
-
-.action-text::before,
-.action-text::after {
-    content: "";
-    height: 0;
-    display: block;
-}
-
+/* SVG Reset */
 svg:not(:root) {
     overflow-clip-margin: content-box;
     overflow: hidden;
 }
 
+/* Animation */
+@keyframes xekv6nw-B {
+    0% { opacity: 0; }
+}
+
+/* Container Queries & Responsive Hacks */
 @container (max-width: 699px) {
     .x1f9n5g.x1f9n5g {
         padding-inline-start: var(--x-6wlwus);
     }
-}
-
-@container (max-width: 699px) {
     .x17dsfyh.x17dsfyh {
         padding-inline-end: var(--x-6wlwus);
-    }
-}
-
-@container (max-width: 699px) {
-    .xvpo8qx.xvpo8qx {
-        inset-inline-start: var(--x-qjlhbe);
     }
 }

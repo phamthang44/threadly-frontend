@@ -52,7 +52,7 @@ const ThreadActionBar: React.FC<ThreadActionBarProps> = ({ actions, className })
                             {/* LAYER 1: BACKGROUND BUBBLE */}
                             <div
                                 className={`
-                                    absolute inset-0 bg-[#1e1e1e] rounded-full transition-all duration-200 ease-out
+                                    absolute inset-0 bg-[var(--thread-action-bar-bg)] rounded-full transition-all duration-200 ease-out
                                     ${isHovered ? "opacity-100 scale-100" : "opacity-0 scale-50"}
                                 `}
                             />
