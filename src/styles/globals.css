@@ -128,6 +128,51 @@
     --thread-header-bg-hover: rgba(245, 245, 245, 0.8);
     --thread-action-bar-bg: #f5f5f5;
 
+    /* Login Require Modal  */
+    --modal-bg-primary: #ffffff;
+    --modal-bg-secondary: #f5f5f5;
+    --modal-border: #dbdbdb;
+    --modal-text-primary: #262626;
+    --modal-text-secondary: #000000;
+    --modal-divider: #e5e5e5;
+    --modal-btn-bg: #fafafa;
+    --modal-border-hover: #808080;
+
+    /* Search View */
+    --search-view-bg: #ffffff;
+    --search-view-header-bg: #ffffff;
+    --search-result-section-bg: #fafafa;
+    --search-view-border: #e5e5e5;
+    --search-view-text-primary: #000000;
+    --search-view-text-secondary: #65676b;
+    --search-view-tab-active: #000000;
+    --search-view-tab-inactive: #a8a8a8;
+    --search-view-result-hover: #f5f5f5;
+    --search-view-divider: #e0e0e0;
+    --search-tab-bg: #ffffff;
+
+    /* Login View */
+    --login-view-bg: #ffffff;
+    --login-view-text-primary: #121212;
+    --login-view-text-secondary: #808080;
+    --login-view-border: #808080;
+    --login-view-divider: #383939;
+    --login-view-link-hover: #ffffff;
+    --login-view-button-text: #555658;
+    --login-view-button-text-hover: #000000;
+
+    /* Login Form */
+    --login-form-input-bg: #f5f5f5;
+    --login-form-input-border: #e5e5e5;
+    --login-form-input-border-focus: #a8a8a8;
+    --login-form-input-text: #000000;
+    --login-form-input-placeholder: #a8a8a8;
+    --login-form-button-bg: #000000;
+    --login-form-button-text: #ffffff;
+    --login-form-button-bg-disabled: #0A0A0A;
+    --login-form-button-text-disabled: #a8a8a8;
+    --login-form-error-text: #fb2c36;
+    --login-form-icon-color: #a8a8a8;
 }
 
 /* --- DARK MODE (OVERRIDES) --- */
@@ -239,6 +284,52 @@
     --thread-header-secondary-text-hover: #d1d5dc;
     --thread-header-bg-hover: #1e1e1e;
     --thread-action-bar-bg: #1e1e1e;
+
+    /* Login Require Modal  */
+    --modal-bg-primary: #1a1a1a;
+    --modal-bg-secondary: #2a2a2a;
+    --modal-border: #383939;
+    --modal-text-primary: #808080;
+    --modal-text-secondary: #ffffff;
+    --modal-divider: #383939;
+    --modal-btn-bg: #262626;
+    --modal-border-hover: #505050;
+
+    /* Search View */
+    --search-view-bg: #0A0A0A;
+    --search-view-header-bg: #0A0A0A;
+    --search-result-section-bg: #181818;
+    --search-view-border: #383939;
+    --search-view-text-primary: #ffffff;
+    --search-view-text-secondary: #a8a8a8;
+    --search-view-tab-active: #ffffff;
+    --search-view-tab-inactive: #65676b;
+    --search-view-result-hover: #262626;
+    --search-view-divider: #383838;
+    --search-tab-bg: #1e1e1e;
+
+    /* Login View */
+    --login-view-bg: #101010;
+    --login-view-text-primary: #ffffff;
+    --login-view-text-secondary: #999999;
+    --login-view-border: #383939;
+    --login-view-divider: #383939;
+    --login-view-link-hover: #e0e0e0;
+    --login-view-button-text: #a0a0a0;
+    --login-view-button-text-hover: #ffffff;
+
+    /* Login Form */
+    --login-form-input-bg: #1e1e1e;
+    --login-form-input-border: #383939;
+    --login-form-input-border-focus: #b8b8b8;
+    --login-form-input-text: #ffffff;
+    --login-form-input-placeholder: #777777;
+    --login-form-button-bg: #ffffff;
+    --login-form-button-text: #000000;
+    --login-form-button-bg-disabled: #ffffff;
+    --login-form-button-text-disabled: #666666;
+    --login-form-error-text: #fb2c36;
+    --login-form-icon-color: #777777;
 }
 
 /* =========================================

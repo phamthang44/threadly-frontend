@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Avatar } from '@/features/profile/components/Avatar';
 import { ThreadHeader } from './ThreadHeader';
@@ -8,9 +8,50 @@ import { ThreadContent } from "@/features/thread/components/index";
 import { ThreadProps } from '@/features/thread/types';
 
 import HomeThreadActions from "@/features/thread/components/HomeThreadActions";
+import {useSelector} from "react-redux";
+import {useAppSelector} from "@/store/hooks";
+import {ZoomIn} from "lucide-react";
+import {LightBox} from "@/components/ui";
+
+const IMAGES = [
+    {
+        id: 1,
+        url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop",
+        type: "Dọc (Portrait)",
+        desc: "Ảnh mẫu dọc - Cô gái"
+    },
+    {
+        id: 2,
+        url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop",
+        type: "Ngang (Landscape)",
+        desc: "Ảnh mẫu ngang - Thung lũng"
+    },
+    {
+        id: 3,
+        url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop",
+        type: "Dọc (Portrait)",
+        desc: "Ảnh mẫu dọc - Chân dung"
+    },
+    {
+        id: 4,
+        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop",
+        type: "Ngang (Landscape)",
+        desc: "Ảnh mẫu ngang - Yosemite"
+    },
+];
+
 
 export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) => {
     const router = useRouter();
+    const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+    const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [photoIndex, setPhotoIndex] = useState(0);
+
+    const openLightbox = (index: number) => {
+        setPhotoIndex(index);
+        setLightboxOpen(true);
+    };
+
 
     const navigateToDetail = (e: React.MouseEvent) => {
         const target = e.target as HTMLElement;
@@ -27,6 +68,11 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
         }
 
         // 3. Nếu bấm vào vùng trống (background) -> Mới chuyển trang
+        if (!isAuthenticated) {
+            router.push('/login');
+            return;
+        }
+
         router.push(`/@${thread.author.handle}/post/${thread.id}`);
     };
 
@@ -79,24 +125,65 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
                     </div>
 
                     {/* Image Attachment */}
-                    {thread.image && (
-                        <div className="rounded-xl overflow-hidden mb-3 border border-[var(--thread-border-image)] w-fit max-w-full">
-                            <img
-                                src={thread.image}
-                                alt="Thread content"
-                                className="max-h-[450px] object-cover w-auto h-auto"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    // Mở Lightbox xem ảnh to
+                    {thread.image && thread.image.length > 0 && (
+                        <div className="mb-3 w-full">
+                            <div
+                                className={`
+                                    grid gap-0.5 rounded-xl overflow-hidden border border-[var(--thread-border-image)]
+                                    ${thread.image.length === 1 ? 'grid-cols-1' : ''}
+                                    ${thread.image.length === 2 ? 'grid-cols-2' : ''}
+                                    ${thread.image.length >= 3 ? 'grid-cols-3' : ''} 
+                                `}
+                                // Điều chỉnh chiều cao khung hình dựa trên số lượng ảnh để đẹp nhất
+                                style={{
+                                    height: thread.image.length === 1 ? 'auto' : '300px' // 300px cho layout nhiều cột để ảnh trông dọc như hình
                                 }}
-                            />
+                            >
+                                {thread.image && thread.image.map((img, index) => (
+                                    <div
+                                        key={img.id}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            openLightbox(index);
+                                        }}
+                                        className="relative group cursor-pointer w-full h-full bg-gray-100"
+                                    >
+                                        <img
+                                            src={img.url}
+                                            alt="Thread content"
+                                            className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${thread.image.length === 1 ? 'max-h-[500px] object-center' : ''} `}
+                                        />
+
+                                        {/* Overlay hiệu ứng tối đi khi hover */}
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
+
+                                        {/* Badge loại ảnh (nếu cần giữ lại) */}
+                                        {img.type && (
+                                            <span className="absolute bottom-2 left-2 text-[10px] font-bold bg-black/60 text-white px-1.5 py-0.5 rounded backdrop-blur-md">
+                                            {img.type}
+                                        </span>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     )}
 
+                    {/* LightBox - Moved outside the loop */}
+                    {thread.image && (
+                        <LightBox
+                            images={thread.image}
+                            initialIndex={photoIndex}
+                            isOpen={lightboxOpen}
+                            onClose={() => setLightboxOpen(false)}
+                        />
+                    )}
                     {/* Actions Bar (Dùng component xịn xò mới làm) */}
                     <HomeThreadActions thread={thread} />
                 </div>
             </div>
+
+
         </article>
     );
 };

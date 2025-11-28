@@ -21,7 +21,10 @@ const InstagramButtonLogin: React.FC<InstagramButtonLoginProps> = ({
         >
             <div className="flex items-center gap-3 flex-1">
                 <div className="rounded-lg p-2">
-                    <InstagramIconBrand className="bg-gradient-to-r from-purple-500 to-pink-500 w-10 h-10 p-1 rounded-lg" />
+                    <InstagramIconBrand className="w-10 h-10 p-1 rounded-lg" style={{
+                        background: 'linear-gradient(135deg, #feda75 0%, #fa7e1e 25%, #d92e7f 50%, #9b36b7 75%, #515bd4 100%)',
+                        fill: 'white'
+                    }} />
                 </div>
                 <div className="text-left">
                     <p className="text-sm font-semibold">Continue with Instagram</p>

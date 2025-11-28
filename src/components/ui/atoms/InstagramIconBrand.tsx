@@ -1,18 +1,20 @@
 import React from "react";
 
 interface InstagramIconBrandProps {
-    className?: string;
+    className?: string,
+    style?: { background: string, fill: string }
 }
 
-const InstagramIconBrand:React.FC<InstagramIconBrandProps> = ({className}) => (
+const InstagramIconBrand: React.FC<InstagramIconBrandProps> = ({className, style}) => (
     <svg
         aria-label="Instagram"
         role="img"
         viewBox="0 0 24 24"
         className={className}
-        style={{
+        style={style || {
             fill: 'currentColor',
         }}
+
     >
         <title>Instagram</title>
         <path

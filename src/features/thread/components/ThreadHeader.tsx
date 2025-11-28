@@ -83,7 +83,7 @@ export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
     ];
 
     return (
-        <div className="flex items-center mb-2 justify-center">
+        <div className="flex items-center justify-center">
             <div className="flex items-center gap-2">
                 <span className="font-semibold text-[var(--thread-header-primary-text)] hover:underline">
                     {username}

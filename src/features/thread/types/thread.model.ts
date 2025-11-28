@@ -4,7 +4,7 @@ export interface Thread {
     id: string;
     author: User;
     content: string;
-    image?: string; // Ảnh đính kèm (nếu có)
+    image: ImagesType;
     timestamp: string;
 
     // Stats (Thống kê)
@@ -25,3 +25,10 @@ export interface Thread {
     badge?: string; // Ví dụ: "Author", "Pinned"
     hashtags?: string[]; // Danh sách hashtag trong nội dung
 }
+
+type ImagesType = {
+    id: number;
+    url: string;
+    type: string;
+    desc: string;
+}[];

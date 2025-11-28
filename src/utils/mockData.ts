@@ -13,6 +13,71 @@ const getPastTime = (hoursAgo: number) => {
     return date.toISOString();
 };
 
+
+const mockImage = [
+    {
+        id: 1,
+        url: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=800&q=80',
+        type: 'Dọc',
+        desc: 'Ảnh mẫu dọc - Hoàng hôn'
+    }
+]
+
+const mockImage2 = [
+    {
+        id: 1,
+        url:'https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?w=800&q=80',
+        type: 'Dọc',
+        desc: 'Ảnh xe thật'
+    }
+]
+
+const mockImage3 = [
+    {
+        id: 1,
+        url:'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&fit=crop',
+        type: 'Ngang',
+        desc: 'Nhạc'
+    }
+]
+
+const mockListImages = [
+    {
+        id: 1,
+        url: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=1964&auto=format&fit=crop",
+        type: "Dọc (Portrait)",
+        desc: "Ảnh mẫu dọc - Cô gái"
+    },
+    {
+        id: 2,
+        url: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=2070&auto=format&fit=crop",
+        type: "Ngang (Landscape)",
+        desc: "Ảnh mẫu ngang - Thung lũng"
+    },
+    {
+        id: 3,
+        url: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop",
+        type: "Dọc (Portrait)",
+        desc: "Ảnh mẫu dọc - Chân dung"
+    },
+    {
+        id: 4,
+        url: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop",
+        type: "Ngang (Landscape)",
+        desc: "Ảnh mẫu ngang - Yosemite"
+    },
+];
+
+
+const mockThreadDetailImage = [
+    {
+        id: 1,
+        url: 'https://images.unsplash.com/photo-1586775490184-b7913be163a9?w=800&q=80',
+        type: 'Ngang',
+        desc: 'Ảnh thật trong comment'
+    }
+];
+
 // --- DATA ---
 
 export const sampleThreads: Thread[] = [
@@ -28,7 +93,7 @@ export const sampleThreads: Thread[] = [
             verified: false,
         },
         content: 'CE28 is always a legend. JDM vibes only! 🚗💨',
-        image: 'https://images.unsplash.com/photo-1626668893632-6f3a4466d22f?w=800&q=80', // Ảnh xe thật
+        image: mockImage2, // Ảnh xe thật
         timestamp: getPastTime(2), // 2 giờ trước
         hashtags: ['controlracing', 'honda', 'civic', 'jdm', 'ce28', 'vtec'],
 
@@ -54,7 +119,7 @@ export const sampleThreads: Thread[] = [
         },
         badge: 'BREAKING',
         content: "Kane Williamson is set to play for Durban's Super Giants in the SA20 2025-26 season. 🏏 What a signing!",
-        image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=800&fit=crop',
+        image: mockImage3,
         timestamp: getPastTime(5), // 5 giờ trước
         hashtags: ['Cricket', 'DSG', 'Williamson', 'Sportskeeda'],
 
@@ -103,7 +168,7 @@ export const sampleThreads: Thread[] = [
             verified: true,
         },
         content: 'Caught this beautiful sunset yesterday. Nature is amazing. 🌅',
-        image: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?w=800&q=80',
+        image: mockImage,
         timestamp: getPastTime(24), // 1 ngày trước
         hashtags: ['sunset', 'photography', 'nature'],
 
@@ -162,8 +227,34 @@ export const sampleThreads: Thread[] = [
                 children: []
             }
         ]
+    },
+    {
+        id: '6',
+        parentId: null,
+        level: 0,
+        author: {
+            id: 'u6',
+            name: 'Test user',
+            handle: 'tech_guru',
+            avatar: getAvatar('test'),
+            verified: true,
+        },
+        content: 'This is a test thread without replies.',
+        image: mockListImages,
+        timestamp: getPastTime(1), // 1 giờ trước
+        hashtags: ['test', 'mockdata'],
+
+        likes: 10,
+        replies: 0,
+        reposts: 0,
+
+        isLiked: false,
+        isReposted: false,
+
+        children: []
     }
 ];
+
 
 export const mockThreadDetail: Thread = {
     id: 'root-1',
@@ -217,7 +308,7 @@ export const mockThreadDetail: Thread = {
                     },
                     content: 'Đâu có biết đâu. Bác sĩ bảo về nhà ăn được cái gì thì ăn...',
                     // Thay ảnh ảo bằng ảnh thật để test UI hiển thị ảnh trong comment
-                    image: 'https://images.unsplash.com/photo-1586775490184-b7913be163a9?w=800&q=80',
+                    image: mockThreadDetailImage,
                     timestamp: getPastTime(2), // 2 giờ trước
                     likes: 110,
                     replies: 0,
