@@ -6,3 +6,5 @@ export interface SearchResult {
     avatar?: string;
     timestamp?: string;
 }
+
+export type FilterType = 'all' | 'users' | 'threads' | 'tags';

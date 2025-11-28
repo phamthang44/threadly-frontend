@@ -18,7 +18,7 @@ interface SearchResult {
   timestamp?: string;
 }
 
-export default function MobileSearchPage() {
+export default function MobileSearchView() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isLoading, setIsLoading] = useState(false);

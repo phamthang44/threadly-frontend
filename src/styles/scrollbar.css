@@ -1,14 +1,34 @@
 /* ===========================
-   1. Scrollbar kiểu Threads
+   1. Scrollbar kiểu Threads (Show on Hover)
    =========================== */
-
-.custom-scrollbar {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE/Edge */
-    position: relative;
+:root {
+    --scrollbar-thumb-bg: rgba(0, 0, 0, 0.15);
+    --scrollbar-thumb-bg-hover: rgba(0, 0, 0, 0.25);
+    --scrollbar-search-thumb-bg: #d0d0d0;
+    --scrollbar-search-thumb-bg-hover: #a8a8a8;
 }
 
-/* Chrome/Safari: width = 8px nhưng mặc định ẩn thumb */
+.dark {
+    --scrollbar-thumb-bg: rgba(255, 255, 255, 0.20);
+    --scrollbar-thumb-bg-hover: rgba(255, 255, 255, 0.32);
+    --scrollbar-search-thumb-bg: #3f3f3f;
+    --scrollbar-search-thumb-bg-hover: #5a5a5a;
+}
+
+.custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    -ms-overflow-style: auto;
+    position: relative;
+    transition: scrollbar-color 0.25s ease;
+}
+
+/* Show scrollbar on container hover */
+.custom-scrollbar:hover {
+    scrollbar-color: var(--scrollbar-thumb-bg) transparent;
+}
+
+/* Chrome/Safari */
 .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
     background: transparent;
@@ -21,30 +41,31 @@
 .custom-scrollbar::-webkit-scrollbar-thumb {
     background: transparent;
     border-radius: 8px;
-    opacity: 0;
-    transition: background 0.25s ease, opacity 0.25s ease;
+    transition: background 0.25s ease;
 }
 
-/* Hiện lên khi hover khu vực scroll */
+/* Show on container hover */
 .custom-scrollbar:hover::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.20); /* Threads smoky white */
-    backdrop-filter: blur(2px);
-    opacity: 1;
+    background: var(--scrollbar-thumb-bg);
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.32);
+    background: var(--scrollbar-thumb-bg-hover);
 }
 
-/* Ẩn track piece Chrome */
 .custom-scrollbar::-webkit-scrollbar-track-piece {
     background: transparent;
 }
 
-
 /* ===========================
-   2. Scrollbar luôn hiện (ô search)
+   2. Scrollbar Always Visible (Search)
    =========================== */
+
+.custom-scrollbar-search {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-search-thumb-bg) transparent;
+    -ms-overflow-style: auto;
+}
 
 .custom-scrollbar-search::-webkit-scrollbar {
     width: 8px;
@@ -55,18 +76,17 @@
 }
 
 .custom-scrollbar-search::-webkit-scrollbar-thumb {
-    background: #3f3f3f;  /* chỉnh màu xám đẹp hơn, đồng đều hơn */
+    background: var(--scrollbar-search-thumb-bg);
     border-radius: 4px;
     transition: background 0.25s ease;
 }
 
 .custom-scrollbar-search::-webkit-scrollbar-thumb:hover {
-    background: #5a5a5a;
+    background: var(--scrollbar-search-thumb-bg-hover);
 }
 
-
 /* ===========================
-   3. Hide scrollbar hoàn toàn (fallback cases)
+   3. Hide Scrollbar Completely
    =========================== */
 
 .hide-scrollbar {

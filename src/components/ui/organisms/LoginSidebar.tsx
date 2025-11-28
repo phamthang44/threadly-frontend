@@ -15,8 +15,7 @@ export const LoginSidebar: React.FC = () => {
     }
 
     return (
-        <aside className="hidden [@media(min-width:1200px)]:block fixed right-40 top-11
-w-80 h-80 mt-4 rounded-4xl bg-[var(--login-sidebar-bg)] border border-[var(--login-sidebar-border)] p-4">
+        <aside className="hidden [@media(min-width:1200px)]:block fixed right-40 top-11 w-80 h-80 mt-4 rounded-4xl bg-[var(--login-sidebar-bg)] border border-[var(--login-sidebar-border)] p-4">
             <div className="flex flex-col items-center justify-center h-full">
                 <h2 className="text-[--login-sidebar-text-secondary] text-xl font-bold mb-2 text-center">Log in or sign up for Threadly</h2>
                 <p className="text-[var(--login-sidebar-text-primary)] text-center mb-6 text-[16px] font-[450]">

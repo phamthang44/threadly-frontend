@@ -32,3 +32,4 @@ export { default as RestrictIcon } from './atoms/RestrictIcon';
 export { default as BlockIcon } from './atoms/BlockIcon';
 export { default as ReportIcon } from './atoms/ReportIcon';
 export { default as ShareThreadIcon } from './atoms/ShareThreadIcon';
+export { default as LightBox } from './organisms/LightBox';
