@@ -4,6 +4,7 @@ import "../styles/globals.css";
 import "../styles/scrollbar.css"
 import Head from "next/head";
 import ReduxProvider from "@/providers/ReduxProvider";
+import {ThemeProvider} from "next-themes";
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import AuthInitializer from "@/components/AuthInitializer";
@@ -68,11 +69,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                <meta name="theme-color" content="#8b5cf6" />
             </Head>
             <body
-                className={`antialiased ${montserrat.variable} bg-light-50 dark:bg-[#0A0A0A]`}
+                className={`antialiased ${montserrat.variable} bg-[var(--bg-body)]`}
             >
             <ReduxProvider>
                 <AuthInitializer>
-                    {children}
+                    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                        {children}
+                    </ThemeProvider>
                 </AuthInitializer>
             </ReduxProvider>
             </body>

@@ -1,0 +1,116 @@
+:root {
+    /* Nền chính (thường là trắng ở Light, đen ở Dark) */
+    --barcelona-primary-background: rgb(255, 255, 255);
+    --surface-background: #FFFFFF;
+    --card-background: #FFFFFF;
+    --card-background-flat: #F7F8FA;
+
+    /* Nền phụ (xám nhạt) - Dùng cho các khối bao quanh */
+    --web-wash: #F0F2F5;
+    --wash: #E4E6EB;
+    --barcelona-secondary-background: rgb(250, 250, 250);
+    --barcelona-tertiary-background: rgb(245, 245, 245);
+
+    /* Nền cho input/comment */
+    --input-background: #FFFFFF;
+    --comment-background: #F0F2F5;
+    --fds-comment-background: #F2F3F5;
+
+    /* Nền khi hover */
+    --barcelona-hovered-background: rgba(0, 0, 0, 0.04);
+    --barcelona-pressed-background: rgba(0, 0, 0, 0.06);
+
+    /* Chữ chính (Đen tuyền ở Light) */
+    --primary-text: #050505;
+    --fds-primary-text: #1C1E21;
+    --barcelona-primary-text: rgb(0, 0, 0);
+
+    /* Chữ phụ (Xám - dùng cho timestamp, chú thích) */
+    --secondary-text: #65676B;
+    --barcelona-secondary-text: rgb(153, 153, 153);
+
+    /* Chữ bị vô hiệu hóa */
+    --disabled-text: #BCC0C4;
+
+    /* Icon */
+    --primary-icon: #050505;
+    --secondary-icon: #65676B;
+
+    /* Nút chính (Primary Button) */
+    --primary-button-background: #1B74E4; /* Xanh Facebook */
+    --barcelona-primary-button-background: rgb(0, 0, 0); /* Đen Threads */
+    --primary-button-text: #FFFFFF;
+
+    /* Nút phụ (Secondary Button - thường là màu xám nhạt) */
+    --secondary-button-background: #E4E6EB;
+    --secondary-button-text: #050505;
+
+    /* Màu Link */
+    --blue-link: #216FDB;
+    --barcelona-link-text: rgb(0, 149, 246);
+
+    /* Thành công (Xanh lá) */
+    --positive: #31A24C;
+    --text-badge-success-background: #31A24C;
+    --badge-background-color-green: #31A24C;
+
+    /* Lỗi/Nguy hiểm (Đỏ) */
+    --negative: hsl(350, 87%, 55%);
+    --notification-badge: #e41e3f;
+    --barcelona-error-text: rgb(255, 48, 64);
+
+    /* Cảnh báo (Vàng) */
+    --warning: hsl(40, 89%, 52%);
+    --badge-background-color-yellow: #F7B928;
+
+    /* Thông tin (Xanh dương) */
+    --accent: hsl(214, 89%, 52%);
+    --badge-background-color-blue: hsl(214, 89%, 52%);
+
+    /* Xanh dương */
+    --blue-0: 245, 251, 255;
+    --blue-5: 0, 149, 246; /* Màu brand Instagram/Threads */
+    --fb-logo: #0866FF;
+
+    /* Xanh mòng két (Teal) */
+    --teal-primary: rgb(0,152,124);
+
+    /* Đỏ/Hồng */
+    --red-5: 237, 73, 86;
+    --pink-5: 209, 8, 105;
+    --base-cherry: #F3425F;
+
+    /* Xanh lá */
+    --green-5: 88, 195, 34;
+    --base-lime: #45BD62;
+
+    /* Xám (Grey Scale) */
+    --grey-0: 245, 245, 245;
+    --grey-1: 239, 239, 239;
+    --grey-5: 142, 142, 142;
+    --grey-9: 38, 38, 38;
+
+    --fds-dark-mode-gray-35: #CCCCCC;
+    --fds-dark-mode-gray-50: #828282;
+    --fds-dark-mode-gray-70: #4A4A4A;
+    --fds-dark-mode-gray-80: #373737;
+    --fds-dark-mode-gray-90: #282828;
+    --fds-dark-mode-gray-100: #1C1C1C; /* Thường dùng làm nền chính Dark mode */
+
+    /* Các màu cố định không đổi theo theme */
+    --always-white: #ffffff;
+    --always-black: #000000;
+    --always-dark-overlay: rgba(0, 0, 0, 0.4);
+
+    --bg-primary: var(--barcelona-primary-background); /* Trắng */
+    --text-primary: var(--primary-text); /* Đen */
+    --wash-layer: var(--web-wash); /* Xám rất nhạt */
+}
+
+/* Định nghĩa Dark Mode (Ghi đè giá trị) */
+[data-theme="dark"] {
+    /* Đảo ngược logic dựa trên các biến fds-dark-mode có sẵn trong file */
+    --bg-primary: var(--fds-dark-mode-gray-100); /* Đen/Xám đậm */
+    --text-primary: var(--fds-dark-mode-gray-35); /* Trắng xám */
+    --wash-layer: var(--fds-dark-mode-gray-90); /* Lớp nền tối hơn chút */
+}

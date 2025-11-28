@@ -12,6 +12,7 @@ export interface ThreadHeaderProps {
     username: string;
     timestamp: string;
     verified?: boolean;
+    thread: Thread;
 }
 
 export interface ThreadProps {

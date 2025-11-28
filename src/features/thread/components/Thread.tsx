@@ -32,7 +32,7 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
 
     return (
         <article
-            className={`p-4 border-b border-[#2a2a2a] ${className || ""}`}
+            className={`p-4 border-b border-[var(--thread-primary-border)] ${className || ""}`}
             {...props}
             onClick={navigateToDetail}
         >
@@ -53,16 +53,17 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
                         username={thread.author.name}
                         timestamp={thread.timestamp}
                         verified={thread.author.verified}
+                        thread={thread}
                     />
 
                     {/* Badge (Ví dụ: Breaking news, Pinned...) */}
-                    {thread.badge && (
-                        <div className="inline-flex items-center gap-1 mb-1">
-                            {/* Bạn có thể tạo component Badge riêng */}
-                            <span className="text-red-500 text-xs">🚨</span>
-                            <span className="text-red-500 font-bold text-xs">{thread.badge}</span>
-                        </div>
-                    )}
+                    {/*{thread.badge && (*/}
+                    {/*    <div className="inline-flex items-center gap-1 mb-1">*/}
+                    {/*        /!* Bạn có thể tạo component Badge riêng *!/*/}
+                    {/*        <span className="text-red-500 text-xs">🚨</span>*/}
+                    {/*        <span className="text-red-500 font-bold text-xs">{thread.badge}</span>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
 
                     <div className="mb-2">
                         <ThreadContent content={thread.content} />
@@ -71,7 +72,7 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
                         {thread.hashtags && thread.hashtags.length > 0 && (
                             <p className="text-[var(--barcelona-secondary-text)] mt-1 text-[15px]">
                                 {thread.hashtags.map((tag, i) => (
-                                    <span key={i} className="mr-1 hover:underline text-[#0095f6]">#{tag}</span>
+                                    <span key={i} className="mr-1 hover:underline text-[var(--thread-hashtag-text)]">#{tag}</span>
                                 ))}
                             </p>
                         )}
@@ -79,7 +80,7 @@ export const Thread: React.FC<ThreadProps> = ({ thread, className, ...props }) =
 
                     {/* Image Attachment */}
                     {thread.image && (
-                        <div className="rounded-xl overflow-hidden mb-3 border border-[#383838] w-fit max-w-full">
+                        <div className="rounded-xl overflow-hidden mb-3 border border-[var(--thread-border-image)] w-fit max-w-full">
                             <img
                                 src={thread.image}
                                 alt="Thread content"

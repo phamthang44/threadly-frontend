@@ -1,4 +1,3 @@
-// src/components/layout/LayoutDesktop.tsx
 import React from "react";
 
 interface LayoutDesktopProps {
@@ -17,26 +16,23 @@ const LayoutDesktop: React.FC<LayoutDesktopProps> = ({
                                                          isAuthenticated = false,
                                                      }) => {
     return (
-        <div className="min-h-screen bg-light-50 dark:bg-[#0A0A0A]">
+        <div className="min-h-screen bg-[var(--bg-body)]">
             {/* LEFT SIDEBAR */}
             {sidebar}
 
             {/* MAIN CONTENT WRAPPER */}
             <>
-                <div
-                    style={{ '--header-height': '0' } as React.CSSProperties}
-                >
+                <div style={{ '--header-height': '0' } as React.CSSProperties}>
                     <div className="relative box-border z-0">
                         <div className="flex flex-col relative z-0">
                             <div className="top-[var(--header-height)] min-h-[calc(100vh-var(--header-height))] flex flex-col relative">
                                 <div className="flex flex-col relative z-0 min-h-inherit">
                                     <div className="flex items-center flex-row">
                                         <div className="w-full flex justify-center [align-content:center] box-border [padding-inline-end:20px] bg-[var(--barcelona-secondary-background)] [padding-inline-start:20px]">
-                                            <div className="min-h-screen flex ">
-                                                <div className="max-w-[var(--barcelona-column-layout-max-width) w-[var(--barcelona-column-layout-max-width)] flex flex-col flex-grow [container-type:inline-size]">
+                                            <div className="min-h-screen flex">
+                                                <div className="max-w-[var(--barcelona-column-layout-max-width)] w-[var(--barcelona-column-layout-max-width)] flex flex-col flex-grow [container-type:inline-size]">
                                                     {/* Header container */}
-                                                    <div
-                                                        className="w-full min-h-[60px] top-0 sticky flex items-center z-1">
+                                                    <div className="w-full min-h-[60px] top-0 sticky flex items-center z-1">
                                                         {/* Left Corner Border Radius */}
                                                         <div
                                                             className="absolute top-[48px] h-[36px] w-[36px] overflow-hidden z-1"
@@ -96,79 +92,33 @@ const LayoutDesktop: React.FC<LayoutDesktopProps> = ({
 
                                                         {header && (
                                                             <div
-                                                                className="
-                                                                    w-full
-                                                                    h-[60px]
-                                                                    top-0
-                                                                    absolute
-                                                                    box-border
-                                                                    touch-none
-                                                                    grid
-                                                                    justify-center
-                                                                    z-0
-                                                                    opacity-100
-                                                                    bg-[var(--barcelona-secondary-background)]
-
-                                                                    [padding-inline-start:16px]
-                                                                    [padding-inline-end:16px]
-
-                                                                    [column-gap:16px]
-                                                                    [align-content:center]
-                                                                    [grid-template-columns:1fr_minmax(auto,_80%)_1fr]
-
-                                                                    [inset-inline-start:0px]
-                                                                    [inset-inline-end:-12px]
-                                                                  "
+                                                                className="w-full h-[60px] top-0 absolute box-border touch-none grid justify-center z-0 opacity-100 bg-[var(--barcelona-secondary-background)] [padding-inline-start:16px] [padding-inline-end:16px] [column-gap:16px] [align-content:center] [grid-template-columns:1fr_minmax(auto,_80%)_1fr] [inset-inline-start:0px] [inset-inline-end:-12px]"
                                                             >
                                                                 {header}
                                                             </div>
                                                         )}
                                                     </div>
                                                     <div
-                                                        className="
-                                                        overscroll-y-auto
-                                                        border-t-[.5px]
-                                                        w-full
-                                                        pt-0
-                                                        overflow-x-hidden
-                                                        min-h-0
-                                                        [border-bottom-color:var(--barcelona-primary-column-outline)]
-                                                        [border-top-style:none]
-                                                        border-b-[.5px]
-                                                        [border-top-color:var(--barcelona-primary-column-outline)]
-                                                        bg-[var(--barcelona-elevated-background)]
-                                                        [perspective:1px]
-                                                        [perspective-origin:right_top]
-                                                        flex-shrink
-                                                        [will-change:transform,scroll-position]
-                                                        [border-inline-start-color:var(--barcelona-primary-column-outline)]
-                                                        [border-inline-end-color:var(--barcelona-primary-column-outline)]
-                                                        flex-col
-                                                        [border-inline-start-width:.5px]
-                                                        box-border
-                                                        flex
-                                                        [border-inline-start-style:solid]
-                                                        [scrollbar-width:none]
-                                                        [transform-style:preserve-3d]
-                                                        relative
-                                                        [box-shadow:0_0_12px_0_var(--barcelona-box-shadow-04)]
-                                                        [flex-basis:100%]
-                                                        z-0
-                                                        flex-grow
-                                                        [border-start-end-radius:0]
-                                                        [border-inline-end-style:solid]
-                                                        [border-start-start-radius:0]
-                                                        [border-inline-end-width:.5px]
-                                                        "
+                                                        className="overscroll-y-auto border-t-[.5px] w-full pt-0 overflow-x-hidden min-h-0 border-b-[.5px] bg-[var(--barcelona-elevated-background)] flex-shrink flex-col box-border flex relative z-0 flex-grow"
+                                                        style={{
+                                                            borderBottomColor: 'var(--barcelona-primary-column-outline)',
+                                                            borderTopColor: 'var(--barcelona-primary-column-outline)',
+                                                            borderInlineStartColor: 'var(--barcelona-primary-column-outline)',
+                                                            borderInlineEndColor: 'var(--barcelona-primary-column-outline)',
+                                                            borderInlineStartWidth: '.5px',
+                                                            borderInlineEndWidth: '.5px',
+                                                            borderInlineStartStyle: 'solid',
+                                                            borderInlineEndStyle: 'solid',
+                                                            perspective: '1px',
+                                                            perspectiveOrigin: 'right top',
+                                                            willChange: 'transform, scroll-position',
+                                                            transformStyle: 'preserve-3d',
+                                                            boxShadow: '0 0 12px 0 var(--barcelona-box-shadow-04)',
+                                                            flexBasis: '100%',
+                                                            scrollbarWidth: 'none',
+                                                        }}
                                                     >
-                                                        <div className="w-12 h-12
-                                                                    absolute top-3 start-3
-                                                                    border-t-[0.5px] border-b-[0.5px]
-                                                                    border-l-[0.5px] border-r-[0.5px]
-                                                                    border-[var(--barcelona-primary-column-outline)]
-                                                                    rounded-tl-3xl rounded-tr-3xl
-                                                                    rounded-bl-3xl rounded-br-3xl
-                                                                    soft-shadow"></div>
+                                                        {/*<div className="w-12 h-12 absolute top-3 start-3 border-[0.5px] border-[var(--barcelona-primary-column-outline)] rounded-3xl"></div>*/}
                                                         <div className="flex flex-col">
                                                             {children}
                                                         </div>
@@ -183,7 +133,6 @@ const LayoutDesktop: React.FC<LayoutDesktopProps> = ({
                     </div>
                 </div>
             </>
-
 
             {/* RIGHT SIDEBAR (FIXED) */}
             {isAuthenticated ? null : rightSidebar}

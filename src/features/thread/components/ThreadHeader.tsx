@@ -1,18 +1,91 @@
-import React from 'react';
-import { MoreHorizontal } from 'lucide-react';
-import { ThreadHeaderProps } from '@/features/thread/types';
+'use client';
+import React, { useState, useRef } from 'react';
+import {EyeOff, MoreHorizontal} from 'lucide-react';
+import {SaveIcon, MuteIcon, ReportIcon, RestrictIcon, ShareThreadIcon, BlockIcon} from '@/components/ui'
+import {Thread, ThreadHeaderProps} from '@/features/thread/types';
 import {VerifiedBadgeIcon, Tooltip} from "@/components/ui";
 import TimeAgo from '@/components/TimeAgo';
+import ActionMenu from "@/components/ui/organisms/ActionMenu";
+import {useAppSelector} from "@/store/hooks";
 
 export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
-                                                          username,
-                                                          timestamp,
-                                                          verified = false
-                                                      }) => {
+                                                              username, thread,
+                                                              timestamp,
+                                                              verified = false
+                                                          }) => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const triggerRef = useRef<HTMLButtonElement>(null);
+    const { isAuthenticated } = useAppSelector((state) => state.auth);
+    const handleMoreOptionsClick = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
+
+    const handleClose = () => {
+        setIsMenuOpen(false);
+    };
+
+    const groups = [
+        {
+            id: 'actions',
+            items: [
+                {
+                    id: 'save',
+                    label: 'Save',
+                    icon: <SaveIcon className="text-[var(--barcelona-primary-icon)] w-5 h-5"/>,
+                    onClick: () => console.log('Save'),
+                    protected: !isAuthenticated,
+                },
+                {
+                    id: 'not-interested',
+                    label: 'Not interested',
+                    icon: <EyeOff size={20} className="text-[var(--barcelona-primary-icon)]"/>,
+                    onClick: () => console.log('Not interested'),
+                    protected: !isAuthenticated,
+                },
+                {
+                    id: 'mute',
+                    label: 'Mute',
+                    icon: <MuteIcon className="text-[var(--barcelona-primary-icon)] w-5 h-5" />,
+                    onClick: () => console.log('Mute'),
+                    protected: !isAuthenticated,
+                },
+                {
+                    id: 'restrict',
+                    label: 'Restrict',
+                    icon: <RestrictIcon className="text-[var(--barcelona-primary-icon)] w-5 h-5"/>,
+                    onClick: () => console.log('Restrict'),
+                    protected: !isAuthenticated,
+                },
+                {
+                    id: 'block',
+                    label: 'Block',
+                    icon: <BlockIcon className="text-red-500 w-5 h-5"/>,
+                    variant: 'danger' as const,
+                    onClick: () => console.log('Block'),
+                    protected: !isAuthenticated,
+                },
+                {
+                    id: 'report',
+                    label: 'Report',
+                    icon: <ReportIcon className="text-red-500 w-5 h-5"/>,
+                    variant: 'danger' as const,
+                    onClick: () => console.log('Report'),
+                    protected: !isAuthenticated,
+                },
+                {
+                    id: 'copy-link',
+                    label: 'Copy link',
+                    icon: <ShareThreadIcon className="text-[var(--barcelona-primary-icon)] w-5 h-5 fill-none" />,
+                    onClick: () => console.log('Copy link'),
+                },
+            ],
+        },
+    ];
+
     return (
         <div className="flex items-center mb-2 justify-center">
             <div className="flex items-center gap-2">
-                <span className="font-semibold text-white hover:underline">
+                <span className="font-semibold text-[var(--thread-header-primary-text)] hover:underline">
                     {username}
                 </span>
                 {verified && (
@@ -20,17 +93,28 @@ export const ThreadHeader: React.FC<ThreadHeaderProps> = ({
                         <VerifiedBadgeIcon />
                     </div>
                 )}
-                <span className="text-gray-500 text-sm">
+                <span className="text-var(--thread-header-time-text) text-sm">
                     <TimeAgo datetime={timestamp} />
                 </span>
             </div>
-            <div className="flex items-center gap-3 ml-auto relative">
+            <div className="flex items-center gap-3 ml-auto">
                 <Tooltip content="More options" delay={500} position={"right"}>
-                    <button className="absolute top-1/2 -translate-y-1/2 -left-9 text-gray-400 hover:text-gray-300 cursor-pointer hover:bg-[#1e1e1e] rounded-full p-3" aria-label="More options">
+                    <button
+                        ref={triggerRef}
+                        className="text-[var(--thread-header-secondary-text)] hover:text-[var(--thread-header-secondary-text-hover)] cursor-pointer hover:bg-[var(--thread-header-bg-hover)] rounded-full p-3"
+                        aria-label="More options"
+                        onClick={handleMoreOptionsClick}
+                    >
                         <MoreHorizontal className="w-4 h-4" />
                     </button>
                 </Tooltip>
             </div>
+            <ActionMenu
+                groups={groups}
+                isOpen={isMenuOpen}
+                onClose={handleClose}
+                triggerRef={triggerRef}
+            />
         </div>
     );
 };
