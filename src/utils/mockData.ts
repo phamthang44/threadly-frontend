@@ -101,7 +101,7 @@ export const sampleThreads: Thread[] = [
         replies: 5,
         reposts: 5,
 
-        isLiked: true,
+        isLiked: false,
         isReposted: false,
 
         children: []
@@ -143,9 +143,10 @@ export const sampleThreads: Thread[] = [
             avatar: getAvatar('devlife'),
             verified: false,
         },
-        content: 'Debugging production on a Friday evening be like... 🥲☕️ #coding #developer',
+        content: 'Debugging production on a Friday evening be like... 🥲☕️ #coding #developer @lmt Art',
         timestamp: getPastTime(12),
         hashtags: ['coding', 'developer', 'buglife'],
+        image: [],
 
         likes: 1205,
         replies: 45,
@@ -176,7 +177,7 @@ export const sampleThreads: Thread[] = [
         replies: 120,
         reposts: 450,
 
-        isLiked: true,
+        isLiked: false,
         isReposted: false,
 
         children: []
@@ -197,7 +198,7 @@ export const sampleThreads: Thread[] = [
         content: 'Just got my hands on the new M3 Macbook. The performance is insane! 🚀 Will drop a review soon.',
         timestamp: getPastTime(0.5), // 30 phút trước
         hashtags: ['apple', 'macbook', 'tech'],
-
+        image: [],
         likes: 56,
         replies: 2,
         reposts: 0,
@@ -217,6 +218,7 @@ export const sampleThreads: Thread[] = [
                     avatar: getAvatar('fan'),
                     verified: false
                 },
+                image: [],
                 content: 'Is it worth upgrading from M1?',
                 timestamp: getPastTime(0.3), // 18 phút trước
                 likes: 2,
@@ -272,9 +274,10 @@ export const mockThreadDetail: Thread = {
     likes: 3300,
     replies: 50,
     reposts: 12,
-    isLiked: true,
+    isLiked: false,
     isReposted: false,
     hashtags: ['funny'],
+    image: [],
 
     // Danh sách reply (Comment)
     children: [
@@ -293,6 +296,7 @@ export const mockThreadDetail: Thread = {
             likes: 118,
             replies: 1,
             reposts: 0,
+            image: [],
             isLiked: false,
             isReposted: false,
             children: [

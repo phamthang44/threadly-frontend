@@ -9,7 +9,7 @@ interface ThreadActionBarProps {
     className?: string;
 }
 
-const ThreadActionBar: React.FC<ThreadActionBarProps> = ({ actions, className }) => {
+const ThreadActionBar: React.FC<ThreadActionBarProps> = ({ actions, className, ...props }) => {
     const { enrichedActions, onHoverStart, onHoverEnd } = useThreadActionBase(actions);
 
     return (
@@ -17,7 +17,7 @@ const ThreadActionBar: React.FC<ThreadActionBarProps> = ({ actions, className })
         // - flex: Dùng Flexbox như bản gốc.
         // - w-full max-w-[320px]: Giới hạn chiều rộng để các nút không bị xa nhau quá trên màn hình to.
         // - justify-between: (Không cần thiết nếu dùng flex-1, nhưng để an toàn).
-        <div className={`flex items-center w-full max-w-[250px] -ml-2 ${className || ""}`}>
+        <div className={`flex items-center w-full max-w-[250px] -ml-2 ${className || ""}`} {...props}>
             {enrichedActions.map((action) => {
                 const {
                     key, icon, filledIcon, interactionsNumber,
@@ -43,12 +43,7 @@ const ThreadActionBar: React.FC<ThreadActionBarProps> = ({ actions, className })
                                 onClick?.(e);
                             }}
                             // LOGIC BUBBLE & PADDING (Giữ nguyên để fix tâm icon)
-                            className={`
-                                group relative flex items-center 
-                                h-9 cursor-pointer touch-manipulation transition-all duration-200 select-none
-                                ${hasCount ? "w-auto px-2" : "w-9 justify-center"} 
-                            `}
-                        >
+                            className={`group relative flex items-center  h-9 cursor-pointer touch-manipulation transition-all duration-200 select-none ${hasCount ? "w-auto px-2" : "w-9 justify-center"}`}>
                             {/* LAYER 1: BACKGROUND BUBBLE */}
                             <div
                                 className={`

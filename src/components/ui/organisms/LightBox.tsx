@@ -32,9 +32,8 @@ const Lightbox: React.FC<LightboxProps> = ({ images, initialIndex, isOpen, onClo
 
         animationTimeoutRef.current = setTimeout(() => {
             setCurrentIndex((prev) => {
-                if (direction === 'right') return Math.min(prev + 1, images.length - 1);
-                if (direction === 'left') return Math.max(prev - 1, 0);
-                return prev;
+                const next = direction === 'right' ? prev + 1 : prev - 1;
+                return next;
             });
             setDirection(null);
             setIsAnimating(false);
@@ -45,26 +44,45 @@ const Lightbox: React.FC<LightboxProps> = ({ images, initialIndex, isOpen, onClo
                 clearTimeout(animationTimeoutRef.current);
             }
         };
-    }, [isAnimating, direction, images.length]);
+    }, [isAnimating, direction]);
 
-    // When lightbox opens, reset index via initial state
-    if (isOpen && currentIndex !== initialIndex) {
-        setCurrentIndex(initialIndex);
-        setDirection(null);
-        setIsAnimating(false);
-    }
+    // Reset when lightbox opens
+    useEffect(() => {
+        if (isOpen) {
+            setCurrentIndex(initialIndex);
+            setDirection(null);
+            setIsAnimating(false);
+        }
+    }, [isOpen, initialIndex]);
+
+    const handleNavigation = useCallback((nextDirection: Direction) => {
+        setCurrentIndex((prev) => {
+            const isFirst = prev === 0;
+            const isLast = prev === images.length - 1;
+
+            if (nextDirection === 'right' && !isLast) {
+                setDirection('right');
+                setIsAnimating(true);
+                return prev;
+            }
+            if (nextDirection === 'left' && !isFirst) {
+                setDirection('left');
+                setIsAnimating(true);
+                return prev;
+            }
+            return prev;
+        });
+    }, [images.length]);
 
     const handleNextImage = useCallback(() => {
-        if (currentIndex >= images.length - 1 || isAnimating) return;
-        setDirection('right');
-        setIsAnimating(true);
-    }, [currentIndex, images.length, isAnimating]);
+        if (isAnimating) return;
+        handleNavigation('right');
+    }, [isAnimating, handleNavigation]);
 
     const handlePrevImage = useCallback(() => {
-        if (currentIndex <= 0 || isAnimating) return;
-        setDirection('left');
-        setIsAnimating(true);
-    }, [currentIndex, isAnimating]);
+        if (isAnimating) return;
+        handleNavigation('left');
+    }, [isAnimating, handleNavigation]);
 
     // Handle keyboard navigation
     useEffect(() => {
@@ -101,7 +119,10 @@ const Lightbox: React.FC<LightboxProps> = ({ images, initialIndex, isOpen, onClo
             onClose();
         }}>
             <button
-                onClick={onClose}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    onClose();
+                }}
                 className="absolute top-4 left-4 z-50 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors duration-200 cursor-pointer"
                 aria-label="Close lightbox"
                 type="button"
@@ -136,7 +157,10 @@ const Lightbox: React.FC<LightboxProps> = ({ images, initialIndex, isOpen, onClo
             {images.length > 1 && (
                 <>
                     <button
-                        onClick={handlePrevImage}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handlePrevImage();
+                        }}
                         disabled={isFirst || isAnimating}
                         className={`absolute left-2 md:left-6 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200
                             ${isFirst || isAnimating ? 'opacity-30 cursor-not-allowed' : 'bg-white/10 hover:bg-white/20 hover:scale-110 active:scale-95 cursor-pointer'}
@@ -148,7 +172,10 @@ const Lightbox: React.FC<LightboxProps> = ({ images, initialIndex, isOpen, onClo
                     </button>
 
                     <button
-                        onClick={handleNextImage}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            handleNextImage();
+                        }}
                         disabled={isLast || isAnimating}
                         className={`absolute right-2 md:right-6 top-1/2 -translate-y-1/2 p-3 rounded-full text-white transition-all duration-200
                             ${isLast || isAnimating ? 'opacity-30 cursor-not-allowed' : 'bg-white/10 hover:bg-white/20 hover:scale-110 active:scale-95 cursor-pointer'}

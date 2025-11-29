@@ -173,12 +173,24 @@
     --login-form-button-text-disabled: #a8a8a8;
     --login-form-error-text: #fb2c36;
     --login-form-icon-color: #a8a8a8;
+
+    /*  Thread detail header  */
+    --thread-detail-bg: #ffffff;
+    --thread-detail-btn-bg-hover: #f2f2f2;
+    --thread-detail-primary-border: var(--thread-detail-bg);
+    --thread-detail-secondary-border: #e0e0e0;
+    --thread-detail-third-border: #dcdcdc;
+    --thread-detail-border: #e5e5e5;
+    --thread-detail-border-outline: #d0d0d0;
+    --thread-detail-text-primary: #000000;
+    --thread-detail-text-secondary: #65676b;
+    --thread-detail-hover: #f0f0f0;
+    --thread-detail-primary-icon: #000000;
 }
 
 /* --- DARK MODE (OVERRIDES) --- */
 /* Class .dark được thêm bởi next-themes hoặc logic JS của bạn */
 .dark {
-
     /* #0A0A0A: Dùng cho nền chính (Body) - Sâu hơn, đen hơn */
     --bg-body: #0A0A0A;
 
@@ -330,6 +342,18 @@
     --login-form-button-text-disabled: #666666;
     --login-form-error-text: #fb2c36;
     --login-form-icon-color: #777777;
+
+    /*  Thread detail  */
+    --thread-detail-bg: #181818;
+    --thread-detail-btn-bg-hover: #1d1d1d;
+    --thread-detail-primary-border: var(--thread-detail-bg);
+    --thread-detail-secondary-border: #383939;
+    --thread-detail-third-border: #2a2a2a;
+    --thread-detail-border-outline: #383939;
+    --thread-detail-text-primary: #ffffff;
+    --thread-detail-text-secondary: #a0a0a0;
+    --thread-detail-hover: #1d1d1d;
+    --thread-detail-primary-icon: #000000;
 }
 
 /* =========================================
@@ -451,4 +475,16 @@ svg:not(:root) {
     .x17dsfyh.x17dsfyh {
         padding-inline-end: var(--x-6wlwus);
     }
+}
+
+img.portrait {
+    width: 200px;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+}
+
+img.landscape {
+    width: 300px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
 }

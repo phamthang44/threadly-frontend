@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 import InstagramIconBrand from "@/components/ui/atoms/InstagramIconBrand";
@@ -19,7 +20,7 @@ const LoginRequiredModalDesktop: React.FC<LoginRequiredModalDesktopProps> = ({
                                                                              }) => {
     if (!isOpen) return null;
 
-    return (
+    const modalContent = (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
             {/* Backdrop */}
             <div
@@ -102,6 +103,8 @@ const LoginRequiredModalDesktop: React.FC<LoginRequiredModalDesktopProps> = ({
             </div>
         </div>
     );
+
+    return createPortal(modalContent, document.body);
 };
 
 export default LoginRequiredModalDesktop;

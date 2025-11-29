@@ -16,6 +16,7 @@ import MoreIcon from "../../../components/ui/atoms/MoreIcon";
 import ActionMenu , {MenuGroup} from "@/components/ui/organisms/ActionMenu";
 import ThemeSwitcher from "@/components/ui/molecules/ThemeSwitcher";
 import {useTheme} from "next-themes";
+import {useAppSelector} from "@/store/hooks";
 
 export const Sidebar: React.FC = () => {
     const pathname = usePathname();
@@ -23,6 +24,7 @@ export const Sidebar: React.FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const triggerRef = useRef<HTMLElement | null>(null);
     const theme = useTheme();
+    const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
     console.log('Current theme:', theme.theme);
 
@@ -50,22 +52,23 @@ export const Sidebar: React.FC = () => {
                     submenu: appearanceSubmenu,
                     subMenuTitle: 'Appearance'
                 },
-                { id: 'insights', label: 'Insights' },
+                { id: 'insights', label: 'Insights',  protected: !isAuthenticated },
             ]
         },
         {
             id: 'saved-group',
             items: [
-                { id: 'saved', label: 'Saved' },
-                { id: 'liked', label: 'Liked' },
+                { id: 'saved', label: 'Saved', protected: !isAuthenticated },
+                { id: 'liked', label: 'Liked', protected: !isAuthenticated },
             ]
         },
         {
             id: 'logout-group',
             items: [
-                { id: 'report', label: 'Report a problem' },
-                { id: 'logout', label: 'Log out', variant: 'danger' },
-            ]
+                { id: 'report', label: 'Report a problem', protected: !isAuthenticated },
+                { id: 'logout', label: 'Log out', variant: 'danger', protected: !isAuthenticated },
+            ],
+
         }
     ];
     const tabs = [
