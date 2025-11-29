@@ -15,14 +15,14 @@ const ThreadDetailHeaderDesktop: React.FC = () => {
                 <div className="w-[36px]"></div>
             </div>
             <div className="flex justify-between [column-gap:8px] items-center w-full relative">
-                <button className="rounded-full hover:bg-[#1d1d1d] cursor-pointer p-2 transition absolute -left-10" onClick={handleBack}>
+                <button className="rounded-full hover:bg-[var(--thread-detail-btn-bg-hover)] cursor-pointer p-2 transition absolute -left-10" onClick={handleBack}>
                     <ArrowLeft size={20}/>
                 </button>
                 <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center">
                     <h1 className="text-sm font-bold">ThreadLy</h1>
                     <p className="text-[12px] text-[var(--barcelona-secondary-text)]">259K views</p>
                 </div>
-                <button className="rounded-full hover:bg-[#1d1d1d] cursor-pointer p-2 transition absolute -right-10">
+                <button className="rounded-full hover:bg-[var(--thread-detail-btn-bg-hover)] cursor-pointer p-2 transition absolute -right-10">
                     <MoreHorizontal size={20}/>
                 </button>
             </div>
