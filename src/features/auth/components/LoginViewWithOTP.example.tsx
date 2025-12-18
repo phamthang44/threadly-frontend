@@ -1,10 +1,17 @@
 'use client';
 
+/**
+ * EXAMPLE: How to integrate OTPEmailFlow into LoginView
+ *
+ * This file shows how to add OTP as an authentication mode in your existing LoginView.
+ * Copy and adapt the relevant code to your LoginView.tsx
+ */
+
 import React, { useCallback } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAuthLogin } from '@/features/auth/hooks/useAuthLogin';
-import {InstagramButtonLogin, LoginForm, OTPEmailFlow} from '@/features/auth/components';
+import { InstagramButtonLogin, LoginForm, OTPEmailFlow } from '@/features/auth/components';
 
 type LoginMode = 'instagram' | 'manual' | 'otp';
 
@@ -13,7 +20,7 @@ interface LoginFields {
     password: string;
 }
 
-export const LoginView: React.FC = () => {
+export const LoginViewWithOTP: React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -43,11 +50,31 @@ export const LoginView: React.FC = () => {
         window.location.href = '/api/auth/instagram';
     };
 
+    // Handle OTP verification
     const handleOTPVerify = async (email: string, otp: string) => {
-        // Redirect to dedicated OTP verification page for better UX
-        // The OTP page handles both login and registration scenarios
-        router.push('/otp-verify');
-        return true;
+        try {
+            const response = await fetch('/api/auth/verify-otp', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, otp }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Invalid OTP');
+            }
+
+            const data = await response.json();
+
+            // You might want to store the token and user info in Redux
+            // or handle it according to your auth flow
+            router.push('/');
+            return true;
+        } catch (error) {
+            console.error('OTP verification error:', error);
+            return false;
+        }
     };
 
     return (
@@ -121,6 +148,18 @@ export const LoginView: React.FC = () => {
                             >
                                 Log in with username instead
                             </button>
+                            {/* NEW: Add OTP option */}
+                            <button
+                                onClick={() => setMode('otp')}
+                                className="w-full font-medium transition duration-200 cursor-pointer"
+                                style={{
+                                    color: 'var(--login-view-button-text)',
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
+                                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
+                            >
+                                Use OTP code via email instead
+                            </button>
                         </div>
                         <p
                             className="text-xs"
@@ -169,10 +208,7 @@ export const LoginView: React.FC = () => {
                                 />
                             </div>
                             <button
-                                onClick={() => {
-                                    console.log('Switching to OTP mode');
-                                    setMode('otp');
-                                }}
+                                onClick={() => setMode('instagram')}
                                 className="block text-sm w-full transition duration-200 py-2 cursor-pointer"
                                 style={{
                                     color: 'var(--login-view-button-text)',
@@ -268,3 +304,6 @@ export const LoginView: React.FC = () => {
         </div>
     );
 };
+
+export default LoginViewWithOTP;
+

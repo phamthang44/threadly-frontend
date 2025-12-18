@@ -1,6 +1,7 @@
 export { default as Button } from './atoms/Button';
 export { default as Card } from './molecules/Card';
 export { default as Input } from './atoms/Input';
+export { default as OTPInput } from './atoms/OTPInput';
 export { default as TextArea } from './atoms/TextArea';
 export { default as Avatar } from './atoms/Avatar';
 export { default as Badge } from './atoms/Badge';

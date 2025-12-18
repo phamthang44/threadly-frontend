@@ -158,12 +158,7 @@ const ActionMenu: React.FC<ActionMenuProps> = ({
                         exit="exit"
                         variants={menuVariants}
                         style={{ transformOrigin: coords.transformOrigin }}
-                        className={`
-                            pointer-events-auto
-                            w-[300px] bg-[var(--action-menu-bg)] text-[var(--action-menu-text-primary)]
-                            rounded-2xl shadow-2xl overflow-hidden border border-[var(--action-menu-border)]
-                            flex flex-col
-                            ${className}
+                        className={`pointer-events-auto w-[300px] bg-[var(--action-menu-bg)] text-[var(--action-menu-text-primary)] rounded-2xl shadow-2xl overflow-hidden border border-[var(--action-menu-border)] flex flex-col ${className}
                         `}
                         layout
                         transition={{ type: "spring", bounce: 0, duration: 0.3 }}
