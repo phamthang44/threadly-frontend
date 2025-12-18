@@ -3,51 +3,51 @@
 import React, { useCallback } from 'react';
 import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useAuthLogin } from '@/features/auth/hooks/useAuthLogin';
-import {InstagramButtonLogin, LoginForm, OTPEmailFlow} from '@/features/auth/components';
+import { useAuthSignup } from '@/features/auth/hooks/useAuthSignup';
+import { InstagramButtonLogin, SignUpForm } from '@/features/auth/components';
 
-type LoginMode = 'instagram' | 'manual' | 'otp';
+type SignUpMode = 'instagram' | 'manual';
 
-interface LoginFields {
+interface SignUpFields {
+    displayName: string;
     email: string;
     password: string;
+    confirmPassword: string;
 }
 
-export const LoginView: React.FC = () => {
+export const SignUpView: React.FC = () => {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
-    const modeParam = (searchParams.get('mode') as LoginMode) || 'instagram';
+    const modeParam = (searchParams.get('mode') === 'manual' ? 'manual' : 'instagram') as SignUpMode;
 
-    const { login } = useAuthLogin();
+    const { signup } = useAuthSignup();
 
     const setMode = useCallback(
-        (mode: LoginMode) => {
+        (mode: SignUpMode) => {
             const params = new URLSearchParams(searchParams.toString());
             if (mode === 'instagram') {
                 params.delete('mode');
             } else {
-                params.set('mode', mode);
+                params.set('mode', 'manual');
             }
             router.replace(`${pathname}?${params.toString()}`, { scroll: false });
         },
         [router, pathname, searchParams]
     );
 
-    const handleManualLogin = async (data: LoginFields) => {
-        const success = await login(data);
+    const toggleMode = useCallback(() => {
+        setMode(modeParam === 'instagram' ? 'manual' : 'instagram');
+    }, [modeParam, setMode]);
+
+    const handleManualSignup = async (data: SignUpFields) => {
+        const { confirmPassword, ...signupData } = data;
+        const success = await signup(signupData);
         if (success) router.push('/');
     };
 
-    const handleInstagramLogin = () => {
+    const handleInstagramSignup = () => {
         window.location.href = '/api/auth/instagram';
-    };
-
-    const handleOTPVerify = async (email: string, otp: string) => {
-        // Redirect to dedicated OTP verification page for better UX
-        // The OTP page handles both login and registration scenarios
-        router.push('/otp-verify');
-        return true;
     };
 
     return (
@@ -75,17 +75,17 @@ export const LoginView: React.FC = () => {
                                 className="text-4xl font-bold"
                                 style={{ color: 'var(--login-view-text-primary)' }}
                             >
-                                Say more with Threadly
+                                Join Threadly
                             </h1>
                             <p
                                 className="text-sm"
                                 style={{ color: 'var(--login-view-text-secondary)' }}
                             >
-                                Join Threadly to share thoughts, find out what&#x27;s going on, follow your people and more.
+                                Create your account to share thoughts, find out what&#x27;s going on, follow people and more.
                             </p>
                         </div>
                         <InstagramButtonLogin
-                            onClick={handleInstagramLogin}
+                            onClick={handleInstagramSignup}
                             className="w-full cursor-pointer hover:scale-[101%] font-semibold py-3 px-4 rounded-2xl transition duration-200 flex items-center justify-between group"
                             style={{
                                 borderWidth: '1px',
@@ -109,19 +109,17 @@ export const LoginView: React.FC = () => {
                                 style={{ backgroundColor: 'var(--login-view-divider)' }}
                             />
                         </div>
-                        <div className="space-y-3">
-                            <button
-                                onClick={() => setMode('manual')}
-                                className="w-full font-medium transition duration-200 cursor-pointer"
-                                style={{
-                                    color: 'var(--login-view-button-text)',
-                                }}
-                                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
-                                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
-                            >
-                                Log in with username instead
-                            </button>
-                        </div>
+                        <button
+                            onClick={() => setMode('manual')}
+                            className="w-full font-medium transition duration-200 cursor-pointer"
+                            style={{
+                                color: 'var(--login-view-button-text)',
+                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
+                        >
+                            Sign up with email instead
+                        </button>
                         <p
                             className="text-xs"
                             style={{ color: 'var(--login-view-text-secondary)' }}
@@ -131,27 +129,18 @@ export const LoginView: React.FC = () => {
                             Download Threadly on your phone for a faster experience.
                         </p>
                     </div>
-                ) : modeParam === 'manual' ? (
+                ) : (
                     <div className="text-center space-y-6">
                         <div className="space-y-2 mt-30">
                             <h1
                                 className="text-md font-bold"
                                 style={{ color: 'var(--login-view-text-primary)' }}
                             >
-                                Log in with your Instagram account
+                                Create your account
                             </h1>
                         </div>
-                        <LoginForm handleManualLogin={handleManualLogin} />
+                        <SignUpForm handleManualSignup={handleManualSignup} />
                         <div className="space-y-3 pt-4">
-                            <Link
-                                href="/forgot-password"
-                                className="block text-sm transition duration-200"
-                                style={{ color: 'var(--login-view-button-text)' }}
-                                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
-                                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
-                            >
-                                <span className="select-none">Forgot password?</span>
-                            </Link>
                             <div className="flex items-center gap-2 justify-center">
                                 <div
                                     className="h-px w-12"
@@ -168,22 +157,8 @@ export const LoginView: React.FC = () => {
                                     style={{ backgroundColor: 'var(--login-view-divider)' }}
                                 />
                             </div>
-                            <button
-                                onClick={() => {
-                                    console.log('Switching to OTP mode');
-                                    setMode('otp');
-                                }}
-                                className="block text-sm w-full transition duration-200 py-2 cursor-pointer"
-                                style={{
-                                    color: 'var(--login-view-button-text)',
-                                }}
-                                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
-                                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
-                            >
-                                Use OTP code via email instead
-                            </button>
                             <InstagramButtonLogin
-                                onClick={handleInstagramLogin}
+                                onClick={handleInstagramSignup}
                                 className="w-full cursor-pointer hover:scale-[101%] font-semibold py-3 px-4 rounded-2xl transition duration-200 flex items-center justify-between group"
                                 style={{
                                     borderWidth: '1px',
@@ -191,29 +166,24 @@ export const LoginView: React.FC = () => {
                                     color: 'var(--login-view-text-primary)',
                                 }}
                             />
+                            <p
+                                className="text-xs pt-2"
+                                style={{ color: 'var(--login-view-text-secondary)' }}
+                            >
+                                Already have an account?{' '}
+                                <Link
+                                    href="/login"
+                                    className="transition duration-200"
+                                    style={{ color: 'var(--login-view-button-text)' }}
+                                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
+                                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
+                                >
+                                    Log in
+                                </Link>
+                            </p>
                         </div>
                     </div>
-                ) : modeParam === 'otp' ? (
-                    // NEW: OTP Flow
-                    <div className="text-center space-y-6">
-                        <OTPEmailFlow
-                            onSubmit={handleOTPVerify}
-                            onCancel={() => setMode('instagram')}
-                            emailInputBgColor="var(--login-form-input-bg)"
-                            emailInputBorderColor="var(--login-form-input-border)"
-                            emailInputBorderColorFocus="var(--login-form-input-border-focus)"
-                            emailInputTextColor="var(--login-form-input-text)"
-                            buttonBgColor="var(--login-form-button-bg)"
-                            buttonTextColor="var(--login-form-button-text)"
-                            buttonBgColorDisabled="var(--login-form-button-bg-disabled)"
-                            buttonTextColorDisabled="var(--login-form-button-text-disabled)"
-                            timerTextColor="var(--login-view-text-secondary)"
-                            errorTextColor="var(--login-form-error-text)"
-                            otpResendWaitSeconds={60}
-                            otpExpireSeconds={300}
-                        />
-                    </div>
-                ) : null}
+                )}
             </div>
 
             <div className="absolute bottom-8 right-8 hidden lg:flex">
@@ -227,44 +197,44 @@ export const LoginView: React.FC = () => {
             </div>
 
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 text-xs">
-                <span style={{ color: 'var(--login-view-text-secondary)' }}>© 2025</span>
                 <Link
-                    href="/terms"
+                    href="/"
                     className="transition duration-200"
-                    style={{ color: 'var(--login-view-button-text)' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
+                    style={{ color: 'var(--login-view-text-secondary)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-text-primary)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-text-secondary)')}
                 >
-                    Threadly Terms
+                    About
                 </Link>
                 <Link
-                    href="/privacy"
+                    href="/"
                     className="transition duration-200"
-                    style={{ color: 'var(--login-view-button-text)' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
+                    style={{ color: 'var(--login-view-text-secondary)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-text-primary)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-text-secondary)')}
                 >
-                    Privacy Policy
+                    Help
                 </Link>
                 <Link
-                    href="/cookies"
+                    href="/"
                     className="transition duration-200"
-                    style={{ color: 'var(--login-view-button-text)' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
+                    style={{ color: 'var(--login-view-text-secondary)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-text-primary)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-text-secondary)')}
                 >
-                    Cookies Policy
+                    Terms
                 </Link>
                 <Link
-                    href="/report"
+                    href="/"
                     className="transition duration-200"
-                    style={{ color: 'var(--login-view-button-text)' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text-hover)')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-button-text)')}
+                    style={{ color: 'var(--login-view-text-secondary)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--login-view-text-primary)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--login-view-text-secondary)')}
                 >
-                    Report a problem
+                    Privacy
                 </Link>
             </div>
         </div>
     );
 };
+
