@@ -89,15 +89,15 @@ const Loader: React.FC<LoaderProps> = ({ size = "lg", className = "" }) => {
   }, [mounted, resolvedTheme, theme, systemTheme, detectedTheme]);
 
   const sizeClasses = {
-    sm: "text-2xl",
-    md: "text-4xl",
-    lg: "text-6xl md:text-7xl",
+    sm: "text-xl sm:text-2xl",
+    md: "text-3xl sm:text-4xl",
+    lg: "text-4xl sm:text-5xl md:text-6xl lg:text-7xl",
   };
 
   const iconSizes = {
-    sm: 32,
-    md: 48,
-    lg: 64,
+    sm: { mobile: 24, desktop: 32 },
+    md: { mobile: 36, desktop: 48 },
+    lg: { mobile: 48, desktop: 64 },
   };
 
   // Theme-based text color
@@ -108,19 +108,29 @@ const Loader: React.FC<LoaderProps> = ({ size = "lg", className = "" }) => {
       ? "/Threads-Brand-Resource-Center/Threads-Brand-Resource-Center/01-White/Logo/threads-logo-white.svg"
       : "/Threads-Brand-Resource-Center/Threads-Brand-Resource-Center/02-Black/Logo/threads-logo-black.svg";
 
+  const currentIconSize = iconSizes[size];
+
+  // Responsive icon size classes
+  const iconSizeClasses = {
+    sm: "w-6 h-6 sm:w-8 sm:h-8",
+    md: "w-9 h-9 sm:w-12 sm:h-12",
+    lg: "w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16",
+  };
+
   return (
     <div
-      className={`flex flex-col items-center justify-center gap-4 ${className}`}
+      className={`flex flex-col items-center justify-center gap-3 sm:gap-4 px-4 ${className}`}
       style={{ minHeight: "100vh" }}
     >
-      <div className="text-center flex items-center gap-4">
+      <div className="text-center flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
         {/* Threadly Icon */}
         <Image
           src={iconUrl}
           alt="Threadly logo"
-          width={iconSizes[size]}
-          height={iconSizes[size]}
-          className="object-contain w-auto h-auto object-center"
+          width={currentIconSize.desktop}
+          height={currentIconSize.desktop}
+          className={`object-contain object-center ${iconSizeClasses[size]}`}
+          sizes="(max-width: 640px) 48px, (max-width: 768px) 56px, 64px"
         />
 
         {/* Threadly Text */}

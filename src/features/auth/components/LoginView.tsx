@@ -8,6 +8,7 @@ import {
   InstagramButtonLogin,
   LoginForm,
   OTPEmailFlow,
+  AuthFooter,
 } from "@/features/auth/components";
 
 type LoginMode = "instagram" | "manual" | "otp";
@@ -67,18 +68,18 @@ export const LoginView: React.FC = () => {
         />
       </picture>
 
-      <div className="relative z-10 w-full max-w-1/4 px-4 mt-10">
+      <div className="relative z-10 w-full max-w-md md:max-w-lg px-4 sm:px-6 md:px-8 py-8 md:py-10">
         {modeParam === "instagram" ? (
           <div className="text-center space-y-8">
             <div className="space-y-4">
               <h1
-                className="text-4xl font-bold"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold"
                 style={{ color: "var(--login-view-text-primary)" }}
               >
                 Say more with Threadly
               </h1>
               <p
-                className="text-sm"
+                className="text-xs sm:text-sm"
                 style={{ color: "var(--login-view-text-secondary)" }}
               >
                 Join Threadly to share thoughts, find out what&#x27;s going on,
@@ -87,7 +88,7 @@ export const LoginView: React.FC = () => {
             </div>
             <InstagramButtonLogin
               onClick={handleInstagramLogin}
-              className="w-full cursor-pointer hover:scale-[101%] font-semibold py-3 px-4 rounded-2xl transition duration-200 flex items-center justify-between group"
+              className="w-full cursor-pointer hover:scale-[101%] font-semibold py-3 md:py-4 px-4 rounded-2xl transition duration-200 flex items-center justify-between group min-h-[44px]"
               style={{
                 borderWidth: "1px",
                 borderColor: "var(--login-view-border)",
@@ -140,9 +141,9 @@ export const LoginView: React.FC = () => {
           </div>
         ) : modeParam === "manual" ? (
           <div className="text-center space-y-6">
-            <div className="space-y-2 mt-30">
+            <div className="space-y-2">
               <h1
-                className="text-md font-bold"
+                className="text-xl md:text-2xl font-bold"
                 style={{ color: "var(--login-view-text-primary)" }}
               >
                 Log in with your Instagram account
@@ -239,7 +240,7 @@ export const LoginView: React.FC = () => {
       </div>
 
       <div className="absolute bottom-8 right-8 hidden lg:flex">
-        <div className="w-32 h-32 flex items-center justify-center">
+        <div className="w-24 h-24 lg:w-32 lg:h-32 flex items-center justify-center">
           <img
             src="/githubprofile-1024.png"
             alt="github-profile-phamthang44"
@@ -248,67 +249,15 @@ export const LoginView: React.FC = () => {
         </div>
       </div>
 
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 text-xs">
-        <span style={{ color: "var(--login-view-text-secondary)" }}>
-          © 2025
-        </span>
-        <Link
-          href="/terms"
-          className="transition duration-200"
-          style={{ color: "var(--login-view-button-text)" }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.color =
-              "var(--login-view-button-text-hover)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.color = "var(--login-view-button-text)")
-          }
-        >
-          Threadly Terms
-        </Link>
-        <Link
-          href="/privacy"
-          className="transition duration-200"
-          style={{ color: "var(--login-view-button-text)" }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.color =
-              "var(--login-view-button-text-hover)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.color = "var(--login-view-button-text)")
-          }
-        >
-          Privacy Policy
-        </Link>
-        <Link
-          href="/cookies"
-          className="transition duration-200"
-          style={{ color: "var(--login-view-button-text)" }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.color =
-              "var(--login-view-button-text-hover)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.color = "var(--login-view-button-text)")
-          }
-        >
-          Cookies Policy
-        </Link>
-        <Link
-          href="/report"
-          className="transition duration-200"
-          style={{ color: "var(--login-view-button-text)" }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.color =
-              "var(--login-view-button-text-hover)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.color = "var(--login-view-button-text)")
-          }
-        >
-          Report a problem
-        </Link>
-      </div>
+      <AuthFooter
+        copyright="© 2025"
+        links={[
+          { href: "/terms", label: "Threadly Terms" },
+          { href: "/privacy", label: "Privacy Policy" },
+          { href: "/cookies", label: "Cookies Policy" },
+          { href: "/report", label: "Report a problem" },
+        ]}
+      />
     </div>
   );
 };

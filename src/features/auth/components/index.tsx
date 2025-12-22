@@ -10,3 +10,5 @@ export { default as ErrorBanner } from "./ErrorBannerMessage";
 export { default as CompleteProfile } from "./CompleteProfile";
 export { CompleteProfilePageView } from "./CompleteProfilePageView";
 export { OTPVerifyPageView } from "./OTPVerifyPageView";
+export { AuthFooter } from "./AuthFooter";
+export type { FooterLink } from "./AuthFooter";

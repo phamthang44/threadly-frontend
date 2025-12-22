@@ -18,8 +18,10 @@ const LayoutMobile: React.FC<LayoutMobileProps> = ({ children, header, mobileNav
                 {children}
             </main>
 
-            {/* Sidebar (Bottom Navigation) */}
-            {mobileNavBar}
+            {/* Mobile Navigation - Mobile only (visible on mobile, hidden on desktop) */}
+            <div className="block md:hidden">
+                {mobileNavBar}
+            </div>
         </div>
     );
 };
