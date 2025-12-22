@@ -17,8 +17,10 @@ const LayoutDesktop: React.FC<LayoutDesktopProps> = ({
                                                      }) => {
     return (
         <div className="min-h-screen bg-[var(--bg-body)]">
-            {/* LEFT SIDEBAR */}
-            {sidebar}
+            {/* LEFT SIDEBAR - Desktop only (hidden on mobile, visible on desktop) */}
+            <div className="hidden md:block">
+                {sidebar}
+            </div>
 
             {/* MAIN CONTENT WRAPPER */}
             <>

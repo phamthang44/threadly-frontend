@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { OTPEmailFlow } from "@/features/auth/components";
+import { OTPEmailFlow, AuthFooter } from "@/features/auth/components";
 import { useAppDispatch } from "@/store/hooks";
 import { setCredentials } from "@/store/authSlice";
 import { authService } from "@/features/auth/services/authService";
@@ -147,13 +147,13 @@ export const OTPVerifyPageView: React.FC = () => {
             </div>
           </div>
           <h1
-            className="text-3xl font-bold text-center"
+            className="text-2xl sm:text-3xl font-bold text-center"
             style={{ color: "var(--login-view-text-primary)" }}
           >
             {otpMode === "verifying" ? "Verifying..." : "Verify Your Email"}
           </h1>
           <p
-            className="text-center text-sm"
+            className="text-center text-xs sm:text-sm"
             style={{ color: "var(--login-view-text-secondary)" }}
           >
             {otpMode === "verifying"
@@ -222,39 +222,7 @@ export const OTPVerifyPageView: React.FC = () => {
       </div>
 
       {/* Footer */}
-      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 text-xs">
-        <span style={{ color: "var(--login-view-text-secondary)" }}>
-          © 2025
-        </span>
-        <Link
-          href="/terms"
-          className="transition duration-200"
-          style={{ color: "var(--login-view-button-text)" }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.color =
-              "var(--login-view-button-text-hover)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.color = "var(--login-view-button-text)")
-          }
-        >
-          Threadly Terms
-        </Link>
-        <Link
-          href="/privacy"
-          className="transition duration-200"
-          style={{ color: "var(--login-view-button-text)" }}
-          onMouseEnter={(e) =>
-            (e.currentTarget.style.color =
-              "var(--login-view-button-text-hover)")
-          }
-          onMouseLeave={(e) =>
-            (e.currentTarget.style.color = "var(--login-view-button-text)")
-          }
-        >
-          Privacy Policy
-        </Link>
-      </div>
+      <AuthFooter copyright="© 2025" />
     </div>
   );
 };

@@ -13,7 +13,7 @@ type LoginFields = { identifier: string; password: string };
 const schema = yup.object({
   identifier: yup
     .string()
-    .required("Email or username is required!")
+    .required("Email or username is required")
     .min(1, "Please enter your email or username"),
   password: yup.string().required("Password is required"),
 });
@@ -78,7 +78,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
             type="text"
             placeholder="Username, or email"
             autoComplete="username"
-            className="w-full rounded-lg px-4 py-4 border-1 transition-all duration-200 focus:outline-none"
+            className="w-full rounded-lg px-4 py-3 md:py-4 border-1 transition-all duration-200 focus:outline-none min-h-[44px]"
             style={{
               backgroundColor: "var(--login-form-input-bg)",
               borderColor: identifier
@@ -164,7 +164,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
         <Button
           type="submit"
           disabled={!isFormValid || isSubmitting || isLoading}
-          className="w-full rounded-lg px-4 py-3 font-semibold transition-all duration-200 flex items-center justify-center gap-2"
+          className="w-full rounded-lg px-4 py-3 md:py-4 font-semibold transition-all duration-200 flex items-center justify-center gap-2 min-h-[44px]"
           style={{
             backgroundColor:
               isFormValid && !isLoading
